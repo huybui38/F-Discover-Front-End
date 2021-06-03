@@ -1,9 +1,13 @@
 import React from 'react'
 
+import { Background } from './components/Background'
+
+import { infoImageHome } from '../../utils/infoImageHome'
+
 export const Home = () => {
     return (
         <div>
-            <h2>HOMEPAGE</h2>
+            <Background srcList={infoImageHome} />
         </div>
     )
 }
