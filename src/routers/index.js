@@ -1,10 +1,13 @@
+import React from 'react'
+
 import { Redirect, Route, Switch } from 'react-router'
 
 import { NotFound } from '../components/NotFound'
 
-import { Home } from '../features/Home'
-import { Login } from '../features/Login'
 import { PublicRouters } from './PublicRouters'
+
+const Home = React.lazy(() => import('../features/Home'))
+const Login = React.lazy(() => import('../features/Login'))
 
 export const publicRouters = [
     {

@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import { BrowserRouter } from 'react-router-dom'
 
 import GlobalStyle from '../../globalStyles'
@@ -6,10 +8,12 @@ import './style.css'
 
 function App() {
     return (
-        <BrowserRouter>
-            <GlobalStyle />
-            <RouterComponents />
-        </BrowserRouter>
+        <Suspense fallback={<div>Loading ...</div>}>
+            <BrowserRouter>
+                <GlobalStyle />
+                <RouterComponents />
+            </BrowserRouter>
+        </Suspense>
     )
 }
 
