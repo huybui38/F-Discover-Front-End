@@ -11,5 +11,6 @@ export const StyledButton = styled.button`
     padding: ${(props) => props.padding || '3px 3px'};
     &:hover {
         background-color: rgba(0, 0, 0, 0.03);
+        /* transform: scale(0.9); */
     }
 `

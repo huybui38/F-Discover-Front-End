@@ -1,6 +1,13 @@
+/* eslint-disable unused-imports/no-unused-imports */
 import React from 'react'
 
 import { CenterFlexContainer } from '../../../components/Container/FlexContainer'
+import FacebookIcon from '../../../components/Icons/Facebook'
+import GoogleIcon from '../../../components/Icons/Google'
+import PhoneIcon from '../../../components/Icons/Phone'
+import ZaloIcon from '../../../components/Icons/Zalo'
+import { Label } from '../../../components/Label/index'
+import { Link } from '../../../components/Link'
 import { LoginContainer, PageContainer } from '../components/Container'
 import { Description } from '../components/Description'
 import FaddedLayer from '../components/FaddedLayer'
@@ -23,19 +30,24 @@ export const LoginPage = () => {
                     <RightForm>
                         <Logo src={logo} />
                         <Description>
-                            By typing log in, you will agree with our terms of service and privacy
+                            By typing log in, you will agree with our terms of <Link>service</Link>{' '}
+                            and <Link>privacy</Link>
                         </Description>
                         <SocialButton fullWidth padding="10px" center>
-                            Hello
+                            <PhoneIcon />
+                            Phone number
                         </SocialButton>
                         <SocialButton fullWidth padding="10px" center>
-                            Hello
+                            <GoogleIcon />
+                            Google
                         </SocialButton>
                         <SocialButton fullWidth padding="10px" center>
-                            Hello
+                            <FacebookIcon />
+                            <Label>Facebook</Label>
                         </SocialButton>
                         <SocialButton fullWidth padding="10px" center>
-                            Hello
+                            <ZaloIcon />
+                            <Label>Zalo</Label>
                         </SocialButton>
                     </RightForm>
                 </LoginContainer>
