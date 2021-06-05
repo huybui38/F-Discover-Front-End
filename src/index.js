@@ -2,7 +2,8 @@ import React from 'react'
 
 import ReactDOM from 'react-dom'
 
-import App from './features/App/App'
+import App from './App'
+import './index.css'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(<App />, document.getElementById('root'))

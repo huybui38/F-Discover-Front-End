@@ -24,7 +24,6 @@ export const publicRouters = [
 export const RouterComponents = () => (
     <Switch>
         <Redirect exact from="/" to="/home" />
-
         {publicRouters.map((route) => (
             <PublicRouters
                 key={route.name}
@@ -34,7 +33,6 @@ export const RouterComponents = () => (
                 exact
             />
         ))}
-
         <Route component={NotFound} />
     </Switch>
 )
