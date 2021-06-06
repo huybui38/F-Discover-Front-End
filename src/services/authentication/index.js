@@ -8,6 +8,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
+import { generateZaloURL } from '../../utils/zaloUtils'
+
 // TODO: Replace the following with your app's Firebase project configuration
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 const firebaseConfig = {
@@ -23,4 +25,31 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider()
 export const FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
+
+export const PopupFacebookLogin = () => {
+    return firebase.auth().signInWithPopup(FacebookAuthProvider)
+}
+export const PopupGoogleLogin = () => {
+    return firebase.auth().signInWithPopup(GoogleAuthProvider)
+}
+
+//zalo section
+export const zaloLogin = (callback) => {
+    const params = {
+        url: generateZaloURL(),
+        title: 'Đăng nhập Zalo',
+        w: 550,
+        h: 650,
+    }
+    let newWindow = postMessage(params)
+    newWindow.addEventListener(
+        'login',
+        ({ detail }) => {
+            //zalo login success
+            callback(detail)
+            newWindow.close()
+        },
+        false
+    )
+}
 export default firebase

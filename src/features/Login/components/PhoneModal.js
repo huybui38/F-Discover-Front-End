@@ -24,8 +24,9 @@ function PhoneModal(props) {
     const handleOTP = () => {
         confirmation
             .confirm(OTP)
-            .then(() => {
+            .then((result) => {
                 Success('Xac thuc so dien thoai thanh cong')
+                const user = result.user
                 setShowOTP(false)
             })
             .catch((e) => {

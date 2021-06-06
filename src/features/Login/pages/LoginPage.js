@@ -23,24 +23,15 @@ import { SocialButton } from '../components/SocialButton'
 import logo from '../../../assets/logo.png'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
-import firebase from '../../../services/authentication/'
-import { PopupFacebookLogin } from '../../../services/authentication/FacebookAuthentication'
-import { PopupGoogleLogin } from '../../../services/authentication/GoogleAuthentication'
+import firebase, {
+    PopupFacebookLogin,
+    PopupGoogleLogin,
+    zaloLogin,
+} from '../../../services/authentication/'
 
 export const LoginPage = () => {
-    // useEffect(() => {
-    //     if (!refCaptcha.current) {
-    //         refCaptcha.current = new firebase.auth.RecaptchaVerifier('captcha-container')
-    //     }
-    // })
-    // const setUpCaptcha = () => {
-    //     if (window.recaptchaVerifier) {
-    //         return
-    //     }
-    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('captcha-container')
-    // }
     const { isShowing, toggle } = useModal()
-    const [msg, setMsg] = useState('')
+    const onZaloLoginSuccess = () => {}
     const handleLogin = (type) => {
         return (event) => {
             switch (type) {
@@ -63,6 +54,7 @@ export const LoginPage = () => {
                         })
                     break
                 case 'zalo':
+                    zaloLogin(onZaloLoginSuccess)
                     break
                 case 'phone':
                     toggle()
@@ -94,7 +86,6 @@ export const LoginPage = () => {
                 <LoginContainer>
                     <LeftForm />
                     <RightForm>
-                        {msg}
                         <Logo src={logo} />
                         <Description>
                             By typing log in, you will agree with our terms of <Link>service</Link>{' '}

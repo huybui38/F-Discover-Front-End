@@ -7,6 +7,7 @@ import { NotFound } from '../components/NotFound'
 import { Explore } from '../features/Explore'
 import { Home } from '../features/Home'
 import { Login } from '../features/Login'
+import Callback from '../features/Login/pages/CallBack'
 import { Profile } from '../features/Profile'
 import { PrivateRouters } from './PrivateRouters'
 import { PublicRouters } from './PublicRouters'
@@ -22,6 +23,12 @@ export const publicRouters = [
         path: '/login',
         name: 'login',
         component: Login,
+        restrict: true,
+    },
+    {
+        path: '/login/callback',
+        name: 'loginCallback',
+        component: Callback,
         restrict: true,
     },
     {
