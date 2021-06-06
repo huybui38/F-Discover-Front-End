@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 
 import ReCAPTCHA from 'react-google-recaptcha'
+import { useDispatch } from 'react-redux'
 
 import { CenterFlexContainer } from '../../../components/Container/FlexContainer'
 import FacebookIcon from '../../../components/Icons/Facebook'
@@ -10,6 +11,7 @@ import PhoneIcon from '../../../components/Icons/Phone'
 import ZaloIcon from '../../../components/Icons/Zalo'
 import { Label } from '../../../components/Label/index'
 import { Link } from '../../../components/Link'
+import { Loading } from '../../../components/Loading'
 import Modal from '../../../components/Modal/Modal'
 import { LoginContainer, PageContainer } from '../components/Container'
 import { Description } from '../components/Description'
@@ -23,32 +25,49 @@ import { SocialButton } from '../components/SocialButton'
 import logo from '../../../assets/logo.png'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
+import authApi from '../../../services/api/authApi'
 import firebase, {
     PopupFacebookLogin,
     PopupGoogleLogin,
     zaloLogin,
 } from '../../../services/authentication/'
+import { login } from '../loginSlice'
 
 export const LoginPage = () => {
     const { isShowing, toggle } = useModal()
-    const onZaloLoginSuccess = () => {}
-    const handleLogin = (type) => {
+    const [isLoading, setIsLoading] = useState(false)
+    const onZaloLoginSuccess = (result) => {
+        onOAuthSuccess(result.code)
+    }
+    let dispatch = useDispatch()
+    const onFirebaseLoginSuccess = async (result) => {
+        onOAuthSuccess(await result.user.getIdToken(true))
+    }
+    const onOAuthSuccess = async (OAuthToken) => {
+        setIsLoading(true)
+        try {
+            let result = await authApi.getToken(OAuthToken)
+            localStorage.setItem('token', result.data.token)
+            dispatch(login())
+        } catch (error) {
+            setIsLoading(false)
+            console.log(error)
+            Error('Something wrongs')
+        }
+    }
+    const handleBtnLogin = (type) => {
         return (event) => {
             switch (type) {
                 case 'google':
                     PopupGoogleLogin()
-                        .then((result) => {
-                            console.log(result)
-                        })
+                        .then(onFirebaseLoginSuccess)
                         .catch((ex) => {
                             Error('Đăng nhập thất bại!!')
                         })
                     break
                 case 'facebook':
                     PopupFacebookLogin()
-                        .then((result) => {
-                            console.log(result)
-                        })
+                        .then(onFirebaseLoginSuccess)
                         .catch((ex) => {
                             Error('Đăng nhập thất bại!!')
                         })
@@ -73,11 +92,13 @@ export const LoginPage = () => {
     })
     return (
         <div>
+            <Loading isLoading={isLoading} />
             <div id="recaptcha-container"></div>
             <PhoneModal
                 isShowing={isShowing}
                 toggle={toggle}
                 appVerify={window.recaptchaVerifier}
+                onSuccess={onFirebaseLoginSuccess}
             />
             <PageContainer>
                 <FaddedLayer />
@@ -95,7 +116,7 @@ export const LoginPage = () => {
                             fullWidth
                             padding="10px"
                             center
-                            onClick={handleLogin('phone')}
+                            onClick={handleBtnLogin('phone')}
                         >
                             <PhoneIcon />
                             Phone number
@@ -104,7 +125,7 @@ export const LoginPage = () => {
                             fullWidth
                             padding="10px"
                             center
-                            onClick={handleLogin('google')}
+                            onClick={handleBtnLogin('google')}
                         >
                             <GoogleIcon />
                             Google
@@ -113,12 +134,17 @@ export const LoginPage = () => {
                             fullWidth
                             padding="10px"
                             center
-                            onClick={handleLogin('facebook')}
+                            onClick={handleBtnLogin('facebook')}
                         >
                             <FacebookIcon />
                             <Label>Facebook</Label>
                         </SocialButton>
-                        <SocialButton fullWidth padding="10px" center onClick={handleLogin('zalo')}>
+                        <SocialButton
+                            fullWidth
+                            padding="10px"
+                            center
+                            onClick={handleBtnLogin('zalo')}
+                        >
                             <ZaloIcon />
                             <Label>Zalo</Label>
                         </SocialButton>

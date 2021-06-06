@@ -62,7 +62,6 @@ export const RouterComponents = () => {
                     exact
                 />
             ))}
-
             {privateRouters.map((route) => (
                 <PrivateRouters
                     key={route.name}
