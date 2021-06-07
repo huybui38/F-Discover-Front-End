@@ -2,16 +2,16 @@ import React from 'react'
 
 import { FaLongArrowAltRight } from 'react-icons/fa'
 
-import { ButtonWithIcons } from '../../../components/ButtonWithIcons/ButtonWithIcons'
-import { Navbar } from '../../../components/Navbar'
-import { BackgroundSlide } from '../components/BackgroundSlide'
-import { CardSlide } from '../components/CardSlide'
-import { DescriptionSlide } from '../components/DescriptionSlide'
+import { ButtonWithIcons } from '../../../../components/ButtonWithIcons/ButtonWithIcons'
+import { Navbar } from '../../../../components/Navbar'
+import { BackgroundSlide } from '../../components/BackgroundSlide'
+import { CardSlide } from '../../components/CardSlide'
+import { DescriptionSlide } from '../../components/DescriptionSlide'
 
-import { infoImageHome } from '../../../utils/infoImage'
-import { Container, HomeWrapper, ButtonExplore, Decoration } from './Home.elements'
+import { infoImageHome } from '../../../../utils/infoImage'
+import { Container, HomeWrapper, ButtonExplore, Decoration } from './HomeDesktop.elements'
 
-export const HomePageDesktop = () => {
+export const HomeDesktop = () => {
     return (
         <Container>
             <BackgroundSlide srcList={infoImageHome}></BackgroundSlide>
@@ -36,4 +36,4 @@ export const HomePageDesktop = () => {
     )
 }
 
-export default HomePageDesktop
+export default HomeDesktop

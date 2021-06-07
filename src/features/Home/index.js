@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { HomePageDesktop } from './pages/HomePageDesktop'
+import { HomeDesktop } from './pages/HomeDesktop'
 
 export const Home = () => {
-    return <HomePageDesktop />
+    return <HomeDesktop />
 }
 
 export default Home

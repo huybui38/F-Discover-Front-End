@@ -14,7 +14,6 @@ const propType = {
 
 export const ButtonWithIcons = (props) => {
     const { children, startIcon: StartIcon, endIcon: EndIcon, ...rest } = props
-    console.log(EndIcon)
     return (
         <Wrapper {...rest}>
             {StartIcon ? <StartIcon /> : null}
