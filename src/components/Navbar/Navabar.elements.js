@@ -56,6 +56,8 @@ export const NavbarItem = styled.li`
 
     &:hover {
         cursor: pointer;
+        transform: translateY(-1px);
+        transition: all 0.1s linear;
 
         &::before {
             display: block;

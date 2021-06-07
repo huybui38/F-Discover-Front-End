@@ -73,6 +73,7 @@ export const IconBookmark = styled.div`
     background-color: #fff;
 
     &:hover {
+        z-index: 100;
         cursor: pointer;
         background-color: red;
     }

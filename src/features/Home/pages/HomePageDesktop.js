@@ -1,12 +1,15 @@
 import React from 'react'
 
+import { FaLongArrowAltRight } from 'react-icons/fa'
+
+import { ButtonWithIcons } from '../../../components/ButtonWithIcons/ButtonWithIcons'
 import { Navbar } from '../../../components/Navbar'
 import { BackgroundSlide } from '../components/BackgroundSlide'
 import { CardSlide } from '../components/CardSlide'
 import { DescriptionSlide } from '../components/DescriptionSlide'
 
 import { infoImageHome } from '../../../utils/infoImage'
-import { Container, HomeWrapper } from './Home.elements'
+import { Container, HomeWrapper, ButtonExplore, Decoration } from './Home.elements'
 
 export const HomePageDesktop = () => {
     return (
@@ -17,6 +20,18 @@ export const HomePageDesktop = () => {
             </HomeWrapper>
             <CardSlide srcList={infoImageHome} />
             <DescriptionSlide srcList={infoImageHome} />
+            <ButtonExplore>
+                <ButtonWithIcons
+                    width="120px"
+                    padding="10px"
+                    backgroundColor="#59ABAE"
+                    textColor="white"
+                    endIcon={FaLongArrowAltRight}
+                >
+                    Explore
+                </ButtonWithIcons>
+            </ButtonExplore>
+            <Decoration>03__________07</Decoration>
         </Container>
     )
 }

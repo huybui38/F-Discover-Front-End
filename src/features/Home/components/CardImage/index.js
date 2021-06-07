@@ -6,16 +6,14 @@ import { FaBookmark, FaStar } from 'react-icons/fa'
 import { CardWrapper, Card, Image, IconBookmark, Title, GroupStar } from './CardImage.elements'
 
 const propType = {
-    infoPlace: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number,
-            srcBackground: PropTypes.string,
-            srcImageCard: PropTypes.string,
-            titleImageCard: PropTypes.string,
-            titleDescription: PropTypes.string,
-            deciption: PropTypes.string,
-        })
-    ),
+    infoPlace: PropTypes.shape({
+        id: PropTypes.number,
+        srcBackground: PropTypes.string,
+        srcImageCard: PropTypes.string,
+        titleImageCard: PropTypes.string,
+        titleDescription: PropTypes.string,
+        deciption: PropTypes.string,
+    }),
 }
 
 export const CardImage = ({ infoPlace }) => {

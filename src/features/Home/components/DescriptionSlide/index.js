@@ -32,12 +32,6 @@ export const DescriptionSlide = ({ srcList }) => {
         slidesToScroll: 1,
         vertical: true,
         verticalSwiping: true,
-        beforeChange: function (currentSlide, nextSlide) {
-            console.log('before change', currentSlide, nextSlide)
-        },
-        afterChange: function (currentSlide) {
-            console.log('after change', currentSlide)
-        },
         autoplay: true,
         speed: 400,
         autoplaySpeed: 6000,
