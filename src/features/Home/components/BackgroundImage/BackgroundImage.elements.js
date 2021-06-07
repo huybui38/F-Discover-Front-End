@@ -11,4 +11,6 @@ export const CardImage = styled.div`
     height: 100%;
     background-image: url(${(props) => props.src});
     background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 `
