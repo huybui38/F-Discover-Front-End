@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.button`
+    position: relative;
+
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -8,8 +10,10 @@ export const Wrapper = styled.div`
     width: ${(props) => props.width || 'auto'};
     padding: ${(props) => props.padding || '8px'};
     border-radius: 10px;
+    border: none;
+    outline: none;
 
-    font-size: 1.4rem;
+    font-size: 14px;
 
     background-color: ${(props) => props.backgroundColor || '#fff'};
     color: ${(props) => props.textColor || '#000'};
@@ -17,9 +21,36 @@ export const Wrapper = styled.div`
     cursor: pointer;
 
     &:hover {
-        opacity: 0.8;
         transform: translateY(-2px);
-        transition: all 0.1s linear;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(1px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover::after {
+        transform: scaleX(1.4) scaleY(1.6);
+        opacity: 0;
+    }
+
+    &::after {
+        content: '';
+        display: ${(props) => (props.animation ? 'inline-block' : 'none')};
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+
+        background-color: ${(props) => props.backgroundColor || '#fff'};
+        color: ${(props) => props.textColor || '#000'};
+
+        transition: all 0.5s;
     }
 `
 export const StartIcon = styled.div`

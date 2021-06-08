@@ -9,6 +9,7 @@ const propType = {
     textColor: PropTypes.string,
     startIcon: PropTypes.elementType,
     endIcon: PropTypes.elementType,
+    animation: PropTypes.bool,
     children: PropTypes.any,
 }
 

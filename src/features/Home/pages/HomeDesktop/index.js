@@ -27,6 +27,7 @@ export const HomeDesktop = () => {
                     backgroundColor="#59ABAE"
                     textColor="white"
                     endIcon={FaLongArrowAltRight}
+                    animation
                 >
                     Explore
                 </ButtonWithIcons>

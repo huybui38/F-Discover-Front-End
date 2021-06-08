@@ -17,7 +17,7 @@ export const Content = styled.p`
 
     color: #fff;
     text-shadow: 1px 1px 2px #050505;
-    font-size: ${(props) => props.fontSize || '1.4rem'};
-    line-height: ${(props) => props.fontSize || '1.4rem'};
+    font-size: ${(props) => props.fontSize || '14px'};
+    line-height: ${(props) => props.fontSize || '14px'};
     font-weight: ${(props) => props.fontWeight || 100};
 `

@@ -24,6 +24,7 @@ export const Container = styled.div`
     position: absolute;
     top: 20%;
     right: -100px;
+    z-index: 1;
 
     & .slick-slider > .slick-arrow {
         display: none !important;

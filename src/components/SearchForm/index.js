@@ -5,17 +5,18 @@ import { FaSearch } from 'react-icons/fa'
 
 import { Wrapper, Input, IconSearch } from './SearchForm.elements'
 
-export const SearchForm = () => {
+export const SearchForm = (props) => {
     return (
-        <Wrapper>
+        <Wrapper {...props}>
             <Input
                 className="home__search-form"
                 type="text"
                 placeholder="Search..."
                 name="search-form"
+                {...props}
             ></Input>
-            <IconSearch>
-                <FaSearch />
+            <IconSearch {...props}>
+                <FaSearch {...props} />
             </IconSearch>
         </Wrapper>
     )

@@ -1,8 +1,13 @@
+import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 export const Container = styled.div`
     position: relative;
     overflow: hidden;
+
+    ${down('lg')} {
+        display: none;
+    }
 `
 
 export const HomeWrapper = styled.div`
@@ -26,7 +31,7 @@ export const Decoration = styled.div`
     bottom: 10%;
     right: calc(calc(100% - 1200px) / 2);
 
-    font-size: 1.2rem;
+    font-size: 12px;
     opacity: 0.5;
     color: white;
 `

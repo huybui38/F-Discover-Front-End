@@ -16,7 +16,7 @@ const moveLeftToRight = keyframes`
 `
 
 export const NavbarWrapper = styled.div`
-    height: 6rem;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,7 +24,7 @@ export const NavbarWrapper = styled.div`
 
 export const LogoWrapper = styled.div`
     & .logo {
-        height: 3.8rem;
+        height: 38px;
         width: auto;
         cursor: pointer;
     }
@@ -35,10 +35,10 @@ export const NavbarList = styled.ul`
 `
 
 export const NavbarItem = styled.li`
-    line-height: 2.4rem;
-    font-size: 1.5rem;
+    line-height: 24px;
+    font-size: 15px;
     font-weight: 500;
-    margin: 0 1.6rem;
+    margin: 0 16px;
     position: relative;
 
     list-style: none;

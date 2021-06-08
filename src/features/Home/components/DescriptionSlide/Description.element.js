@@ -5,7 +5,7 @@ const appear = keyframes`
         opacity: 1;
         width: 10px;
         height: 10px;
-        font-size: 0rem;
+        font-size: 0;
     }
     10%{
         top: -5px;
@@ -13,7 +13,7 @@ const appear = keyframes`
         opacity: 1;
         width: 25px;
         height: 25px;
-        font-size: 1.4rem;
+        font-size: 14px;
     }
     95%{
         top: -5px;
@@ -21,13 +21,13 @@ const appear = keyframes`
         opacity: 1;
         width: 25px;
         height: 25px;
-        font-size: 1.4rem;
+        font-size: 14px;
     }
     100%{
         opacity: 1;
         width: 10px;
         height: 10px;
-        font-size: 0rem;
+        font-size: 0;
     }
 `
 
@@ -38,7 +38,7 @@ export const Container = styled.div`
     top: 35%;
     left: calc(calc(100% - 1200px) / 2);
 
-    margin-left: 8rem;
+    margin-left: 80px;
 
     & .slick-slider > .slick-arrow {
         display: none !important;
@@ -51,7 +51,7 @@ export const Container = styled.div`
     & .slick-slider > .slick-dots {
         position: absolute;
         top: 0;
-        left: -8rem;
+        left: -80px;
 
         display: flex !important;
         flex-direction: column;

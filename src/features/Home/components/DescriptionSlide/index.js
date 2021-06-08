@@ -45,7 +45,7 @@ export const DescriptionSlide = ({ srcList }) => {
                           <DescriptionContent
                               key={infoPlace.id}
                               content={infoPlace.titleDescription}
-                              fontSize="8rem"
+                              fontSize="80px"
                               fontWeight={700}
                           />
                       ))
@@ -57,7 +57,7 @@ export const DescriptionSlide = ({ srcList }) => {
                           <DescriptionContent
                               key={infoPlace.id}
                               content={infoPlace.description}
-                              fontSize="1.5rem"
+                              fontSize="15px"
                           />
                       ))
                     : null}

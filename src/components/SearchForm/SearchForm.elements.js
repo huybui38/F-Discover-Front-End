@@ -1,17 +1,17 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-    font-size: ${(props) => props.fontSize || '1.4rem'};
+    font-size: ${(props) => props.fontSize || '14px'};
     display: flex;
     background-color: white;
     overflow: hidden;
 
-    margin-right: 1.6rem;
-    margin-left: ${(props) => props.width || '16.6rem'};
+    margin-right: 16px;
+    margin-left: ${(props) => props.width || '166px'};
     border-radius: 25px;
 
     &:hover {
-        margin-left: 1.6rem;
+        margin-left: 16px;
         cursor: pointer;
         & .home__search-form {
             display: block;
@@ -19,11 +19,11 @@ export const Wrapper = styled.div`
     }
 `
 export const Input = styled.input`
-    width: ${(props) => props.width || '15rem'};
-    height: ${(props) => props.height || '2.4rem'};
-    padding-left: 1.6rem;
+    width: ${(props) => props.width || '150px'};
+    height: ${(props) => props.height || '24px'};
+    padding-left: 16px;
     margin: auto;
-    line-height: 1rem;
+    line-height: 10px;
 
     color: #050505;
     border: none;
@@ -34,8 +34,8 @@ export const Input = styled.input`
 `
 
 export const IconSearch = styled.button`
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 24px;
+    height: 24px;
     border: none;
     outline: none;
 
