@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const Wrapper = styled.button`
+export const Wrapper = styled(Link)`
     position: relative;
 
     display: flex;
@@ -14,6 +15,7 @@ export const Wrapper = styled.button`
     outline: none;
 
     font-size: 14px;
+    text-decoration: none;
 
     background-color: ${(props) => props.backgroundColor || '#fff'};
     color: ${(props) => props.textColor || '#000'};

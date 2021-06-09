@@ -11,11 +11,12 @@ export const Container = styled.div`
 `
 
 export const HomeWrapper = styled.div`
+    position: relative;
     z-index: 1;
+
     max-width: 1200px;
     height: 100vh;
     margin: 0 auto;
-    position: relative;
 `
 
 export const ButtonExplore = styled.div`

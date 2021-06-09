@@ -17,6 +17,7 @@ export const Container = styled.div`
 export const BackgroundImage = styled.div`
     width: 100%;
     height: 100%;
+
     background-image: url('https://images.pexels.com/photos/5334878/pexels-photo-5334878.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
     background-position: center;
     background-repeat: no-repeat;

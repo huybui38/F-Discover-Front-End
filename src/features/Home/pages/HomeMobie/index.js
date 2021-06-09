@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FaLongArrowAltRight } from 'react-icons/fa'
 
-import { ButtonWithIcons } from '../../../../components/ButtonWithIcons/ButtonWithIcons'
+import { ButtonWithIcons } from '../../../../components/ButtonWithIcons'
 import { NavbarMobie } from '../../../../components/NavbarMobie'
 
 import { Container, BackgroundImage, ButtonExplore, Slogan } from './HomeMobie.elements'
@@ -23,6 +23,7 @@ export const HomeMobie = () => {
                     backgroundColor="#59ABAE"
                     textColor="white"
                     endIcon={FaLongArrowAltRight}
+                    to="/explore"
                 >
                     Explore
                 </ButtonWithIcons>

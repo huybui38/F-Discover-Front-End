@@ -10,6 +10,7 @@ const propType = {
     startIcon: PropTypes.elementType,
     endIcon: PropTypes.elementType,
     animation: PropTypes.bool,
+    to: PropTypes.string,
     children: PropTypes.any,
 }
 

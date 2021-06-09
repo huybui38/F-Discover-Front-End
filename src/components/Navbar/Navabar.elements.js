@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 
 //Anomation
@@ -16,33 +17,37 @@ const moveLeftToRight = keyframes`
 `
 
 export const NavbarWrapper = styled.div`
-    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    height: 60px;
 `
 
 export const LogoWrapper = styled.div`
     & .logo {
         height: 38px;
         width: auto;
+
         cursor: pointer;
     }
 `
 
-export const NavbarList = styled.ul`
+export const NavbarList = styled.div`
     display: flex;
 `
 
-export const NavbarItem = styled.li`
+export const NavbarItem = styled(Link)`
+    position: relative;
+    margin: 0 16px;
+
+    text-decoration: none;
     line-height: 24px;
     font-size: 15px;
     font-weight: 500;
-    margin: 0 16px;
-    position: relative;
+    text-shadow: 1px 1px 2px #050505;
 
     list-style: none;
-    text-shadow: 1px 1px 2px #050505;
     color: ${(props) => props.color || 'white'};
 
     &::before {
@@ -51,6 +56,7 @@ export const NavbarItem = styled.li`
         position: absolute;
         bottom: 0;
         width: 100%;
+
         border: 1px solid #01b3a7;
     }
 

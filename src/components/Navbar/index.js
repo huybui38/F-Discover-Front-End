@@ -11,12 +11,12 @@ export const Navbar = () => {
                 <img className="logo" src={Logo} alt="logo"></img>
             </LogoWrapper>
             <NavbarList>
-                <NavbarItem>Discover</NavbarItem>
-                <NavbarItem>Blogs</NavbarItem>
-                <NavbarItem>Contact</NavbarItem>
-                <NavbarItem>About us</NavbarItem>
+                <NavbarItem to="/">Discover</NavbarItem>
+                <NavbarItem to="/">Blogs</NavbarItem>
+                <NavbarItem to="/">Contact</NavbarItem>
+                <NavbarItem to="/">About us</NavbarItem>
                 <SearchForm />
-                <NavbarItem>Login</NavbarItem>
+                <NavbarItem to="/login">Login</NavbarItem>
             </NavbarList>
         </NavbarWrapper>
     )
