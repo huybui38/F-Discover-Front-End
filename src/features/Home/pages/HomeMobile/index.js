@@ -3,14 +3,14 @@ import React from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 
 import { ButtonWithIcons } from '../../../../components/ButtonWithIcons'
-import { NavbarMobie } from '../../../../components/NavbarMobie'
+import { NavbarMobile } from '../../../../components/NavbarMobile'
 
-import { Container, BackgroundImage, ButtonExplore, Slogan } from './HomeMobie.elements'
+import { Container, BackgroundImage, ButtonExplore, Slogan } from './HomeMobile.elements'
 
-export const HomeMobie = () => {
+export const HomeMobile = () => {
     return (
         <Container>
-            <NavbarMobie backgroundColor="#050505" textColor="#fff" />
+            <NavbarMobile background_color="#050505" text_color="#fff" />
             <BackgroundImage />
             <Slogan>
                 <h1>DREAM DISCOVER GO</h1>
@@ -20,8 +20,8 @@ export const HomeMobie = () => {
                 <ButtonWithIcons
                     width="120px"
                     padding="10px"
-                    backgroundColor="#59ABAE"
-                    textColor="white"
+                    background_color="#59ABAE"
+                    text_color="white"
                     endIcon={FaLongArrowAltRight}
                     to="/explore"
                 >
@@ -32,4 +32,4 @@ export const HomeMobie = () => {
     )
 }
 
-export default HomeMobie
+export default HomeMobile

@@ -12,13 +12,13 @@ export const Wrapper = styled.div`
     width: 100%;
     height: 50px;
     padding: 0 ${(props) => props.padding || '18px'};
-    background-color: ${(props) => props.backgroundColor || '#fff'};
+    background-color: ${(props) => props.background_color || '#fff'};
 
     font-size: 14px;
     font-weight: 500;
     text-shadow: 1px 1px 2px #000;
 
-    color: ${(props) => props.textColor || '#050505'};
+    color: ${(props) => props.text_color || '#050505'};
 
     & div {
         display: flex;
@@ -32,6 +32,59 @@ export const Wrapper = styled.div`
         display: none;
     }
 `
+
+export const IconWrapper = styled.div`
+    position: relative;
+
+    height: 30px;
+    width: 30px;
+    font-size: 18px;
+    color: white;
+
+    & .sidebar__list--disable {
+        position: absolute;
+        top: 25%;
+        left: 0;
+
+        opacity: 0;
+        z-index: -1;
+        transform: rotate(180deg);
+    }
+
+    & .sidebar__list--active {
+        position: absolute;
+        top: 25%;
+        left: 0;
+
+        opacity: 1;
+        z-index: 1;
+        transform: rotate(0);
+        transition: all 0.3s linear;
+        display: block;
+    }
+
+    & .sidebar__back--disable {
+        position: absolute;
+        top: 25%;
+        left: 0;
+
+        opacity: 0;
+        z-index: -1;
+        transform: rotate(-180deg);
+    }
+
+    & .sidebar__back--active {
+        position: absolute;
+        top: 25%;
+        left: 0;
+
+        opacity: 1;
+        transform: rotate(0);
+        transition: all 0.3s linear;
+        z-index: 1;
+    }
+`
+
 export const Logo = styled.img`
     height: 30px;
     padding: 0 8px;
@@ -40,7 +93,7 @@ export const Logo = styled.img`
 export const LoginWrapper = styled.div`
     & a {
         text-decoration: none;
-        color: ${(props) => props.textColor || '#050505'};
+        color: ${(props) => props.text_color || '#050505'};
         font-weight: 500;
         text-shadow: 1px 1px 2px #000;
     }

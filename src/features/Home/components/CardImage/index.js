@@ -8,11 +8,11 @@ import { CardWrapper, Card, Image, IconBookmark, Title, GroupStar } from './Card
 const propType = {
     infoPlace: PropTypes.shape({
         id: PropTypes.number,
-        srcBackground: PropTypes.string,
-        srcImageCard: PropTypes.string,
+        srcBackground: PropTypes.type,
+        srcImageCard: PropTypes.type,
         titleImageCard: PropTypes.string,
         titleDescription: PropTypes.string,
-        deciption: PropTypes.string,
+        description: PropTypes.string,
     }),
 }
 
@@ -30,7 +30,7 @@ export const CardImage = ({ infoPlace }) => {
                         <FaStar className="star" />
                     </GroupStar>
                 </Title>
-                <Image src={infoPlace.srcImageCard}></Image>
+                <Image src={infoPlace.srcImageCard.type}></Image>
                 <IconBookmark>
                     <FaBookmark />
                 </IconBookmark>

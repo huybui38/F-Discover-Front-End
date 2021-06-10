@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 
-//Anomation
+//Animation
 const moveLeftToRight = keyframes`
     0%{
         transform: translateX(-8px)

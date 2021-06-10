@@ -27,8 +27,8 @@ SearchForm.propTypes = {
     height: PropTypes.string,
     fontSize: PropTypes.string,
     borderColor: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    textColor: PropTypes.string,
+    background_color: PropTypes.string,
+    text_color: PropTypes.string,
 }
 
 export default SearchForm

@@ -15,7 +15,7 @@ import {
 import { ButtonIcon } from '../ButtonIcon'
 import { Wrapper, GroupSocialBtn, SidebarList, SidebarItem } from './Sidebar.elements'
 
-export const SidebarMobie = (props) => {
+export const SidebarMobile = (props) => {
     return (
         <Wrapper {...props}>
             <GroupSocialBtn>
@@ -49,6 +49,6 @@ export const SidebarMobie = (props) => {
         </Wrapper>
     )
 }
-SidebarMobie.propTypes = {}
+SidebarMobile.propTypes = {}
 
-export default SidebarMobie
+export default SidebarMobile

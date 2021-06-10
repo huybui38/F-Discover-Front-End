@@ -5,8 +5,8 @@ import { Wrapper } from './Button.element'
 const propType = {
     width: PropTypes.string,
     padding: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    textColor: PropTypes.string,
+    background_color: PropTypes.string,
+    text_color: PropTypes.string,
     startIcon: PropTypes.elementType,
     endIcon: PropTypes.elementType,
     animation: PropTypes.bool,

@@ -2,7 +2,7 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import { Button } from './ButonIcon.elements'
+import { Button } from './ButtonIcon.elements'
 
 const propType = {
     icon: PropTypes.element,

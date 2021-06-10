@@ -12,12 +12,8 @@ const propType = {
 
 export const DescriptionContent = ({ content, fontSize, fontWeight }) => {
     return (
-        <Wrapper className="desription-content__wrapper">
-            <Content
-                className="decription-content__main"
-                fontSize={fontSize}
-                fontWeight={fontWeight}
-            >
+        <Wrapper>
+            <Content fontSize={fontSize} fontWeight={fontWeight}>
                 {content}
             </Content>
         </Wrapper>

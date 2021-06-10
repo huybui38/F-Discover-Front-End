@@ -1,19 +1,25 @@
+import BackgroundDaNang from '../assets/img/background-da-nang.jpg'
+import BackgroundHoChiMinh from '../assets/img/background-ho-chi-minh.jpg'
+import BackgroundHoiAn from '../assets/img/background-hoi-an.jpg'
+import BackgroundTuyHoa from '../assets/img/background-tuy-hoa.jpg'
+import CardDaNang from '../assets/img/card-da-nang.jpg'
+import CardHoChiMinh from '../assets/img/card-ho-chi-minh.jpg'
+import CardHoiAn from '../assets/img/card-hoi-an.jpg'
+import CardTuyHoa from '../assets/img/card-tuy-hoa.jpg'
+
 export const infoImageHome = [
     {
         id: 0,
-        srcBackground:
-            'https://img.thuthuatphanmem.vn/uploads/2018/09/27/anh-dep-sai-gon-xe-chieu_105139086.jpg',
-        srcImageCard:
-            'https://vinhomesgroup.com.vn/wp-content/uploads/2019/04/VINHOMES-CENTRAL-PARK-18.04_8.jpg',
+        srcBackground: <BackgroundHoChiMinh />,
+        srcImageCard: <CardHoChiMinh />,
         titleImageCard: 'Ho Chi Minh City, VietNam',
         titleDescription: 'HO CHI MINH',
         description: `Ho Chi Minh City is a vibrant and charming city. It converges all the conveniences of a modern metropolis. Ho Chi Minh City becomes the economic, cultural, scientific, and technological hub of the country thanks to the rising economy and modern facilities as well as location.`,
     },
     {
         id: 1,
-        srcBackground:
-            'http://trian.vn/DATA/ARTICLES/2020/12/1/cau-vang-canh-tay-noi-dai-mang-viet-nam-ra-the-gioi-cf0f2.jpg',
-        srcImageCard: 'https://timchuyenbay.com/assets/uploads/2020/12/ba-na-hills-600x405.png',
+        srcBackground: <BackgroundDaNang />,
+        srcImageCard: <CardDaNang />,
         titleImageCard: 'Da Nang, Vietnam',
         titleDescription: 'DA NANG',
         description:
@@ -21,10 +27,8 @@ export const infoImageHome = [
     },
     {
         id: 2,
-        srcBackground:
-            'https://cdnimg.vietnamplus.vn/uploaded/fsmsr/2018_07_05/1giai_nhatsac_mau_cua_bien_tran_bao_hoa_resize.jpg',
-        srcImageCard:
-            'https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2017/07/ghenh-da-dia-3.jpg',
+        srcBackground: <BackgroundTuyHoa />,
+        srcImageCard: <CardTuyHoa />,
         titleImageCard: 'Tuy Hoa, Vietnam',
         titleDescription: 'TUY HOA',
         description:
@@ -32,9 +36,8 @@ export const infoImageHome = [
     },
     {
         id: 3,
-        srcBackground:
-            'https://vokrugsveta.ua/wp-content/uploads/2019/11/39_Tran-Minh-Dung-VN-OPBE_0080-scaled.jpg',
-        srcImageCard: 'https://image.vtc.vn/upload/2021/04/02/1401hoian-16221062.jpg',
+        srcBackground: <BackgroundHoiAn />,
+        srcImageCard: <CardHoiAn />,
         titleImageCard: 'Hoi An, Vietnam',
         titleDescription: 'HOI AN',
         description:

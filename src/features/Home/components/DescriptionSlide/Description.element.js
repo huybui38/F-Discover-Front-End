@@ -35,7 +35,7 @@ export const Container = styled.div`
     width: 600px;
 
     position: absolute;
-    top: 35%;
+    top: 30%;
     left: calc(calc(100% - 1200px) / 2);
 
     margin-left: 80px;
@@ -50,7 +50,7 @@ export const Container = styled.div`
 
     & .slick-slider > .slick-dots {
         position: absolute;
-        top: 0;
+        top: 35%;
         left: -80px;
 
         display: flex !important;
@@ -67,13 +67,6 @@ export const Container = styled.div`
 
     & .slick-slider > .slick-dots > li > button {
         position: relative;
-        /* width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background-color: #c2d2cf;
-
-        margin: auto;
-        opacity: 1; */
     }
 
     & .slick-slider > .slick-dots > li:first-child > button::after {

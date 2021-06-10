@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 
 import { Card, CardImage } from './BackgroundImage.elements'
 
-export const BackgroudImage = ({ src }) => {
+export const BackgroundImage = ({ src }) => {
     return (
         <Card>
-            <CardImage src={src} />
+            <CardImage src={src.type} />
         </Card>
     )
 }
 
-BackgroudImage.propTypes = {
-    src: PropTypes.string,
+BackgroundImage.propTypes = {
+    src: PropTypes.any,
 }
 
-export default BackgroudImage
+export default BackgroundImage

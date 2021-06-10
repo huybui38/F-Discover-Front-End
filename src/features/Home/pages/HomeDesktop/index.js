@@ -24,10 +24,10 @@ export const HomeDesktop = () => {
                 <ButtonWithIcons
                     width="120px"
                     padding="10px"
-                    backgroundColor="#59ABAE"
-                    textColor="white"
+                    background_color="#59ABAE"
+                    text_color="white"
                     endIcon={FaLongArrowAltRight}
-                    animation
+                    animation={true}
                     to="/explore"
                 >
                     Explore

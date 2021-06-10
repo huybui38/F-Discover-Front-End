@@ -2,7 +2,7 @@ import React from 'react'
 
 import Logo from '../../assets/img/logo.png'
 import { SearchForm } from '../SearchForm'
-import { NavbarWrapper, NavbarItem, NavbarList, LogoWrapper } from './Navabar.elements'
+import { NavbarWrapper, NavbarItem, NavbarList, LogoWrapper } from './Navbar.elements'
 
 export const Navbar = () => {
     return (

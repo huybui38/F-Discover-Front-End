@@ -17,8 +17,8 @@ export const Wrapper = styled(Link)`
     font-size: 14px;
     text-decoration: none;
 
-    background-color: ${(props) => props.backgroundColor || '#fff'};
-    color: ${(props) => props.textColor || '#000'};
+    background-color: ${(props) => props.background_color || '#fff'};
+    color: ${(props) => props.text_color || '#000'};
 
     cursor: pointer;
 
@@ -49,8 +49,8 @@ export const Wrapper = styled(Link)`
         width: 100%;
         border-radius: 10px;
 
-        background-color: ${(props) => props.backgroundColor || '#fff'};
-        color: ${(props) => props.textColor || '#000'};
+        background-color: ${(props) => props.background_color || '#fff'};
+        color: ${(props) => props.text_color || '#000'};
 
         transition: all 0.5s;
     }

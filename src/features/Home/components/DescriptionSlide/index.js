@@ -13,11 +13,11 @@ const propType = {
     srcList: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number,
-            srcBackground: PropTypes.string,
-            srcImageCard: PropTypes.string,
+            srcBackground: PropTypes.any,
+            srcImageCard: PropTypes.any,
             titleImageCard: PropTypes.string,
             titleDescription: PropTypes.string,
-            deciption: PropTypes.string,
+            description: PropTypes.string,
         })
     ),
 }
@@ -38,7 +38,7 @@ export const DescriptionSlide = ({ srcList }) => {
     }
 
     return (
-        <Container className="mt-5 carousel">
+        <Container>
             <Slider {...settings}>
                 {srcList
                     ? srcList.map((infoPlace) => (

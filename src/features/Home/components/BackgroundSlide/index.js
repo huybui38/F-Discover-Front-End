@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Slider from 'react-slick'
 
-import { BackgroudImage } from '../BackgroundImage'
+import { BackgroundImage } from '../BackgroundImage'
 import { BackgroundContainer } from './Background.elements'
 
 import 'slick-carousel/slick/slick-theme.css'
@@ -13,11 +13,11 @@ const propType = {
     srcList: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number,
-            srcBackground: PropTypes.string,
-            srcImageCard: PropTypes.string,
+            srcBackground: PropTypes.any,
+            srcImageCard: PropTypes.any,
             titleImageCard: PropTypes.string,
             titleDescription: PropTypes.string,
-            deciption: PropTypes.string,
+            description: PropTypes.string,
         })
     ),
 }
@@ -41,7 +41,7 @@ export const BackgroundSlide = ({ srcList }) => {
             <Slider {...settings}>
                 {srcList
                     ? srcList.map((infoImage) => (
-                          <BackgroudImage key={infoImage.id} src={infoImage.srcBackground} />
+                          <BackgroundImage key={infoImage.id} src={infoImage.srcBackground} />
                       ))
                     : null}
             </Slider>
