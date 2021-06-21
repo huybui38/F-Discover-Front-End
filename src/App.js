@@ -1,13 +1,10 @@
 import { BrowserRouter } from 'react-router-dom'
 
-import GlobalStyle from '../../globalStyles'
-import { RouterComponents } from '../../routers'
-import './style.css'
+import { RouterComponents } from './routers'
 
 function App() {
     return (
         <BrowserRouter>
-            <GlobalStyle />
             <RouterComponents />
         </BrowserRouter>
     )

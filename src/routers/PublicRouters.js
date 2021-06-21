@@ -1,12 +1,16 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 import { Route, Redirect } from 'react-router'
 
-import Authentication from '../utils/Authentication'
+import { authSelector } from '../features/Login/loginSlice'
+
+// import Authentication from '../utils/Authentication'
 
 export const PublicRouters = ({ path, component, restrict, exact }) => {
-    return Authentication.isLoggedIn() ? (
+    let isAuthenticated = useSelector(authSelector)
+    return isAuthenticated ? (
         <Redirect from="*" to="/explore" />
     ) : (
         <Route path={path} component={component} exact={exact} restrict={restrict} />
