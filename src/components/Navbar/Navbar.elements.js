@@ -57,7 +57,7 @@ export const NavbarItem = styled(Link)`
         bottom: 0;
         width: 100%;
 
-        border: 1px solid #01b3a7;
+        border: 1px solid #1dd1a1;
     }
 
     &:hover {

@@ -1,11 +1,9 @@
 import React from 'react'
 
+import { ExplorePage } from './pages/ExplorePage'
+
 export const Explore = () => {
-    return (
-        <div>
-            <h2>EXPLORE PAGE</h2>
-        </div>
-    )
+    return <ExplorePage />
 }
 
 export default Explore
