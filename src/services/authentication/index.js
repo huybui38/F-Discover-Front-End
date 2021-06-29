@@ -14,12 +14,12 @@ import { generateZaloURL } from '../../utils/zaloUtils'
 // TODO: Replace the following with your app's Firebase project configuration
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 const firebaseConfig = {
-    apiKey: 'AIzaSyBFFWsN16ggfmyWzzQdv4r_MKRgTYeZBgI',
-    authDomain: 'ithd-fpt.firebaseapp.com',
-    projectId: 'ithd-fpt',
-    storageBucket: 'ithd-fpt.appspot.com',
-    messagingSenderId: '341711463073',
-    appId: '1:341711463073:web:2a3a6397be4be1208706e0',
+    apiKey: 'AIzaSyCvD_AdPELTDBvK-bBoc5eUq6N5QxZ2IBo',
+    authDomain: 'f-discover-3f2de.firebaseapp.com',
+    projectId: 'f-discover-3f2de',
+    storageBucket: 'f-discover-3f2de.appspot.com',
+    messagingSenderId: '156624011399',
+    appId: '1:156624011399:web:434e968d480340643fb822',
 }
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
