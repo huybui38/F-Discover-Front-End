@@ -20,7 +20,7 @@ export const LayoutExplore = () => {
                 </Styled.SidebarWrapper>
                 <Styled.MainWrapper>
                     <Switch>
-                        <Route exact path="/explore/for-you" component={Explore} />
+                        <Route exact strict path="/explore/for-you" component={Explore} />
                     </Switch>
                 </Styled.MainWrapper>
             </Styled.FlexWrapper>

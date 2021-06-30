@@ -17,6 +17,11 @@ const theme = {
             main: '#ffffff',
             dark: '#fafafa',
         },
+        baseLine: {
+            main: '#efefef',
+            light: '#eee',
+            dark: '#050505',
+        },
     },
     breakpoints: {
         sm: '576px',
