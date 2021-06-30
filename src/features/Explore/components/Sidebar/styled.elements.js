@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     width: 100%;
-    height: calc(100vh - 60px);
+    /* height: calc(100vh - 60px);
     overflow: hidden;
     overflow-y: scroll;
 
@@ -10,22 +10,20 @@ export const Wrapper = styled.div`
         width: 1px;
         height: 10px;
     }
-    /* Track */
+
     &::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey;
         border-radius: 10px;
     }
 
-    /* Handle */
     &::-webkit-scrollbar-thumb {
         background: ${(props) => props.theme.palette.primary.dark};
         border-radius: 10px;
     }
 
-    /* Handle on hover */
     &::-webkit-scrollbar-thumb:hover {
         background: ${(props) => props.theme.palette.primary.dark};
-    }
+    } */
 `
 export const ListOption = styled.ul`
     list-style: none;
@@ -40,7 +38,7 @@ export const OptionItem = styled.li`
     padding: 8px 0;
     text-align: left;
 
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
 
     & > svg {

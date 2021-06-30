@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Route, Switch, Redirect } from 'react-router'
 
+import Baseline from '../../../../components/Baseline'
 import { Navbar } from '../../../../components/Navbar'
 
 import { Explore } from '../../../Explore'
@@ -12,6 +13,7 @@ export const LayoutExplore = () => {
     return (
         <Styled.Container>
             <Navbar />
+            <Baseline color="#eee" width="100vw" />
             <Styled.FlexWrapper>
                 <Styled.SidebarWrapper>
                     <Sidebar />

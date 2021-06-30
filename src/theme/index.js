@@ -13,6 +13,10 @@ const theme = {
             main: '#c8d6e5',
             dark: '#8395a7',
         },
+        bgrColor: {
+            main: '#ffffff',
+            dark: '#fafafa',
+        },
     },
     breakpoints: {
         sm: '576px',

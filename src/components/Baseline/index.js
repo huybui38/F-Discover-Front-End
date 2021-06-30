@@ -7,6 +7,7 @@ const Line = styled.hr`
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: ${(props) => props.color || '#050505'};
+    margin: 0;
 `
 
 export const Baseline = (props) => {

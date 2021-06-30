@@ -21,6 +21,8 @@ export const NavbarWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    max-width: 1200px;
+    margin: auto;
     height: 60px;
 `
 
