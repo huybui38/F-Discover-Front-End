@@ -7,6 +7,10 @@ export const Button = styled.button`
     outline: none;
     border-radius: 50%;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     font-size: ${(props) => props.fontSize || '16px'};
     background-color: transparent;
 
@@ -14,5 +18,6 @@ export const Button = styled.button`
     &:active {
         background-color: rgba(89, 171, 174, 0.1);
         color: rgb(89, 171, 174);
+        cursor: pointer;
     }
 `

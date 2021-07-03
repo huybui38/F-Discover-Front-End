@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    height: 50vh;
+    height: fit-content;
     margin: 16px 0 16px 50px;
     padding: 24px 0;
     border: 1px solid ${(props) => props.theme.palette.baseLine.main};
@@ -57,4 +57,38 @@ export const Content = styled.div`
     font-size: 14px;
 `
 export const Location = styled.div``
-export const Body = styled.div``
+
+//Body
+export const Body = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 16px;
+`
+export const BodyWrapper = styled.div`
+    display: flex;
+    width: 580px;
+    height: 500px;
+    border: 1px solid ${(props) => props.theme.palette.baseLine.main};
+`
+export const VideoContainer = styled.div`
+    width: 280px;
+    height: 100%;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    & > img {
+        width: 280px;
+        height: auto;
+    }
+`
+export const CommentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 100%;
+`
+
+export const Comment = styled.div`
+    flex: 1;
+`
