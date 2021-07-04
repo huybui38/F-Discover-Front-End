@@ -3,6 +3,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+import { Avatar } from '../../../../components/Avatar'
+
 import { InfoSuggestedUser } from '../InfoSuggestedUser'
 
 const ItemWrapper = styled.li`
@@ -42,13 +44,6 @@ const ItemWrapper = styled.li`
         }
     }
 `
-const ImageWrapper = styled.div`
-    & > img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-    }
-`
 const InfoWrapper = styled.div`
     width: calc(100% - 30px);
     display: flex;
@@ -71,9 +66,7 @@ const InfoUser = styled.div`
 const SuggestedUserItem = ({ user }) => {
     return (
         <ItemWrapper>
-            <ImageWrapper>
-                <img src={user.avatarUrl} alt="avatar" />
-            </ImageWrapper>
+            <Avatar src={user.avatarUrl} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{user.name}</span>
             </InfoWrapper>

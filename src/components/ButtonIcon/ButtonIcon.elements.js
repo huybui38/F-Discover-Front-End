@@ -16,8 +16,8 @@ export const Button = styled.button`
 
     &:hover,
     &:active {
-        background-color: rgba(89, 171, 174, 0.1);
-        color: rgb(89, 171, 174);
+        background-color: ${(props) => props.bgrColor || 'rgba(89, 171, 174, 0.1)'};
+        color: ${(props) => props.color || 'rgb(89, 171, 174)'};
         cursor: pointer;
     }
 `

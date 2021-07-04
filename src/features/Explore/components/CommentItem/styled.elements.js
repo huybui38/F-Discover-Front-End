@@ -12,13 +12,6 @@ export const Info = styled.div`
 
     padding: 0 8px;
 `
-export const Name = styled.span`
-    display: block;
-
-    font-size: 14px;
-    word-wrap: break-word;
-    text-overflow: clip;
-`
 export const Content = styled.span`
     font-size: 13px;
     display: block;

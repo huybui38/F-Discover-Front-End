@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
+import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
@@ -26,13 +27,11 @@ export const VideoFeedItem = () => {
                         src="https://lh3.googleusercontent.com/a-/AOh14Gi22ddILu0MPK4ezGtMUUFwcPBurlcNopxpc-HZwu0=s96-c"
                     />
                     <Styled.AuthorInfo>
-                        <Styled.FlexWrapper>
-                            <p>
-                                <Link>
-                                    <b>Đặng Nguyễn Ngọc Trinh</b>
-                                </Link>
-                            </p>
-                            <p>-</p>
+                        <Styled.FlexWrapper style={{ paddingTop: '0' }}>
+                            <AuthorName
+                                style={{ marginRight: '8px' }}
+                                name="Đặng Nguyễn Ngọc Trinh"
+                            />
                             <p>Bác sĩ</p>
                         </Styled.FlexWrapper>
                         <Styled.FlexWrapper>

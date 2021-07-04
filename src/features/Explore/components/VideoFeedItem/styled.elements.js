@@ -33,20 +33,14 @@ export const AuthorInfo = styled.div`
 `
 export const FlexWrapper = styled.div`
     width: fit-content;
-    height: 20px;
+    padding: 4px 0;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     & > p {
         margin: 0;
         margin-right: 8px;
-        & > a {
-            color: #000000;
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
     }
 `
 export const Content = styled.div`
