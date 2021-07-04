@@ -2,26 +2,29 @@ import React from 'react'
 
 import { FaMapMarkerAlt, FaRegSmile } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { down } from 'styled-breakpoints'
+import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
+import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 
 import DefaultAvatar from '../../../../assets/default_avatar.jpg'
 import { ActionsBar } from '../ActionsBar'
-import CommentInputField from '../CommentInputField'
+import { Comment } from '../Comment'
+import { CommentInputField } from '../CommentInputField'
 import * as Styled from './styled.elements'
 
 export const VideoFeedItem = () => {
+    const mobile = useBreakpoint(down('lg'))
     return (
         <Styled.Container>
             <Styled.Header>
                 <Styled.Author>
-                    <Styled.Avatar href="https://lh3.googleusercontent.com/a-/AOh14Gi22ddILu0MPK4ezGtMUUFwcPBurlcNopxpc-HZwu0=s96-c">
-                        <img
-                            loading="lazy"
-                            src="https://lh3.googleusercontent.com/a-/AOh14Gi22ddILu0MPK4ezGtMUUFwcPBurlcNopxpc-HZwu0=s96-c"
-                        />
-                    </Styled.Avatar>
+                    <Avatar
+                        width="50px"
+                        src="https://lh3.googleusercontent.com/a-/AOh14Gi22ddILu0MPK4ezGtMUUFwcPBurlcNopxpc-HZwu0=s96-c"
+                    />
                     <Styled.AuthorInfo>
                         <Styled.FlexWrapper>
                             <p>
@@ -52,8 +55,8 @@ export const VideoFeedItem = () => {
                     </Styled.VideoContainer>
                     <Styled.CommentContainer>
                         <ActionsBar />
-                        <Styled.Comment></Styled.Comment>
-                        <CommentInputField />
+                        <Comment disable={mobile ? true : false} />
+                        <CommentInputField disable={mobile ? true : false} />
                     </Styled.CommentContainer>
                 </Styled.BodyWrapper>
             </Styled.Body>

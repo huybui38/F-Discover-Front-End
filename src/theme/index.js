@@ -22,6 +22,10 @@ const theme = {
             light: '#eee',
             dark: '#050505',
         },
+        text: {
+            main: '#000000',
+            light: '#8e8e8e',
+        },
     },
     breakpoints: {
         sm: '576px',

@@ -14,10 +14,10 @@ export const LayoutExplore = () => {
         <Styled.Container>
             <Navbar />
             <Baseline color="#eee" width="100vw" />
+            <Styled.SidebarWrapper>
+                <Sidebar />
+            </Styled.SidebarWrapper>
             <Styled.FlexWrapper>
-                <Styled.SidebarWrapper>
-                    <Sidebar />
-                </Styled.SidebarWrapper>
                 <Styled.MainWrapper>
                     <Switch>
                         <Route exact strict path="/explore/for-you" component={Explore} />

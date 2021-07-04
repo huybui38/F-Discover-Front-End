@@ -1,0 +1,27 @@
+import React from 'react'
+
+import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const propTypes = {
+    src: PropTypes.string,
+}
+
+const AvatarWrapper = styled.a`
+    & > img {
+        width: ${(props) => props.width || '32px'};
+        height: ${(props) => props.width || '32px'};
+        border-radius: 50%;
+    }
+`
+export const Avatar = ({ src, ...others }) => {
+    return (
+        <AvatarWrapper href={src} {...others}>
+            <img loading="lazy" src={src} />
+        </AvatarWrapper>
+    )
+}
+
+Avatar.propTypes = propTypes
+
+export default Avatar

@@ -28,9 +28,9 @@ export const ActionsBar = () => {
                 </Styled.ActionItem>
             </Styled.Actions>
 
-            <span>
+            <Styled.Seen>
                 <b>n.quyen30</b> and <b>9,966 others</b> have seen
-            </span>
+            </Styled.Seen>
         </Styled.Wrapper>
     )
 }

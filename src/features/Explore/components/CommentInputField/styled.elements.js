@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const FieldComment = styled.div`
-    display: flex;
+    display: ${(props) => (props.disable ? 'none' : 'flex')};
     align-items: center;
     height: 56px;
     border-top: 1px solid ${(props) => props.theme.palette.baseLine.main};
