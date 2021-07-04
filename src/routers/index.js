@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { NotFound } from '../components/NotFound'
 import { LayoutExplore } from '../features/Explore/components/LayoutExplore'
 
+import { Player } from '../features/Demo/Player'
+import { Explore } from '../features/Explore'
 import { Home } from '../features/Home'
 import { Login } from '../features/Login'
 import Callback from '../features/Login/pages/CallBack'
@@ -29,6 +31,12 @@ export const privateRouters = [
         path: '/explore',
         name: 'explore',
         component: LayoutExplore,
+    },
+    {
+        path: '/demo/player',
+        name: 'demo',
+        component: Player,
+        restrict: true,
     },
 ]
 
