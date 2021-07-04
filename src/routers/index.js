@@ -4,6 +4,7 @@ import { Route, Switch, Redirect } from 'react-router'
 
 import { NotFound } from '../components/NotFound'
 
+import { Player } from '../features/Demo/Player'
 import { Explore } from '../features/Explore'
 import { Home } from '../features/Home'
 import { Login } from '../features/Login'
@@ -44,6 +45,12 @@ export const privateRouters = [
         path: '/profile',
         name: 'profile',
         component: Profile,
+        restrict: true,
+    },
+    {
+        path: '/demo/player',
+        name: 'demo',
+        component: Player,
         restrict: true,
     },
 ]
