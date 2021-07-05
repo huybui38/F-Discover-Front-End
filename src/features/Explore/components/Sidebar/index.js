@@ -26,7 +26,6 @@ export const Sidebar = () => {
                 console.log(res.status)
                 if (res.message === 'Success') {
                     setListSuggestUser(res.data)
-                    console.log(res.data)
                 }
             })
             .catch((e) => {

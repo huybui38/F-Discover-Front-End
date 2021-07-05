@@ -7,8 +7,7 @@ import { Route, Redirect } from 'react-router'
 import { authSelector } from '../features/Login/loginSlice'
 
 export const PrivateRouters = ({ component, ...rest }) => {
-    // let isAuthenticated = useSelector(authSelector)
-    let isAuthenticated = true
+    let isAuthenticated = useSelector(authSelector)
     return (
         <Route
             {...rest}
