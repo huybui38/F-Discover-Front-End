@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+/* eslint-disable react/prop-types */
+import React from 'react'
 
 import { ExplorePage } from './pages/ExplorePage'
 

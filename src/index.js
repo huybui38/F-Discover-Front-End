@@ -14,12 +14,14 @@ import theme from './theme'
 import 'react-toastify/dist/ReactToastify.css'
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <App />
-            <ToastContainer />
-        </ThemeProvider>
-    </Provider>,
+    <React.StrictMode>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <App />
+                <ToastContainer />
+            </ThemeProvider>
+        </Provider>
+    </React.StrictMode>,
     document.getElementById('root')
 )
 

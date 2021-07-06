@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
 import { FaMapMarkerAlt, FaRegSmile } from 'react-icons/fa'
@@ -16,10 +17,11 @@ import { Comment } from '../Comment'
 import { CommentInputField } from '../CommentInputField'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = () => {
+export const VideoFeedItem = ({ active, index, target }) => {
     const mobile = useBreakpoint(down('lg'))
+
     return (
-        <Styled.Container>
+        <Styled.Container className={target ? 'video--active' : `video_${index}`}>
             <Styled.Header>
                 <Styled.Author>
                     <Avatar
@@ -32,7 +34,7 @@ export const VideoFeedItem = () => {
                                 style={{ marginRight: '8px' }}
                                 name="Đặng Nguyễn Ngọc Trinh"
                             />
-                            <p>Bác sĩ</p>
+                            <p>{index}</p>
                         </Styled.FlexWrapper>
                         <Styled.FlexWrapper>
                             <p>3 hours ago</p>

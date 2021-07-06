@@ -2,6 +2,8 @@ import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    display: ${(props) => (props.isDisable ? 'none' : 'block')};
+
     height: fit-content;
     margin: 8px 0 32px 50px;
     padding: 24px 0;

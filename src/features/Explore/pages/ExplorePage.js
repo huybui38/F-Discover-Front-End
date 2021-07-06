@@ -1,17 +1,19 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from 'react'
-
-import { useSelector } from 'react-redux'
 
 import { VideoFeedItem } from '../components/VideoFeedItem'
 
-export const ExplorePage = () => {
-    const position = useSelector((state) => state.explore.position)
-    useEffect(() => {
-        console.log('kakak')
-        console.log(position)
-    }, [position])
+export const ExplorePage = ({ data, position }) => {
     return (
-        <div>
+        <div
+            className="video__wrapper"
+            style={{
+                // paddingTop: `${position.paddingTop}px`,
+                // paddingBottom: `${position.paddingBottom}px`,
+                width: '75%',
+                height: 'fit-content',
+            }}
+        >
             <VideoFeedItem />
             <VideoFeedItem />
             <VideoFeedItem />
@@ -22,6 +24,14 @@ export const ExplorePage = () => {
             <VideoFeedItem />
             <VideoFeedItem />
             <VideoFeedItem />
+            {/* {data.map((item, index) => (
+                <VideoFeedItem
+                    key={index}
+                    index={index + 1}
+                    active={item === 1 ? true : false}
+                    target={index + 1 === position.currentEl ? true : false}
+                />
+            ))} */}
         </div>
     )
 }

@@ -58,27 +58,4 @@ export const SidebarWrapper = styled.div`
 
 export const MainWrapper = styled.main`
     width: 75%;
-
-    &::-webkit-scrollbar {
-        width: 0px;
-        height: 5;
-    }
-
-    &::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey;
-        border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: ${(props) => props.theme.palette.primary.dark};
-        border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: ${(props) => props.theme.palette.primary.dark};
-    }
-
-    ${down('lg')} {
-        width: 100%;
-    }
 `
