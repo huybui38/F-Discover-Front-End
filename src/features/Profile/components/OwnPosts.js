@@ -2,9 +2,11 @@ import propTypes from 'prop-types'
 import { down, up } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-import Video from '../../../components/Video'
+import VideoPlayer from '../../../components/Player/Video'
 
-import TestCardImg from '../../../assets/demo_profile_1.jpeg'
+import videoDemo from '../../../assets/demo_video.mp4'
+import videoDemo2 from '../../../assets/demo_video_2.mp4'
+import videoDemo3 from '../../../assets/demo_video_3.mp4'
 
 const Card = styled.div`
     width: calc(100% * (1 / 3));
@@ -26,16 +28,13 @@ export default function OwnPosts() {
     return (
         <OwnPostWrapper>
             <Card>
-                <Video src={TestCardImg} />
+                <VideoPlayer src={videoDemo}></VideoPlayer>
             </Card>
             <Card>
-                <Video src={TestCardImg} />
+                <VideoPlayer src={videoDemo2}></VideoPlayer>
             </Card>
             <Card>
-                <Video src={TestCardImg} />
-            </Card>
-            <Card>
-                <Video src={TestCardImg} />
+                <VideoPlayer src={videoDemo3}></VideoPlayer>
             </Card>
             {/* <Post src={TestCardImg} /> */}
             {/* <Post src={TestCardImg} /> */}
