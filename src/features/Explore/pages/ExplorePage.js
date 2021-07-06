@@ -3,14 +3,13 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { VideoFeedItem } from '../components/VideoFeedItem'
 
-export const ExplorePage = ({ data, position }) => {
+export const ExplorePage = () => {
     return (
         <div
             className="video__wrapper"
             style={{
                 // paddingTop: `${position.paddingTop}px`,
                 // paddingBottom: `${position.paddingBottom}px`,
-                width: '75%',
                 height: 'fit-content',
             }}
         >

@@ -10,18 +10,20 @@ import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
+import VideoPlayer from '../../../../components/Player/Video'
 
 import DefaultAvatar from '../../../../assets/default_avatar.jpg'
+import videoDemo from '../../../../assets/demo_video.mp4'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import { CommentInputField } from '../CommentInputField'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = ({ active, index, target }) => {
+export const VideoFeedItem = () => {
     const mobile = useBreakpoint(down('lg'))
 
     return (
-        <Styled.Container className={target ? 'video--active' : `video_${index}`}>
+        <Styled.Container>
             <Styled.Header>
                 <Styled.Author>
                     <Avatar
@@ -34,7 +36,7 @@ export const VideoFeedItem = ({ active, index, target }) => {
                                 style={{ marginRight: '8px' }}
                                 name="Đặng Nguyễn Ngọc Trinh"
                             />
-                            <p>{index}</p>
+                            <p>Bác sĩ</p>
                         </Styled.FlexWrapper>
                         <Styled.FlexWrapper>
                             <p>3 hours ago</p>
@@ -52,7 +54,10 @@ export const VideoFeedItem = ({ active, index, target }) => {
             <Styled.Body>
                 <Styled.BodyWrapper>
                     <Styled.VideoContainer>
-                        <img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.6435-9/196562616_2948275348833011_8044697522132992167_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=DmcwgGfME9MAX-FcfWS&_nc_ht=scontent.fsgn3-1.fna&oh=198599ed65bdc6b3e12ce935bfdad685&oe=60E0EA3D" />
+                        {/* <img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.6435-9/196562616_2948275348833011_8044697522132992167_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=DmcwgGfME9MAX-FcfWS&_nc_ht=scontent.fsgn3-1.fna&oh=198599ed65bdc6b3e12ce935bfdad685&oe=60E0EA3D" /> */}
+                        <Styled.VideoCard>
+                            <VideoPlayer src={videoDemo} />
+                        </Styled.VideoCard>
                     </Styled.VideoContainer>
                     <Styled.CommentContainer>
                         <ActionsBar />

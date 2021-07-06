@@ -64,7 +64,6 @@ export const Body = styled.div`
 export const BodyWrapper = styled.div`
     display: flex;
     width: 750px;
-    height: 500px;
     border: 1px solid ${(props) => props.theme.palette.baseLine.main};
 
     ${down('lg')} {
@@ -73,7 +72,7 @@ export const BodyWrapper = styled.div`
 `
 export const VideoContainer = styled.div`
     width: 400px;
-    height: 100%;
+
     background-color: #eee;
     display: flex;
     align-items: center;
@@ -86,6 +85,11 @@ export const VideoContainer = styled.div`
         width: 80%;
     }
 `
+
+export const VideoCard = styled.div`
+    width: 70%;
+`
+
 export const CommentContainer = styled.div`
     display: flex;
     flex-direction: column;

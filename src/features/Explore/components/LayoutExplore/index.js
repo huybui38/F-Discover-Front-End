@@ -4,18 +4,13 @@ import { useDispatch } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router'
 import { compose } from 'redux'
 
-import Baseline from '../../../../components/Baseline'
+import { Baseline } from '../../../../components/Baseline'
 import { Navbar } from '../../../../components/Navbar'
 
 import { Explore } from '../../../Explore'
 import { setPosition } from '../../exploreSlice'
 import { Sidebar } from '../Sidebar'
 import * as Styled from './styled.elements'
-
-const getIndexEl = (coordinates) => {
-    const height = 636
-    return (coordinates - (coordinates % height)) / height + 1
-}
 
 const initialValue = {
     currentEl: 1,
@@ -36,12 +31,12 @@ export const LayoutExplore = () => {
             <Styled.SidebarWrapper>
                 <Sidebar />
             </Styled.SidebarWrapper>
-            <Styled.FlexWrapper className="scroll__wrapper" onScroll={onScroll}>
-                {/* <Styled.MainWrapper> */}
-                <Switch>
-                    <Route exact strict path="/explore/for-you" render={() => <Explore />} />
-                </Switch>
-                {/* </Styled.MainWrapper> */}
+            <Styled.FlexWrapper>
+                <Styled.MainWrapper>
+                    <Switch>
+                        <Route exact strict path="/explore/for-you" render={() => <Explore />} />
+                    </Switch>
+                </Styled.MainWrapper>
             </Styled.FlexWrapper>
         </Styled.Container>
     )

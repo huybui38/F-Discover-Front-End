@@ -58,4 +58,8 @@ export const SidebarWrapper = styled.div`
 
 export const MainWrapper = styled.main`
     width: 75%;
+
+    ${down('lg')} {
+        width: 100%;
+    }
 `
