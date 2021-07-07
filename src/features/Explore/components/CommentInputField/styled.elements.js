@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const FieldComment = styled.div`
+export const FieldComment = styled.form`
     display: ${(props) => (props.disable ? 'none' : 'flex')};
     align-items: center;
     height: 56px;

@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import { VideoFeedItem } from '../components/VideoFeedItem'
 
 export const ExplorePage = () => {
+    const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     return (
         <div
             className="video__wrapper"
@@ -13,24 +16,9 @@ export const ExplorePage = () => {
                 height: 'fit-content',
             }}
         >
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            <VideoFeedItem />
-            {/* {data.map((item, index) => (
-                <VideoFeedItem
-                    key={index}
-                    index={index + 1}
-                    active={item === 1 ? true : false}
-                    target={index + 1 === position.currentEl ? true : false}
-                />
-            ))} */}
+            {listSuggestPosts.map((item) => (
+                <VideoFeedItem key={item.id} dataPost={item} />
+            ))}
         </div>
     )
 }

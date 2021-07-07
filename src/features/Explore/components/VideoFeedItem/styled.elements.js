@@ -35,12 +35,13 @@ export const AuthorInfo = styled.div`
 `
 export const FlexWrapper = styled.div`
     width: fit-content;
-    padding: 4px 0;
+    margin: 4px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     & > p {
+        display: block;
         margin: 0;
         margin-right: 8px;
     }

@@ -49,11 +49,11 @@ export const ShareWrapper = styled.div`
 `
 export const ShareMethod = styled.div`
     position: absolute;
-    top: -45px;
-    left: -40px;
+    top: -50px;
+    left: -150px;
     z-index: 1;
 
-    display: flex;
+    display: ${(props) => (props.disabled ? 'none' : 'flex')};
     align-items: center;
     justify-content: space-between;
 
