@@ -11,22 +11,31 @@ import {
     FaRegShareSquare,
     FaCheck,
 } from 'react-icons/fa'
+import { down } from 'styled-breakpoints'
+import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
+import Modal from '../../../../components/Modal/Modal'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
+import useModal from '../../../../hooks/useModal'
 import { checkLikePostById, likePostById } from '../../../../services/api/postApi'
 import formatNumber from '../../../../utils/formatNumber'
+import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
 const link = 'www.facebook.com/profile.php?id=100015055038244'
 export const ActionsBar = ({ dataPost, handleClickComment }) => {
+    const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
 
     const [isLikePost, setIsLikePost] = useState(false)
     const [isClickLike, setIsClickLike] = useState(false)
     const [isClickShare, setIsClickShare] = useState(false)
     const [copied, setCopied] = useState('')
+
+    const { isShowing, openModal, closeModal } = useModal()
+
     useEffect(() => {
         checkLikePostById(dataPost.id)
             .then((res) => {
@@ -53,6 +62,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
     return (
         <Styled.Wrapper>
             <Styled.Actions>
+                {/* Like */}
                 <Styled.ActionItem>
                     {isLikePost ? (
                         <ButtonIcon
@@ -73,14 +83,19 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                     <span>{formatNumber(dataPost.likes, 1)}</span>
                 </Styled.ActionItem>
 
+                {/* Comment */}
                 <Styled.ActionItem>
                     <ButtonIcon
-                        onClick={() => handleClickComment()}
+                        onClick={mobile ? () => openModal() : () => handleClickComment()}
                         icon={<FaRegCommentAlt style={{ width: '28px', height: '28px' }} />}
                     />
                     <span>{formatNumber(dataPost.comments, 1)}</span>
                 </Styled.ActionItem>
+                <Modal title="Comment" isShowing={isShowing} hide={() => closeModal()}>
+                    <CommentDialog postId={dataPost.id} />
+                </Modal>
 
+                {/* Share */}
                 <Styled.ActionItem ref={wrapperShareRef}>
                     <Styled.ShareWrapper>
                         <ButtonIcon

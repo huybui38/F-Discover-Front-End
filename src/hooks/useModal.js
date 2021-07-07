@@ -7,9 +7,19 @@ const useModal = () => {
         setIsShowing(!isShowing)
     }
 
+    function openModal() {
+        setIsShowing(true)
+    }
+
+    function closeModal() {
+        setIsShowing(false)
+    }
+
     return {
         isShowing,
         toggle,
+        openModal,
+        closeModal,
     }
 }
 export default useModal

@@ -8,7 +8,7 @@ import { ButtonIcon } from '../../../../components/ButtonIcon'
 import { createComment } from '../../../../services/api/postApi'
 import * as Styled from './styled.elements'
 
-export const CommentInputField = ({ disable, postId }, ref) => {
+export const CommentInputField = ({ disable, postId, focus }, ref) => {
     const [value, setValue] = useState('')
     const handleChange = (e) => {
         setValue(e.target.value)
@@ -25,7 +25,7 @@ export const CommentInputField = ({ disable, postId }, ref) => {
     return (
         <Styled.FieldComment onSubmit={handleSubmit} disable={disable}>
             <ButtonIcon icon={<FaRegSmile style={{ width: '28px', height: '28px' }} />} />
-            {!disable ? (
+            {focus ? (
                 <input
                     ref={ref}
                     value={value}
@@ -33,7 +33,14 @@ export const CommentInputField = ({ disable, postId }, ref) => {
                     type="text"
                     placeholder="Add comment..."
                 />
-            ) : null}
+            ) : (
+                <input
+                    value={value}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Add comment..."
+                />
+            )}
             <ButtonIcon
                 type="submit"
                 icon={<FaPaperPlane style={{ width: '24px', height: '24px' }} />}

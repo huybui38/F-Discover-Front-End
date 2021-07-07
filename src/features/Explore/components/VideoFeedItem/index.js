@@ -72,6 +72,7 @@ export const VideoFeedItem = ({ dataPost }) => {
                         <CommentInputField
                             postId={dataPost.id}
                             disable={mobile ? true : false}
+                            focus={true}
                             ref={commentRef}
                         />
                     </Styled.CommentContainer>
