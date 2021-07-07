@@ -4,10 +4,6 @@ const initialState = {
     isAuthenticated: localStorage.getItem('token') ? true : false,
     status: 'idle',
 }
-
-// const getTokenAsync = createAsyncThunk('auth/getToken', () => {
-
-// })
 const loginSlice = createSlice({
     name: 'auth',
     initialState,

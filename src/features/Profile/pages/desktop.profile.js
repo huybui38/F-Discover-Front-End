@@ -1,5 +1,7 @@
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import { Loading } from '../../../components/Loading'
 import BioProfile from '../components/BioProfile'
 import { CenteredContainer, RightWrapper, WholePageContainer } from '../components/Container'
 import Cover from '../components/Cover'
@@ -11,10 +13,12 @@ const RightViewContainer = styled.div`
     padding-top: 2rem;
 `
 export default function Desktop() {
+    const isLoading = useSelector((state) => state.profile.isLoading)
     return (
         <>
             <WholePageContainer>
                 <CenteredContainer>
+                    <Loading isLoading={isLoading} />
                     <BioProfile></BioProfile>
                     <RightWrapper>
                         <Cover></Cover>
