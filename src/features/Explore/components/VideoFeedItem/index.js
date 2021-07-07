@@ -25,7 +25,9 @@ export const VideoFeedItem = ({ dataPost }) => {
     const commentRef = useRef(null)
 
     const handleClickComment = () => {
-        commentRef.current.focus()
+        if (!mobile) {
+            commentRef.current.focus()
+        }
     }
     return (
         <Styled.Container>

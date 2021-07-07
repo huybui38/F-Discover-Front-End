@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useRef } from 'react'
 
@@ -10,7 +12,6 @@ import {
     FaCheck,
 } from 'react-icons/fa'
 
-import { Button } from '../../../../components/Button'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'

@@ -15,9 +15,11 @@ export const CommentInputField = ({ disable, postId }, ref) => {
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        createComment(postId, { content: value }).catch((e) => {
-            console.log(e)
-        })
+        if (value) {
+            createComment(postId, { content: value }).catch((e) => {
+                console.log(e)
+            })
+        }
         setValue('')
     }
     return (
