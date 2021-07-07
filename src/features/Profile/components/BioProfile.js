@@ -13,8 +13,10 @@ import { Typography } from '../../../components/Typography'
 
 import DemoAvatarProfile from '../../../assets/demo_avatar_profile.png'
 import { Error, Success } from '../../../helpers/notify'
+import useModal from '../../../hooks/useModal'
 import apiCaller from '../../../utils/apiCaller'
 import { fetchUserBio, setAvatar, setLoading } from '../profileSlice'
+import UpdateProfileModal from './UpdateProfileModal'
 
 const Wrapper = styled.div`
     ${up('xl')} {
@@ -94,8 +96,12 @@ const SeparatedDetailLine = styled.div`
 `
 const StyledUpLoadAvatar = styled(EmptyIconButton)`
     position: absolute;
-    right: 3rem;
-    bottom: 0;
+    right: 2rem;
+    bottom: -0.3rem;
+    background-color: rgba(1, 179, 167, 0.8);
+    border-radius: 50%;
+    display: inline-flex;
+    padding: 5px;
 `
 const StyledInputFile = styled.input``
 function Avatar({ src }) {
@@ -132,7 +138,7 @@ function Avatar({ src }) {
         <div style={{ position: 'relative' }}>
             <BorderAvatar src={src}></BorderAvatar>
             <StyledUpLoadAvatar onClick={uploadClickHandler}>
-                <RiUploadCloud2Line size={25} />
+                <RiUploadCloud2Line size={25} color="white" />
                 <StyledInputFile
                     type="file"
                     style={{ display: 'none' }}
@@ -156,12 +162,19 @@ export default function BioProfile() {
             dispatch(fetchUserBio())
         }
     }, [bioFetchStatus, dispatch])
+    const handlerUpdate = () => {
+        toggle()
+    }
+    const { isShowing, toggle } = useModal(true)
     return (
         <Wrapper>
+            <UpdateProfileModal isShowing={isShowing} toggle={toggle} />
             <Avatar src={DemoAvatarProfile} />
             <StyledName>{details.name}</StyledName>
             <StyledJob>{details.job}</StyledJob>
-            <FollowButton center>follow</FollowButton>
+            <FollowButton center onClick={handlerUpdate}>
+                Update
+            </FollowButton>
             <StatisticalBar>
                 <StatisticalSection name="post" value={1}></StatisticalSection>
                 <SeparatedDetailLine />

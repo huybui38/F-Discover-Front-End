@@ -23,7 +23,12 @@ const StyledImage = styled.img`
 const StyledUpLoadCover = styled(EmptyIconButton)`
     position: absolute;
     right: 3rem;
-    bottom: 0;
+    bottom: 0.5rem;
+    background-color: rgba(1, 179, 167, 0.8);
+    border-radius: 50%;
+    display: inline-flex;
+    padding: 5px;
+    z-index: 1;
 `
 const StyledInputFile = styled.input``
 export default function Cover() {
@@ -59,7 +64,7 @@ export default function Cover() {
     return (
         <div style={{ position: 'relative' }}>
             <StyledUpLoadCover onClick={uploadClickHandler}>
-                <RiUploadCloud2Line size={55} color="white" />
+                <RiUploadCloud2Line size={30} color="white" />
                 <StyledInputFile
                     type="file"
                     style={{ display: 'none' }}

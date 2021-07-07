@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ReactDOM from 'react-dom'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import styled from 'styled-components'
 
 const ModalOverlay = styled.div`
@@ -35,7 +36,8 @@ const StyledModal = styled.div`
 `
 const ModalHeader = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
 `
 // const ModalCloseButton = styled.button`
 //     font-size: 1.4rem;
@@ -46,7 +48,10 @@ const ModalHeader = styled.div`
 //     cursor: pointer;
 //     border: none;
 // `
-const Modal = ({ isShowing, hide, children }) =>
+const ModalTitle = styled.span`
+    font-size: 1.7rem;
+`
+const Modal = ({ isShowing, hide, children, title = '' }) =>
     isShowing
         ? ReactDOM.createPortal(
               <React.Fragment>
@@ -54,16 +59,15 @@ const Modal = ({ isShowing, hide, children }) =>
                   <ModalWrapper aria-modal aria-hidden tabIndex={-1} role="dialog">
                       <StyledModal>
                           <ModalHeader>
-                              Hello
-                              <button
+                              <ModalTitle>{title}</ModalTitle>
+                              {/* <button
                                   type="button"
                                   className="modal-close-button"
                                   data-dismiss="modal"
                                   aria-label="Close"
                                   onClick={hide}
-                              >
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
+                              ></button> */}
+                              <AiFillCloseCircle onClick={hide} style={{ cursor: 'pointer' }} />
                           </ModalHeader>
                           {children}
                       </StyledModal>
