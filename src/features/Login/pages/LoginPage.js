@@ -46,7 +46,7 @@ export const LoginPage = () => {
     const onOAuthSuccess = async (OAuthToken) => {
         setIsLoading(true)
         try {
-            let result = await authApi.getToken(OAuthToken)
+            let result = await authApi.getToken(OAuthToken, 'firebase')
             localStorage.setItem('token', result.data.token)
             dispatch(login())
         } catch (error) {
