@@ -51,11 +51,10 @@ const VolumeButton = function (props) {
         </BaseVolumeButton>
     )
 }
-const PlayButton = function (props) {
-    const [isPaused, setIsPaused] = useState(true)
+const PlayButton = function ({ setIsPaused, isPaused, toggleHandler }) {
     const handleClick = () => {
         setIsPaused(!isPaused)
-        props.toggleHandler()
+        toggleHandler()
     }
     return (
         <BasePlayButton onClick={handleClick}>
@@ -68,9 +67,13 @@ VolumeButton.propTypes = {
 }
 PlayButton.propTypes = {
     toggleHandler: propTypes.func,
+    setIsPaused: propTypes.func,
+    isPaused: propTypes.bool,
 }
 function VideoPlayer(props) {
     const refPlayer = useRef(null)
+    const [isPaused, setIsPaused] = useState(true)
+
     const playVideoHandler = () => {
         if (refPlayer.current != null) {
             if (refPlayer.current.paused === true) {
@@ -85,11 +88,23 @@ function VideoPlayer(props) {
             refPlayer.current.muted = !refPlayer.current.muted
         }
     }
+    const endedVideoHandler = () => {
+        setIsPaused(true)
+    }
     return (
         <VideoContainer>
-            <Player src={props.src} ref={refPlayer} muted={true}></Player>
+            <Player
+                src={props.src}
+                ref={refPlayer}
+                muted={true}
+                onEnded={endedVideoHandler}
+            ></Player>
             <VolumeButton toggleHandler={muteVideoHandler}></VolumeButton>
-            <PlayButton toggleHandler={playVideoHandler}></PlayButton>
+            <PlayButton
+                toggleHandler={playVideoHandler}
+                isPaused={isPaused}
+                setIsPaused={setIsPaused}
+            ></PlayButton>
         </VideoContainer>
     )
 }
