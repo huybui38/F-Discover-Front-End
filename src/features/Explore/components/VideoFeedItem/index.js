@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { forwardRef, useRef } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
 import { FaMapMarkerAlt, FaRegSmile, FaCog } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
@@ -18,6 +18,11 @@ import videoDemo from '../../../../assets/demo_video.mp4'
 import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
 import { deleteCommentById } from '../../../../services/api/postApi'
+import {
+    checkFollowUserById,
+    followUserById,
+    unFollowUserById,
+} from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
@@ -29,6 +34,18 @@ export const VideoFeedItem = ({ dataPost }) => {
     const commentRef = useRef(null)
 
     const { isShowing, openModal, closeModal } = useModal()
+    const [isFollowing, setIsFollowing] = useState(false)
+    useEffect(() => {
+        checkFollowUserById(dataPost.author.id)
+            .then((res) => {
+                if (res.message === 'Success') {
+                    setIsFollowing(res.data.followed)
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [])
     const handleClickComment = () => {
         if (!mobile) {
             commentRef.current.focus()
@@ -46,6 +63,17 @@ export const VideoFeedItem = ({ dataPost }) => {
                 console.log(e)
                 Error('Delete post failed.')
             })
+    }
+    const handleFollowUser = () => {
+        if (isFollowing) {
+            unFollowUserById(dataPost.author.id).catch((e) => {
+                console.log(e)
+            })
+        } else {
+            followUserById(dataPost.author.id).catch((e) => {
+                console.log(e)
+            })
+        }
     }
     return (
         <Styled.Container>
@@ -87,7 +115,7 @@ export const VideoFeedItem = ({ dataPost }) => {
                     </Styled.AuthorInfo>
                 </Styled.Author>
                 <Styled.ButtonWrapper>
-                    <ButtonFollow />
+                    <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
                 </Styled.ButtonWrapper>
             </Styled.Header>
             <Styled.Body>

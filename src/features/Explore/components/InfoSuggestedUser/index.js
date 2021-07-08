@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 
 import { Button } from '../../../../components/Button'
-import { ButtonWithIcons } from '../../../../components/ButtonWithIcons'
+import { ButtonFollow } from '../../../../components/ButtonFollow'
+
+import { followUserById } from '../../../../services/api/userApi'
 
 const InfoWrapper = styled.div`
     width: 90%;
@@ -37,21 +39,16 @@ const Interactive = styled.div`
     justify-content: space-between;
 `
 export const InfoSuggestedUser = ({ user }) => {
+    const handleFollowUser = () => {
+        followUserById(user.id).catch((e) => {
+            console.log(e)
+        })
+    }
     return (
         <InfoWrapper>
             <Header>
                 <Avatar src={user.avatarUrl} alt="avatar" />
-                {/* <FollowButton>Follow</FollowButton> */}
-                <ButtonWithIcons
-                    width="80px"
-                    padding="8px"
-                    background_color="#59ABAE"
-                    text_color="white"
-                    animation={true}
-                    onClick={() => console.log('concu')}
-                >
-                    Follow
-                </ButtonWithIcons>
+                <ButtonFollow isFollowing={false} handleFollow={handleFollowUser} />
             </Header>
             <Name>
                 <b>{user.name}</b>

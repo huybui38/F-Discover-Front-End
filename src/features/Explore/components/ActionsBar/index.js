@@ -19,7 +19,7 @@ import Modal from '../../../../components/Modal/Modal'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
 import useModal from '../../../../hooks/useModal'
-import { checkLikePostById, likePostById } from '../../../../services/api/postApi'
+import { checkLikePostById, likePostById, unLikePostById } from '../../../../services/api/postApi'
 import formatNumber from '../../../../utils/formatNumber'
 import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
@@ -48,11 +48,17 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
             })
     }, [])
 
-    useEffect(() => {
-        likePostById(dataPost.id).catch((e) => {
-            console.log(e)
-        })
-    }, [isClickLike])
+    const handleLikePost = () => {
+        if (isLikePost) {
+            unLikePostById(dataPost.id).catch((e) => {
+                console.log(e)
+            })
+        } else {
+            likePostById(dataPost.id).catch((e) => {
+                console.log(e)
+            })
+        }
+    }
 
     const handleShareMethod = () => {
         setIsClickShare(false)
@@ -66,7 +72,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                 <Styled.ActionItem>
                     {isLikePost ? (
                         <ButtonIcon
-                            onClick={() => setIsClickLike(!isClickLike)}
+                            onClick={handleLikePost}
                             bgrColor="rgba(255,63,52,0.1)"
                             icon={
                                 <FaHeart
@@ -76,7 +82,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                         />
                     ) : (
                         <ButtonIcon
-                            onClick={() => setIsClickLike(!isClickLike)}
+                            onClick={handleLikePost}
                             icon={<FaRegHeart style={{ width: '28px', height: '28px' }} />}
                         />
                     )}

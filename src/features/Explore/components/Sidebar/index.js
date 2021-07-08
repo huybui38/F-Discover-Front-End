@@ -58,9 +58,6 @@ export const Sidebar = () => {
                     {listSuggestUser.map((user) => (
                         <SuggestedUserItem key={user.id} user={user} />
                     ))}
-                    {listSuggestUser.map((user) => (
-                        <SuggestedUserItem key={user.id} user={user} />
-                    ))}
                 </Styled.UserSuggestList>
                 <Styled.Action onClick={handleActionShow}>
                     {numberSuggestedUser === 5 ? 'Show more...' : 'Hidden...'}
