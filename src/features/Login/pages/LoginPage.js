@@ -48,7 +48,7 @@ export const LoginPage = () => {
         try {
             let result = await authApi.getToken(OAuthToken, 'firebase')
             localStorage.setItem('token', result.data.token)
-            dispatch(login())
+            dispatch(login(result.data.token))
         } catch (error) {
             setIsLoading(false)
             console.log(error)

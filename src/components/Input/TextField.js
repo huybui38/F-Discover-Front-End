@@ -20,15 +20,19 @@ const StyledTextInput = styled.input`
         border-color: #409eff;
     }
 `
-function TextFieldInput(props) {
+function TextFieldInput({ handleChange, value, label }) {
     return (
         <Container>
-            <StyledLabel>Display name</StyledLabel>
-            <StyledTextInput type="text" />
+            <StyledLabel>{label}</StyledLabel>
+            <StyledTextInput type="text" onChange={handleChange} value={value} />
         </Container>
     )
 }
 
-TextFieldInput.propTypes = {}
+TextFieldInput.propTypes = {
+    handleChange: PropTypes.func,
+    value: PropTypes.any,
+    label: PropTypes.string,
+}
 
 export default TextFieldInput

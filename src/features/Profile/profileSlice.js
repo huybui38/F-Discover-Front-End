@@ -30,6 +30,12 @@ const profileSlice = createSlice({
         setLoading: (state, action) => {
             state.isLoading = action.payload
         },
+        onUpdateProfileSuccess: (state, action) => {
+            state.bioDetail = {
+                ...state.bioDetail,
+                ...action.payload,
+            }
+        },
     },
     extraReducers: {
         [fetchUserBio.pending]: (state, action) => {
@@ -46,5 +52,5 @@ const profileSlice = createSlice({
     },
 })
 
-export const { setAvatar, setLoading, setCover } = profileSlice.actions
+export const { setAvatar, setLoading, setCover, onUpdateProfileSuccess } = profileSlice.actions
 export default profileSlice.reducer
