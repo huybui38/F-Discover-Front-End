@@ -49,7 +49,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
     }, [])
 
     useEffect(() => {
-        likePostById(dataPost.data).catch((e) => {
+        likePostById(dataPost.id).catch((e) => {
             console.log(e)
         })
     }, [isClickLike])

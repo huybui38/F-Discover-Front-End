@@ -24,7 +24,9 @@ export const Comment = ({ disable, postId }) => {
         <Styled.CommentContainer disable={disable}>
             <Styled.CommentList>
                 {listComment
-                    ? listComment.map((data) => <CommentItem key={data.id} dataComment={data} />)
+                    ? listComment.map((data) => (
+                          <CommentItem key={data.id} postId={postId} dataComment={data} />
+                      ))
                     : null}
             </Styled.CommentList>
         </Styled.CommentContainer>

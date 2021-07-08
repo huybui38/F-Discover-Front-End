@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { forwardRef, useRef } from 'react'
 
-import { FaMapMarkerAlt, FaRegSmile } from 'react-icons/fa'
+import { FaMapMarkerAlt, FaRegSmile, FaCog } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
@@ -10,10 +10,14 @@ import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
+import Modal from '../../../../components/Modal/Modal'
 import VideoPlayer from '../../../../components/Player/Video'
 
 import DefaultAvatar from '../../../../assets/default_avatar.jpg'
 import videoDemo from '../../../../assets/demo_video.mp4'
+import { Error } from '../../../../helpers/notify'
+import useModal from '../../../../hooks/useModal'
+import { deleteCommentById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
@@ -24,10 +28,24 @@ export const VideoFeedItem = ({ dataPost }) => {
     const mobile = useBreakpoint(down('lg'))
     const commentRef = useRef(null)
 
+    const { isShowing, openModal, closeModal } = useModal()
     const handleClickComment = () => {
         if (!mobile) {
             commentRef.current.focus()
         }
+    }
+    const handleDeletePost = () => {
+        closeModal()
+        deleteCommentById(dataPost.id)
+            .then((res) => {
+                if (res.comment === 'Success') {
+                    console.log('Delete Success')
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+                Error('Delete post failed.')
+            })
     }
     return (
         <Styled.Container>
@@ -41,6 +59,23 @@ export const VideoFeedItem = ({ dataPost }) => {
                                 name={dataPost.author.name}
                             />
                             <p>{dataPost.author.job}</p>
+                            <Styled.Option className="post__actions" onClick={openModal}>
+                                <FaCog style={{ width: '10px', height: '10px' }} />
+                            </Styled.Option>
+                            <Modal title="Post" isShowing={isShowing} hide={closeModal}>
+                                <Styled.OptionList>
+                                    <Styled.OptionItem onClick={closeModal}>
+                                        Report
+                                    </Styled.OptionItem>
+                                    <Styled.OptionItem onClick={handleDeletePost}>
+                                        Delete
+                                    </Styled.OptionItem>
+                                    <Styled.OptionItem>Update</Styled.OptionItem>
+                                    <Styled.OptionItem onClick={closeModal}>
+                                        Cancel
+                                    </Styled.OptionItem>
+                                </Styled.OptionList>
+                            </Modal>
                         </Styled.FlexWrapper>
                         <Styled.FlexWrapper>
                             <p>{timeSince(dataPost.createdAt)}</p>

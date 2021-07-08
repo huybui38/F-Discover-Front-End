@@ -23,7 +23,7 @@ async function post(path = '', data = {}) {
     if (response.ok) return jsonData
     else throw new Error(jsonData)
 }
-async function get(path = '', params) {
+async function get(path = '', data = {}) {
     // Default options are marked with *
     let url = config.backendURL + path
     const response = await fetch(url, {
@@ -31,7 +31,6 @@ async function get(path = '', params) {
         mode: 'cors', // no-cors, *cors, same-origin
         // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'same-origin', // include, *same-origin, omit
-        params,
         headers: {
             'Content-Type': 'application/json',
         },

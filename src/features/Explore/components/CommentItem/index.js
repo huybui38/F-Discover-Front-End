@@ -9,13 +9,28 @@ import { Avatar } from '../../../../components/Avatar'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 import Modal from '../../../../components/Modal/Modal'
 
+import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
+import { deleteCommentById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
 import * as Styled from './styled.elements'
 
-export const CommentItem = ({ dataComment }) => {
+export const CommentItem = ({ dataComment, postId }) => {
     const { isShowing, openModal, closeModal } = useModal()
-
+    console.log(dataComment)
+    const handleDeleteComment = () => {
+        closeModal()
+        deleteCommentById(postId, dataComment.id)
+            .then((res) => {
+                // if (res.message === 'Success') {
+                //     closeModal()
+                // }
+            })
+            .catch((e) => {
+                console.log(e)
+                Error('Delete comment failed.')
+            })
+    }
     return (
         <Styled.CommentItem>
             <Avatar width="32px" src={dataComment.author.avatarUrl} />
@@ -30,9 +45,9 @@ export const CommentItem = ({ dataComment }) => {
                 </Styled.Option>
                 <Modal title="Comment" isShowing={isShowing} hide={closeModal}>
                     <Styled.OptionList>
-                        <Styled.OptionItem>Report</Styled.OptionItem>
-                        <Styled.OptionItem>Update</Styled.OptionItem>
-                        <Styled.OptionItem>Delete</Styled.OptionItem>
+                        <Styled.OptionItem onClick={closeModal}>Report</Styled.OptionItem>
+                        <Styled.OptionItem onClick={handleDeleteComment}>Delete</Styled.OptionItem>
+                        <Styled.OptionItem onClick={closeModal}>Cancel</Styled.OptionItem>
                     </Styled.OptionList>
                 </Modal>
                 <ButtonIcon icon={<FaRegHeart style={{ width: '14px', height: '14px' }} />} />
