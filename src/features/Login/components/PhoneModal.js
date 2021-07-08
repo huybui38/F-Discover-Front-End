@@ -7,7 +7,6 @@ import { PuffLoader } from '../../../components/Loading/Loader'
 import Modal from '../../../components/Modal/Modal'
 
 import { Error, Success } from '../../../helpers/notify'
-import useModal from '../../../hooks/useModal'
 import firebase, { FirebaseAuth } from '../../../services/authentication/'
 
 let confirmation

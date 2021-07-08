@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import { Button } from '../../../components/Button/'
 import { EmptyIconButton } from '../../../components/ButtonWithIcons'
 import { Loading } from '../../../components/Loading'
+import UpdateVideoModal from '../../../components/Modal/UploadVideoModal'
 import { Typography } from '../../../components/Typography'
 
 import DemoAvatarProfile from '../../../assets/demo_avatar_profile.png'
@@ -162,18 +163,28 @@ export default function BioProfile() {
             dispatch(fetchUserBio())
         }
     }, [bioFetchStatus, dispatch])
+    const [isShowing, toggle] = useModal(false)
+    const [isShowing2, toggle2] = useModal(false)
     const handlerUpdate = () => {
         toggle()
     }
-    const { isShowing, toggle } = useModal(true)
+    const handlerUpdate2 = () => {
+        console.log(toggle2)
+        toggle2()
+    }
+
     return (
         <Wrapper>
             <UpdateProfileModal isShowing={isShowing} toggle={toggle} />
+            <UpdateVideoModal isShowing={isShowing2} toggle={toggle2} />
             <Avatar src={DemoAvatarProfile} />
             <StyledName>{details.name}</StyledName>
             <StyledJob>{details.job}</StyledJob>
             <FollowButton center onClick={handlerUpdate}>
                 Update
+            </FollowButton>
+            <FollowButton center onClick={handlerUpdate2}>
+                Up post
             </FollowButton>
             <StatisticalBar>
                 <StatisticalSection name="post" value={1}></StatisticalSection>

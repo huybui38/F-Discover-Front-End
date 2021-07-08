@@ -5,5 +5,8 @@ const theme = {
         lg: '992px',
         xl: '1200px',
     },
+    color: {
+        primary: '#01B3A7',
+    },
 }
 export default theme

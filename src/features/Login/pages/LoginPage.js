@@ -34,7 +34,7 @@ import firebase, {
 import { login } from '../loginSlice'
 
 export const LoginPage = () => {
-    const { isShowing, toggle } = useModal()
+    const [isShowing, toggle] = useModal()
     const [isLoading, setIsLoading] = useState(false)
     const onZaloLoginSuccess = (result) => {
         onOAuthSuccess(result.code)
