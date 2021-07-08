@@ -11,7 +11,7 @@ import { Comment } from '../Comment'
 import { CommentInputField } from '../CommentInputField'
 
 const Wrapper = styled.div`
-    border-top: 1px solid ${(props) => props.theme.palette.baseLine.main}; ;
+    border-top: 1px solid ${(props) => props.theme.palette.baseLine.main};
 `
 
 export const CommentDialog = ({ postId }) => {
