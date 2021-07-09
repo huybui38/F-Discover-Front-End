@@ -26,11 +26,11 @@ const Select = styled.select`
 
 const StyledOption = styled.option`
     color: #223254;
-    &[value=''][disabled] {
+    &[value='DEFAULT'][disabled] {
         display: none;
     }
 `
-export const Dropdown = ({ options }) => {
+export const Dropdown = ({ options, handlerChange }) => {
     const map = options.map((element, index) => (
         <StyledOption key={index} value={element.value}>
             {element.text}
@@ -38,8 +38,8 @@ export const Dropdown = ({ options }) => {
     ))
     return (
         <DropdownContainer>
-            <Select>
-                <StyledOption value="" disabled="disabled" selected="selected">
+            <Select onChange={handlerChange} defaultValue={'DEFAULT'}>
+                <StyledOption value="DEFAULT" disabled hidden>
                     Select option
                 </StyledOption>
                 {map}
@@ -49,4 +49,5 @@ export const Dropdown = ({ options }) => {
 }
 Dropdown.propTypes = {
     options: propTypes.array,
+    handlerChange: propTypes.func,
 }
