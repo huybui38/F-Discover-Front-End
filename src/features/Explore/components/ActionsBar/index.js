@@ -15,7 +15,7 @@ import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
-import Modal from '../../../../components/Modal/Modal'
+import Dialog from '../../../../components/Dialog'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
 import useModal from '../../../../hooks/useModal'
@@ -97,9 +97,9 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                     />
                     <span>{formatNumber(dataPost.comments, 1)}</span>
                 </Styled.ActionItem>
-                <Modal title="Comment" isShowing={isShowing} hide={() => closeModal()}>
+                <Dialog title="Comment" isShowing={isShowing} hide={() => closeModal()}>
                     <CommentDialog postId={dataPost.id} />
-                </Modal>
+                </Dialog>
 
                 {/* Share */}
                 <Styled.ActionItem ref={wrapperShareRef}>

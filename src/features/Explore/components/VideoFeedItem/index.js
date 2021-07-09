@@ -10,7 +10,7 @@ import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
-import Modal from '../../../../components/Modal/Modal'
+import Dialog from '../../../../components/Dialog'
 import VideoPlayer from '../../../../components/Player/Video'
 
 import DefaultAvatar from '../../../../assets/default_avatar.jpg'
@@ -94,7 +94,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
                             <Styled.Option className="post__actions" onClick={openModal}>
                                 <FaCog style={{ width: '10px', height: '10px' }} />
                             </Styled.Option>
-                            <Modal title="Post" isShowing={isShowing} hide={closeModal}>
+                            <Dialog title="Post" isShowing={isShowing} hide={closeModal}>
                                 <Styled.OptionList>
                                     <Styled.OptionItem onClick={closeModal}>
                                         Report
@@ -107,7 +107,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
                                         Cancel
                                     </Styled.OptionItem>
                                 </Styled.OptionList>
-                            </Modal>
+                            </Dialog>
                         </Styled.FlexWrapper>
                         <Styled.FlexWrapper>
                             <p>{timeSince(dataPost.createdAt)}</p>

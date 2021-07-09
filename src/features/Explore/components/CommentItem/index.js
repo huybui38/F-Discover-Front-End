@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonIcon } from '../../../../components/ButtonIcon'
-import Modal from '../../../../components/Modal/Modal'
+import Dialog from '../../../../components/Dialog'
 
 import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
@@ -43,13 +43,13 @@ export const CommentItem = ({ dataComment, postId }) => {
                 <Styled.Option onClick={openModal}>
                     <FaEllipsisH />
                 </Styled.Option>
-                <Modal title="Comment" isShowing={isShowing} hide={closeModal}>
+                <Dialog title="Comment" isShowing={isShowing} hide={closeModal}>
                     <Styled.OptionList>
                         <Styled.OptionItem onClick={closeModal}>Report</Styled.OptionItem>
                         <Styled.OptionItem onClick={handleDeleteComment}>Delete</Styled.OptionItem>
                         <Styled.OptionItem onClick={closeModal}>Cancel</Styled.OptionItem>
                     </Styled.OptionList>
-                </Modal>
+                </Dialog>
                 <ButtonIcon icon={<FaRegHeart style={{ width: '14px', height: '14px' }} />} />
                 {/* <ButtonIcon
                     bgrColor="rgba(255,63,52,0.1)"

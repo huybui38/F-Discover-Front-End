@@ -62,3 +62,9 @@ export const StartIcon = styled.div`
 export const EndIcon = styled.div`
     cursor: pointer;
 `
+
+export const EmptyButtonWrapper = styled.div`
+    cursor: pointer;
+    background-color: rgb(255 255 255 / 10%);
+    display: inline-block;
+`

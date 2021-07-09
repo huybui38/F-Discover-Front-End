@@ -34,7 +34,7 @@ import firebase, {
 import { login } from '../loginSlice'
 
 export const LoginPage = () => {
-    const { isShowing, toggle } = useModal()
+    const [isShowing, toggle] = useModal()
     const [isLoading, setIsLoading] = useState(false)
     const onZaloLoginSuccess = (result) => {
         onOAuthSuccess(result.code)
@@ -48,7 +48,7 @@ export const LoginPage = () => {
         try {
             let result = await authApi.getToken(OAuthToken, 'firebase')
             localStorage.setItem('token', result.data.token)
-            dispatch(login())
+            dispatch(login(result.data.token))
         } catch (error) {
             setIsLoading(false)
             console.log(error)

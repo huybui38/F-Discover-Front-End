@@ -5,8 +5,6 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-import Modal from '../../../../components/Modal'
-
 import { Comment } from '../Comment'
 import { CommentInputField } from '../CommentInputField'
 
