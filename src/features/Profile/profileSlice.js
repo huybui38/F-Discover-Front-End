@@ -3,19 +3,27 @@ import ApiCaller from '../../utils/apiCaller'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    bioDetail: {},
+    bioDetail: {
+        name: 'NULL',
+        job: '',
+        quote: '',
+        following: 0,
+    },
     status: 'idle',
     isLoading: false,
 }
-export const fetchUserBio = createAsyncThunk('profile/fetchUserBio', async () => {
-    let response
-    try {
-        response = await ApiCaller.get('/user')
-    } catch (ex) {
-        console.log(ex)
+export const fetchUserBio = createAsyncThunk(
+    'profile/fetchUserBio',
+    async (userData, { rejectWithValue }) => {
+        let response
+        try {
+            response = await ApiCaller.get('/user')
+        } catch (ex) {
+            return rejectWithValue(ex)
+        }
+        return response
     }
-    return response
-})
+)
 
 const profileSlice = createSlice({
     name: 'profile',

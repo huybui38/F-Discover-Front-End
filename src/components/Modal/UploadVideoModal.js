@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+/* eslint-disable react/prop-types */
+import React, { useEffect, useMemo, useState } from 'react'
 
 import PropTypes from 'prop-types'
+import { useDropzone } from 'react-dropzone'
 import { MdFileUpload } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { useToastContainer } from 'react-toastify'
@@ -11,6 +13,9 @@ import useInput from '../../hooks/useInput'
 import { updateProfile } from '../../services/user/profile'
 import { Button, CircleButton } from '..//Button'
 import { TextFieldInput } from '../Input'
+import { Dropdown } from '../Input/Dropdown'
+import { SimpleCircleLoader } from '../Loading/Loader'
+import { ProgressBar } from '../Progress/Progress'
 import { Typography } from '../Typography'
 // import { onUpdateProfileSuccess, setLoading } from '../profileSlice'
 import Modal from './Modal'
@@ -87,10 +92,12 @@ function UpdateVideoModal(props) {
     const [name, nameHandler, setName] = useInput(details.name)
     const [job, jobHandler, setJob] = useInput(details.job)
     const [bio, bioHandler, setBio] = useInput(details.quote)
+    const [isUploading, setIsUploading] = useState(false)
+    const [step, setStep] = useState(1)
     const closeModalHandler = () => {
         toggle()
     }
-    const [isDragging, setIsDragging] = useState(false)
+    const [progressStatus, setProgressStatus] = useState(0)
     const saveHandler = () => {}
     useEffect(() => {
         setName(details.name)
@@ -101,31 +108,85 @@ function UpdateVideoModal(props) {
     useEffect(() => {
         setBio(details.quote)
     }, [details.quote, setBio])
-    const onDragEnter = () => {
-        console.log(isDragging)
-        if (isDragging === false) {
-            setIsDragging((state) => {
-                if (state === false) return !state
-                return state
-            })
+
+    const onDrop = () => {
+        setIsUploading(true)
+        const id = setInterval(() => {
+            setProgressStatus((progressStatus) => progressStatus + 1)
+        }, 1000)
+        setTimeout(() => {
+            clearInterval(id)
+            setStep(2)
+            setIsUploading(false)
+        }, 10000)
+    }
+
+    const StepOne = () => {
+        const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+        return (
+            <>
+                <UploadLogo {...getRootProps()} isDragging={isDragActive}>
+                    <input {...getInputProps()} />
+                    <MdFileUpload color="#626164" size={50} />
+                </UploadLogo>
+                <MainText>Drag & drop file you want to upload</MainText>
+                <SecondText>Maximum 15mb</SecondText>
+                <ButtonContainer onClick={saveHandler}>
+                    <BrowseButton center>Browse</BrowseButton>
+                </ButtonContainer>
+            </>
+        )
+    }
+    const StepTwo = () => {
+        const locations = [
+            {
+                value: 'Hello',
+                text: 'Hello Text',
+            },
+        ]
+        return (
+            <>
+                <h1>Step two</h1>
+                <TextFieldInput label="Tên video"></TextFieldInput>
+                <Dropdown options={locations} />
+            </>
+        )
+    }
+    const StepMapper = ({ step, ...rest }) => {
+        console.log('Mapper', step)
+        switch (step) {
+            case 1:
+                return <StepOne {...rest} />
+            case 2:
+                return <StepTwo {...rest} />
+            default:
+                return ''
         }
     }
+    console.log('Re-render')
     return (
         <div>
             <Modal isShowing={isShowing} hide={closeModalHandler} title="Update a video">
                 <UploadContainer>
-                    <UploadLogo
-                        onDragEnter={onDragEnter}
-                        onDragLeave={() => setIsDragging(false)}
-                        isDragging={isDragging}
-                    >
-                        <MdFileUpload color="#626164" size={50} />
-                    </UploadLogo>
-                    <MainText>Drag & drop file you want to upload</MainText>
-                    <SecondText>Maximum 15mb</SecondText>
-                    <ButtonContainer onClick={saveHandler}>
-                        <BrowseButton center>Browse</BrowseButton>
-                    </ButtonContainer>
+                    {isUploading ? (
+                        <>
+                            <SimpleCircleLoader />
+                            <ProgressBar number={progressStatus} />
+                        </>
+                    ) : (
+                        <StepMapper step={step}></StepMapper>
+                        // <>
+                        //     <UploadLogo {...getRootProps()} isDragging={isDragActive}>
+                        //         <input {...getInputProps()} />
+                        //         <MdFileUpload color="#626164" size={50} />
+                        //     </UploadLogo>
+                        //     <MainText>Drag & drop file you want to upload</MainText>
+                        //     <SecondText>Maximum 15mb</SecondText>
+                        //     <ButtonContainer onClick={saveHandler}>
+                        //         <BrowseButton center>Browse</BrowseButton>
+                        //     </ButtonContainer>
+                        // </>
+                    )}
                 </UploadContainer>
             </Modal>
         </div>

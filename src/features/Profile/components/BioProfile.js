@@ -178,8 +178,8 @@ export default function BioProfile() {
             <UpdateProfileModal isShowing={isShowing} toggle={toggle} />
             <UpdateVideoModal isShowing={isShowing2} toggle={toggle2} />
             <Avatar src={DemoAvatarProfile} />
-            <StyledName>{details.name}</StyledName>
-            <StyledJob>{details.job}</StyledJob>
+            <StyledName>{details?.name}</StyledName>
+            <StyledJob>{details?.job}</StyledJob>
             <FollowButton center onClick={handlerUpdate}>
                 Update
             </FollowButton>
@@ -189,9 +189,15 @@ export default function BioProfile() {
             <StatisticalBar>
                 <StatisticalSection name="post" value={1}></StatisticalSection>
                 <SeparatedDetailLine />
-                <StatisticalSection name="following" value={details.following}></StatisticalSection>
+                <StatisticalSection
+                    name="following"
+                    value={details?.following}
+                ></StatisticalSection>
                 <SeparatedDetailLine />
-                <StatisticalSection name="followers" value={details.followers}></StatisticalSection>
+                <StatisticalSection
+                    name="followers"
+                    value={details?.followers}
+                ></StatisticalSection>
             </StatisticalBar>
         </Wrapper>
     )
