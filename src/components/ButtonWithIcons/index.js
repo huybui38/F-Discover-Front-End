@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import { Wrapper } from './Button.element'
+import { Wrapper, EmptyButtonWrapper } from './Button.element'
 
 const propType = {
     width: PropTypes.string,
@@ -23,6 +23,13 @@ export const ButtonWithIcons = (props) => {
             {EndIcon ? <EndIcon /> : null}
         </Wrapper>
     )
+}
+export const EmptyIconButton = (props) => {
+    const { children, ...rest } = props
+    return <EmptyButtonWrapper {...rest}>{children}</EmptyButtonWrapper>
+}
+EmptyIconButton.propTypes = {
+    children: PropTypes.any,
 }
 
 ButtonWithIcons.propTypes = propType

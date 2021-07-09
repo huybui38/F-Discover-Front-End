@@ -42,3 +42,12 @@ export const TestButton2 = styled.button`
         /* transform: scale(0.9); */
     }
 `
+export const StyledCircleButton = styled(StyledButton)`
+    border-radius: 25px;
+    width: 7rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    background-color: rgba(1, 179, 167, 1);
+    margin: 10px;
+    color: #ffffff;
+`

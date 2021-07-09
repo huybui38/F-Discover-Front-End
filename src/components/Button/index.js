@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import PropTypes from 'prop-types'
 
-import { StyledButton } from './Button'
+import { StyledButton, StyledCircleButton } from './Button'
 
 const propsType = {
     fullWidth: PropTypes.bool,
@@ -14,5 +14,6 @@ const ButtonWrapper = (Component, props) => {
 }
 
 const Button = (props) => ButtonWrapper(StyledButton, props)
+const CircleButton = (props) => ButtonWrapper(StyledCircleButton, props)
 Button.propTypes = propsType
-export { Button, ButtonWrapper }
+export { Button, ButtonWrapper, CircleButton }
