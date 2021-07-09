@@ -17,7 +17,7 @@ import * as Styled from './styled.elements'
 
 export const CommentItem = ({ dataComment, postId }) => {
     const { isShowing, openModal, closeModal } = useModal()
-    console.log(dataComment)
+
     const handleDeleteComment = () => {
         closeModal()
         deleteCommentById(postId, dataComment.id)

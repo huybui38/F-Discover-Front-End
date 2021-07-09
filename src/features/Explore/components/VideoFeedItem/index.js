@@ -29,22 +29,24 @@ import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = ({ dataPost }) => {
+export const VideoFeedItem = ({ dataPost, index, hidden }) => {
     const mobile = useBreakpoint(down('lg'))
     const commentRef = useRef(null)
 
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
     useEffect(() => {
-        checkFollowUserById(dataPost.author.id)
-            .then((res) => {
-                if (res.message === 'Success') {
-                    setIsFollowing(res.data.followed)
-                }
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        if (!hidden) {
+            checkFollowUserById(dataPost.author.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsFollowing(res.data.followed)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        }
     }, [])
     const handleClickComment = () => {
         if (!mobile) {
@@ -75,8 +77,10 @@ export const VideoFeedItem = ({ dataPost }) => {
             })
         }
     }
-    return (
-        <Styled.Container>
+    return hidden ? (
+        <div style={{ height: '684px' }}></div>
+    ) : (
+        <Styled.Container className={`video_${index}`}>
             <Styled.Header>
                 <Styled.Author>
                     <Avatar width="50px" src={dataPost.author.avatarUrl} />

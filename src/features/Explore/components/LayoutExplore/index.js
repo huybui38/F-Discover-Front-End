@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router'
 import { compose } from 'redux'
 
@@ -8,7 +8,7 @@ import { Baseline } from '../../../../components/Baseline'
 import { Navbar } from '../../../../components/Navbar'
 
 import { Explore } from '../../../Explore'
-import { setPosition } from '../../exploreSlice'
+import { setGoingUp, setPosBefore, setPosAfter } from '../../exploreSlice'
 import { Sidebar } from '../Sidebar'
 import * as Styled from './styled.elements'
 
@@ -22,8 +22,67 @@ const initialValue = {
 }
 localStorage.setItem('position', JSON.stringify(initialValue))
 
+const getIndexEl = (scrollY) => {
+    let index = Math.floor(scrollY / 684)
+    if (index < 0) {
+        index = 0
+    }
+    return index
+}
+localStorage.setItem('prevBefore', 0)
+localStorage.setItem('prevAfter', 0)
+
 export const LayoutExplore = () => {
-    const onScroll = () => {}
+    const dispatch = useDispatch()
+    const goingUp = useSelector((state) => state.explore.element.goingUp)
+
+    const prevScroll = useRef(0)
+    const handleScroll = (e) => {
+        const currentScroll = e.target.scrollTop
+        const prevBefore = parseInt(localStorage.getItem('prevBefore'))
+        const prevAfter = parseInt(localStorage.getItem('prevAfter'))
+        const currentBefore = getIndexEl(currentScroll + 284)
+        const currentAfter = getIndexEl(currentScroll)
+        //ADD
+        if (currentBefore > prevBefore) {
+            if (goingUp) {
+                const action = setGoingUp(false)
+                dispatch(action)
+            } else {
+                const action = setPosBefore(currentBefore)
+                dispatch(action)
+            }
+        } else if (currentBefore < prevBefore) {
+            if (!goingUp) {
+                const action = setGoingUp(true)
+                dispatch(action)
+            } else {
+                const action = setPosBefore(currentBefore)
+                dispatch(action)
+            }
+        }
+        //REMOVE
+        if (currentAfter > prevAfter) {
+            if (goingUp) {
+                const action = setGoingUp(false)
+                dispatch(action)
+            } else {
+                const action = setPosAfter(currentAfter)
+                dispatch(action)
+            }
+        } else if (currentAfter < prevAfter) {
+            if (!goingUp) {
+                const action = setGoingUp(true)
+                dispatch(action)
+            } else {
+                const action = setPosAfter(currentAfter)
+                dispatch(action)
+            }
+        }
+        prevScroll.current = currentScroll
+        localStorage.setItem('prevBefore', currentBefore)
+        localStorage.setItem('prevAfter', currentAfter)
+    }
     return (
         <Styled.Container>
             <Navbar />
@@ -31,7 +90,7 @@ export const LayoutExplore = () => {
             <Styled.SidebarWrapper>
                 <Sidebar />
             </Styled.SidebarWrapper>
-            <Styled.FlexWrapper>
+            <Styled.FlexWrapper onScroll={handleScroll}>
                 <Styled.MainWrapper>
                     <Switch>
                         <Route exact strict path="/explore/for-you" render={() => <Explore />} />

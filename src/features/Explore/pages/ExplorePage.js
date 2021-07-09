@@ -5,19 +5,22 @@ import { useSelector } from 'react-redux'
 
 import { VideoFeedItem } from '../components/VideoFeedItem'
 
-export const ExplorePage = () => {
+export const ExplorePage = ({ pos }) => {
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     return (
         <div
             className="video__wrapper"
             style={{
-                // paddingTop: `${position.paddingTop}px`,
-                // paddingBottom: `${position.paddingBottom}px`,
                 height: 'fit-content',
             }}
         >
-            {listSuggestPosts.map((item) => (
-                <VideoFeedItem key={item.id} dataPost={item} />
+            {listSuggestPosts.map((item, index) => (
+                <VideoFeedItem
+                    key={item.index}
+                    index={index + 1}
+                    dataPost={item}
+                    hidden={index + 1 > pos + 2 || index + 1 < pos - 2 ? true : false}
+                />
             ))}
         </div>
     )
