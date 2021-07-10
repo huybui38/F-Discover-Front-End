@@ -3,7 +3,6 @@ import styled from 'styled-components'
 
 const DropdownContainer = styled.label`
     position: relative;
-    min-width: 50px;
 `
 const Select = styled.select`
     -webkit-appearance: none;
@@ -15,7 +14,6 @@ const Select = styled.select`
     box-shadow: 0 1px 3px -2px #9098a9;
     cursor: pointer;
     font-family: inherit;
-    font-size: 16px;
     transition: all 150ms ease;
     &:focus {
         outline: none;

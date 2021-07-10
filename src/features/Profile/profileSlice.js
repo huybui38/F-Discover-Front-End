@@ -24,7 +24,19 @@ export const fetchUserBio = createAsyncThunk(
         return response
     }
 )
-
+export const updatePost = createAsyncThunk(
+    'profile/updatePost',
+    async (userData, { rejectWithValue }) => {
+        const { videoID, ...rest } = userData
+        let response
+        try {
+            response = await ApiCaller.put('/post/' + videoID, rest)
+        } catch (ex) {
+            return rejectWithValue(ex)
+        }
+        return response
+    }
+)
 const profileSlice = createSlice({
     name: 'profile',
     initialState,
@@ -54,6 +66,17 @@ const profileSlice = createSlice({
             state.bioDetail = action.payload.data
         },
         [fetchUserBio.rejected]: (state, action) => {
+            state.status = 'failed'
+            state.error = action.error.message
+        },
+        [updatePost.pending]: (state, action) => {
+            state.status = 'loading'
+        },
+        [updatePost.fulfilled]: (state, action) => {
+            state.status = 'succeeded'
+            // state.bioDetail = action.payload.data
+        },
+        [updatePost.rejected]: (state, action) => {
             state.status = 'failed'
             state.error = action.error.message
         },

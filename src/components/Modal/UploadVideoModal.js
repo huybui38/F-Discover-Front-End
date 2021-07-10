@@ -11,6 +11,8 @@ import styled, { css, keyframes } from 'styled-components'
 import { Error, Success } from '../../helpers/notify'
 import useInput from '../../hooks/useInput'
 import { updateProfile } from '../../services/user/profile'
+import { uploadVideo } from '../../services/user/upload'
+import apiCaller from '../../utils/apiCaller'
 import { Button, CircleButton } from '..//Button'
 import { TextFieldInput } from '../Input'
 import { Dropdown } from '../Input/Dropdown'
@@ -35,21 +37,41 @@ function UpdateVideoModal(props) {
     const dispatch = useDispatch()
     const [isUploading, setIsUploading] = useState(false)
     const [step, setStep] = useState(1)
+    const [videoID, setVideoID] = useState(null)
     const closeModalHandler = () => {
         toggle()
     }
     const [progressStatus, setProgressStatus] = useState(0)
-
-    const onDrop = () => {
+    const onUploadProgress = (progressEvent) => {
+        let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        console.log(percentCompleted)
+        setProgressStatus(percentCompleted)
+    }
+    const onDrop = (files) => {
+        if (files.length === 0) return
+        const file = files[0]
+        const formData = new FormData()
+        formData.append('video', file)
         setIsUploading(true)
-        const id = setInterval(() => {
-            setProgressStatus((progressStatus) => progressStatus + 1)
-        }, 1000)
-        setTimeout(() => {
-            clearInterval(id)
-            setStep(2)
-            setIsUploading(false)
-        }, 10000)
+
+        uploadVideo(formData, onUploadProgress)
+            .then((result) => {
+                const { id, videoUrl } = result.data
+                console.log('Set id', id)
+                setVideoID(id)
+                setStep(2)
+                Success('upload thành công')
+            })
+            .finally(() => setIsUploading(false))
+
+        // const id = setInterval(() => {
+        //     setProgressStatus((progressStatus) => progressStatus + 1)
+        // }, 1000)
+        // setTimeout(() => {
+        //     clearInterval(id)
+        //     setStep(2)
+        //     setIsUploading(false)
+        // }, 10000)
     }
 
     const StepMapper = ({ step, ...rest }) => {
@@ -57,7 +79,7 @@ function UpdateVideoModal(props) {
             case 1:
                 return <StepOne {...rest} onDrop={onDrop} />
             case 2:
-                return <StepTwo {...rest} />
+                return <StepTwo {...rest} videoID={videoID} />
             default:
                 return ''
         }

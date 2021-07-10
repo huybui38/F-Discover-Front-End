@@ -36,9 +36,10 @@ async function get(path = '', data = {}) {
         })
 }
 async function postFormData(path = '', formData = null, onUploadProgress) {
-    console.log(formData)
     let url = config.backendURL + path
-    const response = await instance.post(url, formData, { onUploadProgress })
+    const response = await instance.post(url, formData, {
+        onUploadProgress,
+    })
     return response.data
 }
 export default { post, get, postFormData, put }
