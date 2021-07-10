@@ -16,7 +16,6 @@ export default function Callback() {
             cancelable: true,
         })
         window.dispatchEvent(event)
-        console.log('dispatch')
     })
 
     return <>Waiting...</>

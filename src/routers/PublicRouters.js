@@ -10,11 +10,7 @@ import { authSelector } from '../features/Login/loginSlice'
 
 export const PublicRouters = ({ path, component, restrict, exact }) => {
     let isAuthenticated = useSelector(authSelector)
-    return isAuthenticated ? (
-        <Redirect from="*" to="/explore" />
-    ) : (
-        <Route path={path} component={component} exact={exact} restrict={restrict} />
-    )
+    return <Route path={path} component={component} exact={exact} restrict={restrict} />
 }
 
 PublicRouters.propTypes = {

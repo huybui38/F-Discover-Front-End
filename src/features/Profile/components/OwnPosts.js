@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import propTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { down, up } from 'styled-breakpoints'
 import styled from 'styled-components'
 
@@ -34,11 +35,12 @@ export default function OwnPosts() {
     const userID = useSelector((state) => state.auth.userID)
     const posts = useSelector((state) => state.profile.posts)
     const dispatch = useDispatch()
+    let { profileID } = useParams()
     useEffect(() => {
         if (userID !== -1) {
-            dispatch(fetchPosts(userID))
+            dispatch(fetchPosts(profileID ? profileID : userID))
         }
-    }, [userID, dispatch])
+    }, [userID, dispatch, profileID])
     const videos = posts.map((element) => (
         <Card key={element.id}>
             <VideoPlayer src={element.videoUrl} poster={element.thumbnailUrl}></VideoPlayer>

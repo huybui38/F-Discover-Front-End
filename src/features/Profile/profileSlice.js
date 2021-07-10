@@ -17,13 +17,16 @@ const initialState = {
     },
     posts: [],
     isLoading: false,
+    guestID: '-1',
 }
 export const fetchUserBio = createAsyncThunk(
     'profile/fetchUserBio',
     async (userData, { rejectWithValue }) => {
         let response
         try {
-            response = await ApiCaller.get('/user')
+            let params = userData ? '/' + userData : ''
+            console.log(userData)
+            response = await ApiCaller.get('/user' + params)
         } catch (ex) {
             return rejectWithValue(ex)
         }
@@ -61,6 +64,9 @@ const profileSlice = createSlice({
         },
         setCover: (state, action) => {
             state.bioDetail.coverUrl = action.payload
+        },
+        setGuest: (state, action) => {
+            state.guestID = action.payload
         },
         setLoading: (state, action) => {
             state.isLoading = action.payload
@@ -115,6 +121,12 @@ const profileSlice = createSlice({
     },
 })
 
-export const { setAvatar, setLoading, setCover, onUpdateProfileSuccess, setUpdatePostStatus } =
-    profileSlice.actions
+export const {
+    setAvatar,
+    setLoading,
+    setCover,
+    onUpdateProfileSuccess,
+    setUpdatePostStatus,
+    setGuest,
+} = profileSlice.actions
 export default profileSlice.reducer

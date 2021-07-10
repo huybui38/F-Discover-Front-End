@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import propTypes from 'prop-types'
 import { RiUploadCloud2Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
+import { Redirect, useHistory, useParams } from 'react-router-dom'
 import { down, up } from 'styled-breakpoints'
 import styled from 'styled-components'
 
@@ -104,7 +105,7 @@ const StyledUpLoadAvatar = styled(EmptyIconButton)`
     padding: 5px;
 `
 const StyledInputFile = styled.input``
-function Avatar({ src }) {
+function Avatar({ src, isSelf }) {
     const dispatch = useDispatch()
     const uploadAvtRef = useRef(null)
     const uploadClickHandler = (e) => {
@@ -137,32 +138,45 @@ function Avatar({ src }) {
     return (
         <div style={{ position: 'relative' }}>
             <BorderAvatar src={src}></BorderAvatar>
-            <StyledUpLoadAvatar onClick={uploadClickHandler}>
-                <RiUploadCloud2Line size={25} color="white" />
-                <StyledInputFile
-                    type="file"
-                    style={{ display: 'none' }}
-                    ref={uploadAvtRef}
-                    accept=".jpeg,.png,.jpg"
-                    onChange={uploadHandler}
-                />
-            </StyledUpLoadAvatar>
+            {isSelf ? (
+                <StyledUpLoadAvatar onClick={uploadClickHandler}>
+                    <RiUploadCloud2Line size={25} color="white" />
+                    <StyledInputFile
+                        type="file"
+                        style={{ display: 'none' }}
+                        ref={uploadAvtRef}
+                        accept=".jpeg,.png,.jpg"
+                        onChange={uploadHandler}
+                    />
+                </StyledUpLoadAvatar>
+            ) : (
+                ''
+            )}
         </div>
     )
 }
 Avatar.propTypes = {
     src: propTypes.string,
+    isSelf: propTypes.bool,
 }
 export default function BioProfile() {
     const dispatch = useDispatch()
     const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
     const userID = useSelector((state) => state.auth.userID)
+    let { profileID } = useParams()
     const details = useSelector((state) => state.profile.bioDetail)
+    let history = useHistory()
     useEffect(() => {
         if (bioFetchStatus === 'idle') {
-            dispatch(fetchUserBio())
+            dispatch(fetchUserBio(!profileID ? null : profileID))
+                .unwrap()
+                .catch((rejectedValueOrSerializedError) => {
+                    if (rejectedValueOrSerializedError.code === 404) {
+                        history.push('/explore')
+                    }
+                })
         }
-    }, [bioFetchStatus, dispatch])
+    }, [bioFetchStatus, dispatch, history, profileID])
     const [isShowing, toggle] = useModal(false)
     const [isShowing2, toggle2] = useModal(false)
     const handlerUpdate = () => {
@@ -173,7 +187,7 @@ export default function BioProfile() {
         toggle2()
     }
     const onUploadPostSuccess = () => {
-        dispatch(fetchPosts(userID))
+        dispatch(fetchPosts(profileID ? profileID : userID))
     }
     return (
         <Wrapper>
@@ -183,15 +197,24 @@ export default function BioProfile() {
                 toggle={toggle2}
                 onSuccess={onUploadPostSuccess}
             />
-            <Avatar src={DemoAvatarProfile} />
+            <Avatar src={DemoAvatarProfile} isSelf={!profileID} />
             <StyledName>{details?.name}</StyledName>
             <StyledJob>{details?.job}</StyledJob>
-            <FollowButton center onClick={handlerUpdate}>
-                Update
-            </FollowButton>
-            <FollowButton center onClick={handlerUpdate2}>
-                Up post
-            </FollowButton>
+            {!profileID ? (
+                <>
+                    <FollowButton center onClick={handlerUpdate}>
+                        Update
+                    </FollowButton>
+                    <FollowButton center onClick={handlerUpdate2}>
+                        Up post
+                    </FollowButton>
+                </>
+            ) : (
+                <FollowButton center onClick={handlerUpdate2}>
+                    Follow
+                </FollowButton>
+            )}
+
             <StatisticalBar>
                 <StatisticalSection name="post" value={1}></StatisticalSection>
                 <SeparatedDetailLine />

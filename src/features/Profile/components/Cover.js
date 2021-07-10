@@ -2,6 +2,7 @@ import { useRef } from 'react'
 
 import { RiUploadCloud2Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
@@ -40,6 +41,7 @@ export default function Cover() {
             uploadCoverRef.current.click()
         }
     }
+    let { profileID } = useParams()
     const uploadHandler = (e) => {
         if (e.target.files.length === 0) {
             return
@@ -63,16 +65,20 @@ export default function Cover() {
     }
     return (
         <div style={{ position: 'relative' }}>
-            <StyledUpLoadCover onClick={uploadClickHandler}>
-                <RiUploadCloud2Line size={30} color="white" />
-                <StyledInputFile
-                    type="file"
-                    style={{ display: 'none' }}
-                    ref={uploadCoverRef}
-                    accept=".jpeg,.png,.jpg"
-                    onChange={uploadHandler}
-                />
-            </StyledUpLoadCover>
+            {!profileID ? (
+                <StyledUpLoadCover onClick={uploadClickHandler}>
+                    <RiUploadCloud2Line size={30} color="white" />
+                    <StyledInputFile
+                        type="file"
+                        style={{ display: 'none' }}
+                        ref={uploadCoverRef}
+                        accept=".jpeg,.png,.jpg"
+                        onChange={uploadHandler}
+                    />
+                </StyledUpLoadCover>
+            ) : (
+                ''
+            )}
             <StyledImage src={details.coverUrl}></StyledImage>
         </div>
     )
