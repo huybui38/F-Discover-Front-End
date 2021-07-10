@@ -156,7 +156,7 @@ Avatar.propTypes = {
 }
 export default function BioProfile() {
     const dispatch = useDispatch()
-    const bioFetchStatus = useSelector((state) => state.profile.status)
+    const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
     const details = useSelector((state) => state.profile.bioDetail)
     useEffect(() => {
         if (bioFetchStatus === 'idle') {

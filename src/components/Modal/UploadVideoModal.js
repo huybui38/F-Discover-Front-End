@@ -33,15 +33,18 @@ const UploadContainer = styled.div`
 `
 function UpdateVideoModal(props) {
     const { toggle, isShowing } = props
-    const details = useSelector((state) => state.profile.bioDetail)
     const dispatch = useDispatch()
     const [isUploading, setIsUploading] = useState(false)
     const [step, setStep] = useState(1)
     const [videoID, setVideoID] = useState(null)
     const closeModalHandler = () => {
         toggle()
+        setIsUploading(false)
+        setStep(1)
+        setProgressStatus(5)
+        setVideoID(null)
     }
-    const [progressStatus, setProgressStatus] = useState(0)
+    const [progressStatus, setProgressStatus] = useState(5)
     const onUploadProgress = (progressEvent) => {
         let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
         console.log(percentCompleted)
@@ -57,21 +60,10 @@ function UpdateVideoModal(props) {
         uploadVideo(formData, onUploadProgress)
             .then((result) => {
                 const { id, videoUrl } = result.data
-                console.log('Set id', id)
                 setVideoID(id)
                 setStep(2)
-                Success('upload thành công')
             })
             .finally(() => setIsUploading(false))
-
-        // const id = setInterval(() => {
-        //     setProgressStatus((progressStatus) => progressStatus + 1)
-        // }, 1000)
-        // setTimeout(() => {
-        //     clearInterval(id)
-        //     setStep(2)
-        //     setIsUploading(false)
-        // }, 10000)
     }
 
     const StepMapper = ({ step, ...rest }) => {
@@ -79,7 +71,7 @@ function UpdateVideoModal(props) {
             case 1:
                 return <StepOne {...rest} onDrop={onDrop} />
             case 2:
-                return <StepTwo {...rest} videoID={videoID} />
+                return <StepTwo {...rest} videoID={videoID} onSuccess={closeModalHandler} />
             default:
                 return ''
         }

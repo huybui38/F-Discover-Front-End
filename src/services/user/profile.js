@@ -11,3 +11,14 @@ export const updateProfile = async (name, job, quote) => {
     }
     return -1
 }
+
+export const getPostsByID = async (userID, page, limit) => {
+    try {
+        const data = { page, limit }
+        const response = await apiCaller.get('/post/user/' + userID, data)
+        return response?.data
+    } catch (ex) {
+        console.log(ex)
+    }
+    return null
+}

@@ -9,7 +9,10 @@ const initialState = {
         quote: '',
         following: 0,
     },
-    status: 'idle',
+    status: {
+        updatePost: 'idle',
+        fetchUserBio: 'idle',
+    },
     isLoading: false,
 }
 export const fetchUserBio = createAsyncThunk(
@@ -56,32 +59,37 @@ const profileSlice = createSlice({
                 ...action.payload,
             }
         },
+        setUpdatePostStatus: (state, action) => {
+            state.status.updatePost = action.payload
+        },
     },
     extraReducers: {
         [fetchUserBio.pending]: (state, action) => {
-            state.status = 'loading'
+            state.status.fetchUserBio = 'loading'
         },
         [fetchUserBio.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
+            state.status.fetchUserBio = 'succeeded'
             state.bioDetail = action.payload.data
         },
         [fetchUserBio.rejected]: (state, action) => {
-            state.status = 'failed'
+            state.status.fetchUserBio = 'failed'
             state.error = action.error.message
         },
         [updatePost.pending]: (state, action) => {
-            state.status = 'loading'
+            state.status.updatePost = 'loading'
         },
         [updatePost.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
+            console.log(state.status.updatePost)
+            state.status.updatePost = 'succeeded'
             // state.bioDetail = action.payload.data
         },
         [updatePost.rejected]: (state, action) => {
-            state.status = 'failed'
+            state.status.updatePost = 'failed'
             state.error = action.error.message
         },
     },
 })
 
-export const { setAvatar, setLoading, setCover, onUpdateProfileSuccess } = profileSlice.actions
+export const { setAvatar, setLoading, setCover, onUpdateProfileSuccess, setUpdatePostStatus } =
+    profileSlice.actions
 export default profileSlice.reducer
