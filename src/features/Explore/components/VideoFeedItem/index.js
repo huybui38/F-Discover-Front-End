@@ -32,7 +32,9 @@ import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
 export const VideoFeedItem = ({ dataPost, index, hidden }) => {
+    const heightEl = localStorage.getItem('heightEl')
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
+    const userID = useSelector((state) => state.auth.userID)
     const mobile = useBreakpoint(down('lg'))
     const dispatch = useDispatch()
     const commentRef = useRef(null)
@@ -40,15 +42,23 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
     useEffect(() => {
+        let mounted = true
+
         checkFollowUserById(dataPost.author.id)
             .then((res) => {
                 if (res.message === 'Success') {
-                    setIsFollowing(res.data.followed)
+                    if (mounted) {
+                        setIsFollowing(res.data.followed)
+                    }
                 }
             })
             .catch((e) => {
                 console.log(e)
             })
+
+        return () => {
+            mounted = false
+        }
     }, [isFollowUser])
     const handleClickComment = () => {
         if (!mobile) {
@@ -94,7 +104,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
         }
     }
     return hidden ? (
-        <div style={{ height: '684px' }}></div>
+        <div style={{ height: `${heightEl}px` }}></div>
     ) : (
         <Styled.Container className={`video_${index}`}>
             <Styled.Header>
@@ -106,7 +116,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
                                 style={{ marginRight: '8px' }}
                                 name={dataPost.author.name}
                             />
-                            <p>{dataPost.author.job}</p>
+                            {mobile ? null : <p>{dataPost.author.job}</p>}
                             <Styled.Option className="post__actions" onClick={openModal}>
                                 <FaCog style={{ width: '10px', height: '10px' }} />
                             </Styled.Option>
@@ -115,10 +125,14 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
                                     <Styled.OptionItem onClick={closeModal}>
                                         Report
                                     </Styled.OptionItem>
-                                    <Styled.OptionItem onClick={handleDeletePost}>
-                                        Delete
-                                    </Styled.OptionItem>
-                                    <Styled.OptionItem>Update</Styled.OptionItem>
+                                    {userID === dataPost.author.id ? (
+                                        <Styled.OptionItem onClick={handleDeletePost}>
+                                            Delete
+                                        </Styled.OptionItem>
+                                    ) : null}
+                                    {userID === dataPost.author.id ? (
+                                        <Styled.OptionItem>Update</Styled.OptionItem>
+                                    ) : null}
                                     <Styled.OptionItem onClick={closeModal}>
                                         Cancel
                                     </Styled.OptionItem>

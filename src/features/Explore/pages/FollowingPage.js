@@ -1,28 +1,24 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getSuggestPosts } from '../../services/api/postApi'
-import { setLoading } from '../Profile/profileSlice'
-import { setGoingUp, setListSuggestPosts, setPosAfter } from './exploreSlice'
-import { ExplorePage } from './pages/ExplorePage'
+import { getSuggestPosts } from '../../../services/api/postApi'
+import { setLoading } from '../../Profile/profileSlice'
+import { setGoingUp, setListSuggestPosts, setPosAfter } from '../exploreSlice'
+import { ExplorePage } from '../pages/ExplorePage'
 
-export const Explore = ({ time }) => {
+export const FollowingPage = ({ time }) => {
     const dispatch = useDispatch()
-    const { posBefore, posAfter, goingUp } = useSelector((state) => state.explore.element)
+    const { posAfter, goingUp } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
-    const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const userId = useSelector((state) => state.auth.userID)
 
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         let mounted = true
-        console.log('Render: ', userId)
-        getSuggestPosts(1, 4, time).then((response) => {
+        getSuggestPosts(2, 4, time).then((response) => {
             if (response.message === 'Success') {
                 if (mounted) {
                     setIsLoading(false)
@@ -40,31 +36,6 @@ export const Explore = ({ time }) => {
             dispatch(action2)
         }
     }, [])
-
-    // useEffect(() => {
-    //     console.log(posBefore, posAfter, goingUp)
-    //     let temp = [...listSuggestPosts]
-    //     if (!goingUp && posBefore > 4) {
-    //         temp.shift()
-    //         console.log('remove', temp)
-    //         const action = setListSuggestPosts(temp)
-    //         dispatch(action)
-    //     }
-    //     if (goingUp && posBefore > 4) {
-    //         getSuggestPosts(posBefore, 1, 5)
-    //             .then((response) => {
-    //                 if (response.message === 'Success') {
-    //                     return response.data.posts[0]
-    //                 }
-    //             })
-    //             .then((post) => {
-    //                 temp = Object.assign([], temp)
-    //                 temp.unshift({ ...post })
-    //                 const action = setListSuggestPosts(temp)
-    //                 dispatch(action)
-    //             })
-    //     }
-    // }, [posBefore])
 
     useEffect(() => {
         console.log(posAfter)
@@ -97,4 +68,4 @@ export const Explore = ({ time }) => {
     return <ExplorePage isLoading={isLoading} pos={posAfter} />
 }
 
-export default Explore
+export default FollowingPage

@@ -21,6 +21,10 @@ export const FlexWrapper = styled.div`
 
     display: flex;
     justify-content: flex-end;
+
+    ${down('lg')} {
+        width: 100vw;
+    }
 `
 export const SidebarWrapper = styled.div`
     position: absolute;

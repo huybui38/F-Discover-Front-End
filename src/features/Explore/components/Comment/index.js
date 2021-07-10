@@ -14,13 +14,21 @@ export const Comment = ({ disable, postId }) => {
     const [listComment, setListComment] = useState([])
 
     useEffect(() => {
+        let mounted
+
         getAllComment(postId, 1, 20)
             .then((res) => {
                 if (res.message === 'Success') {
-                    setListComment(res.data)
+                    if (mounted) {
+                        setListComment(res.data)
+                    }
                 }
             })
             .catch((e) => console.log(e))
+
+        return () => {
+            mounted = false
+        }
     }, [isComment])
 
     return (

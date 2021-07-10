@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     element: {
-        posBefore: 1,
-        posAfter: 1,
+        posBefore: 0,
+        posAfter: 0,
         goingUp: false,
     },
     isComment: false,

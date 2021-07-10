@@ -21,7 +21,7 @@ export const ExplorePage = ({ pos, isLoading }) => {
                     key={item.index}
                     index={index + 1}
                     dataPost={item}
-                    hidden={index + 1 > pos + 2 || index + 1 < pos - 2 ? true : false}
+                    hidden={index > pos + 2 || index < pos - 2 ? true : false}
                 />
             ))}
         </div>

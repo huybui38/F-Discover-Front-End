@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import { Button } from '../../../../components/Button'
@@ -46,20 +46,29 @@ const Interactive = styled.div`
 `
 export const InfoSuggestedUser = ({ user }) => {
     const dispatch = useDispatch()
+    const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const [isFollowing, setIsFollowing] = useState(false)
     const [isClickFollow, setIsClickFollow] = useState(false)
 
     useEffect(() => {
+        let mounted
+
         checkFollowUserById(user.id)
             .then((res) => {
                 if (res.message === 'Success') {
-                    setIsFollowing(res.data.followed)
+                    if (mounted) {
+                        setIsFollowing(res.data.followed)
+                    }
                 }
             })
             .catch((e) => {
                 console.log(e)
             })
-    }, [isClickFollow])
+
+        return () => {
+            mounted = false
+        }
+    }, [isClickFollow, isFollowUser])
 
     const handleFollowUser = () => {
         if (isFollowing) {
