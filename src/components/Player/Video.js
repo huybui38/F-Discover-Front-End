@@ -98,6 +98,7 @@ function VideoPlayer(props) {
                 ref={refPlayer}
                 muted={true}
                 onEnded={endedVideoHandler}
+                poster={props.poster}
             ></Player>
             <VolumeButton toggleHandler={muteVideoHandler}></VolumeButton>
             <PlayButton
@@ -110,6 +111,7 @@ function VideoPlayer(props) {
 }
 VideoPlayer.propTypes = {
     src: propTypes.string,
+    poster: propTypes.string,
 }
 
 export default VideoPlayer

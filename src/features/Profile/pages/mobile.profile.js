@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 import { CenterFlexContainer } from '../../../components/Container/FlexContainer'
+import { Loading } from '../../../components/Loading'
 import BioProfile from '../components/BioProfile'
 import { RightWrapper, WholePageContainer } from '../components/Container'
 import Cover from '../components/Cover'
@@ -28,9 +30,11 @@ const TranslateContainer = styled(CenterFlexContainer)`
 `
 
 export default function Mobile() {
+    const isLoading = useSelector((state) => state.profile.isLoading)
     return (
         <>
             <MobileContainer>
+                <Loading isLoading={isLoading} />
                 <Cover />
                 <TranslateContainer>
                     <BioProfile />

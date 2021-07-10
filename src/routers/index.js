@@ -38,6 +38,12 @@ export const publicRouters = [
         component: Explore,
         restrict: true,
     },
+    {
+        path: '/profile/:profileID',
+        name: 'profileUser',
+        component: Profile,
+        restrict: true,
+    },
 ]
 
 export const privateRouters = [
