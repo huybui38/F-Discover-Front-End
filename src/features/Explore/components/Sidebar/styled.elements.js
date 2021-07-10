@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
     width: 100%;
+    padding-bottom: 100px;
     /* height: calc(100vh - 60px);
     overflow: hidden;
     overflow-y: scroll;
@@ -30,7 +32,7 @@ export const ListOption = styled.ul`
     padding: 0;
 `
 
-export const OptionItem = styled.li`
+export const OptionItem = styled(Link)`
     display: flex;
     align-items: center;
 
@@ -40,6 +42,8 @@ export const OptionItem = styled.li`
 
     font-size: 18px;
     font-weight: 700;
+    text-decoration: none;
+    color: #000000;
 
     & > svg {
         margin-top: 3px;
@@ -51,6 +55,7 @@ export const OptionItem = styled.li`
         cursor: pointer;
         color: ${(props) => props.theme.palette.primary.dark};
         background-color: ${(props) => props.theme.palette.bgrHover.main};
+        text-decoration: underline;
     }
 `
 export const UserSuggestList = styled.div`

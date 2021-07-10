@@ -6,6 +6,7 @@ import { compose } from 'redux'
 
 import { Baseline } from '../../../../components/Baseline'
 import { Navbar } from '../../../../components/Navbar'
+import NotFound from '../../../../components/NotFound'
 
 import { Explore } from '../../../Explore'
 import { setGoingUp, setPosBefore, setPosAfter } from '../../exploreSlice'
@@ -93,7 +94,25 @@ export const LayoutExplore = () => {
             <Styled.FlexWrapper onScroll={handleScroll}>
                 <Styled.MainWrapper>
                     <Switch>
-                        <Route exact strict path="/explore/for-you" render={() => <Explore />} />
+                        <Route
+                            exact
+                            strict
+                            path="/explore/for-you"
+                            render={() => <Explore time={1} />}
+                        />
+                        <Route
+                            exact
+                            strict
+                            path="/explore/following"
+                            render={() => <Explore time={2} />}
+                        />
+                        <Route
+                            exact
+                            strict
+                            path="/explore/suggest"
+                            render={() => <Explore time={3} />}
+                        />
+                        <Route component={NotFound} />
                     </Switch>
                 </Styled.MainWrapper>
             </Styled.FlexWrapper>

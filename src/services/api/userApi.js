@@ -14,6 +14,6 @@ const followUserById = async (postId) => {
 
 //DELETE
 const unFollowUserById = async (postId) => {
-    return await ApiCaller.delete(`/user/${postId}/follow`)
+    return await ApiCaller.del(`/user/${postId}/follow`)
 }
 export { getSuggestUser, checkFollowUserById, followUserById, unFollowUserById }

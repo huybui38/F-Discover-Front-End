@@ -21,13 +21,13 @@ const likePostById = async (id) => {
 
 //DELETE
 const unLikePostById = async (id) => {
-    return await ApiCaller.post(`/post/${id}/like`)
+    return await ApiCaller.del(`/post/${id}/like`)
 }
 const deleteCommentById = async (postId, commentId) => {
-    return await ApiCaller.delete(`/post/${postId}/comment/${commentId}`)
+    return await ApiCaller.del(`/post/${postId}/comment/${commentId}`)
 }
 const deletePostById = async (postId) => {
-    return await ApiCaller.delete(`/post/${postId}`)
+    return await ApiCaller.del(`/post/${postId}`)
 }
 export {
     getSuggestPosts,

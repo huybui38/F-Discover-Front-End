@@ -2,13 +2,16 @@
 import React, { forwardRef, useState } from 'react'
 
 import { FaPaperPlane, FaRegSmile } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 
 import { createComment } from '../../../../services/api/postApi'
+import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
 export const CommentInputField = ({ disable, postId, focus }, ref) => {
+    const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const handleChange = (e) => {
         setValue(e.target.value)
@@ -16,9 +19,16 @@ export const CommentInputField = ({ disable, postId, focus }, ref) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (value) {
-            createComment(postId, { content: value }).catch((e) => {
-                console.log(e)
-            })
+            createComment(postId, { content: value })
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        const action = setIsComment()
+                        dispatch(action)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
         }
         setValue('')
     }

@@ -2,6 +2,7 @@
 import React from 'react'
 
 import { FaRegHeart, FaHeart, FaEllipsisH } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { AuthorName } from '../../../../components/AuthorName'
@@ -13,18 +14,23 @@ import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
 import { deleteCommentById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
+import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
 export const CommentItem = ({ dataComment, postId }) => {
+    const dispatch = useDispatch()
+    const userID = useSelector((state) => state.auth.userID)
     const { isShowing, openModal, closeModal } = useModal()
 
     const handleDeleteComment = () => {
         closeModal()
         deleteCommentById(postId, dataComment.id)
             .then((res) => {
-                // if (res.message === 'Success') {
-                //     closeModal()
-                // }
+                if (res.message === 'Success') {
+                    const action = setIsComment()
+                    dispatch(action)
+                    closeModal()
+                }
             })
             .catch((e) => {
                 console.log(e)
@@ -46,7 +52,12 @@ export const CommentItem = ({ dataComment, postId }) => {
                 <Dialog title="Comment" isShowing={isShowing} hide={closeModal}>
                     <Styled.OptionList>
                         <Styled.OptionItem onClick={closeModal}>Report</Styled.OptionItem>
-                        <Styled.OptionItem onClick={handleDeleteComment}>Delete</Styled.OptionItem>
+                        {userID === dataComment.author.id ? (
+                            <Styled.OptionItem onClick={() => handleDeleteComment()}>
+                                Delete
+                            </Styled.OptionItem>
+                        ) : null}
+
                         <Styled.OptionItem onClick={closeModal}>Cancel</Styled.OptionItem>
                     </Styled.OptionList>
                 </Dialog>

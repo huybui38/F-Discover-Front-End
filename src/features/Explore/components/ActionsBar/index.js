@@ -11,6 +11,7 @@ import {
     FaRegShareSquare,
     FaCheck,
 } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
@@ -41,22 +42,35 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
             .then((res) => {
                 if (res.message === 'Success') {
                     setIsLikePost(res.data.liked)
+                    console.log('Check: ', res.data.liked)
                 }
             })
             .catch((e) => {
                 console.log(e)
             })
-    }, [])
+    }, [isClickLike])
 
     const handleLikePost = () => {
         if (isLikePost) {
-            unLikePostById(dataPost.id).catch((e) => {
-                console.log(e)
-            })
+            unLikePostById(dataPost.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsClickLike(!isClickLike)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
         } else {
-            likePostById(dataPost.id).catch((e) => {
-                console.log(e)
-            })
+            likePostById(dataPost.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsClickLike(!isClickLike)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
         }
     }
 
@@ -72,7 +86,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                 <Styled.ActionItem>
                     {isLikePost ? (
                         <ButtonIcon
-                            onClick={handleLikePost}
+                            onClick={() => handleLikePost()}
                             bgrColor="rgba(255,63,52,0.1)"
                             icon={
                                 <FaHeart
@@ -82,7 +96,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
                         />
                     ) : (
                         <ButtonIcon
-                            onClick={handleLikePost}
+                            onClick={() => handleLikePost()}
                             icon={<FaRegHeart style={{ width: '28px', height: '28px' }} />}
                         />
                     )}

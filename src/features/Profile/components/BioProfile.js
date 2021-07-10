@@ -163,8 +163,8 @@ export default function BioProfile() {
             dispatch(fetchUserBio())
         }
     }, [bioFetchStatus, dispatch])
-    const [isShowing, toggle] = useModal(false)
-    const [isShowing2, toggle2] = useModal(false)
+    const { isShowing, toggle } = useModal(false)
+    const { isShowing2, toggle2 } = useModal(false)
     const handlerUpdate = () => {
         toggle()
     }

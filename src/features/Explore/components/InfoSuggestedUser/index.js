@@ -1,12 +1,18 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { Button } from '../../../../components/Button'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 
-import { followUserById } from '../../../../services/api/userApi'
+import {
+    checkFollowUserById,
+    followUserById,
+    unFollowUserById,
+} from '../../../../services/api/userApi'
+import { setIsFollowUser } from '../../exploreSlice'
 
 const InfoWrapper = styled.div`
     width: 90%;
@@ -39,16 +45,55 @@ const Interactive = styled.div`
     justify-content: space-between;
 `
 export const InfoSuggestedUser = ({ user }) => {
+    const dispatch = useDispatch()
+    const [isFollowing, setIsFollowing] = useState(false)
+    const [isClickFollow, setIsClickFollow] = useState(false)
+
+    useEffect(() => {
+        checkFollowUserById(user.id)
+            .then((res) => {
+                if (res.message === 'Success') {
+                    setIsFollowing(res.data.followed)
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [isClickFollow])
+
     const handleFollowUser = () => {
-        followUserById(user.id).catch((e) => {
-            console.log(e)
-        })
+        if (isFollowing) {
+            unFollowUserById(user.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsClickFollow(!isClickFollow)
+                        const action = setIsFollowUser()
+                        dispatch(action)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        } else {
+            followUserById(user.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsClickFollow(!isClickFollow)
+                        const action = setIsFollowUser()
+                        dispatch(action)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        }
     }
+
     return (
         <InfoWrapper>
             <Header>
                 <Avatar src={user.avatarUrl} alt="avatar" />
-                <ButtonFollow isFollowing={false} handleFollow={handleFollowUser} />
+                <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
             </Header>
             <Name>
                 <b>{user.name}</b>

@@ -3,11 +3,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
+import { useSelector } from 'react-redux'
+
 import { getAllComment } from '../../../../services/api/postApi'
 import { CommentItem } from '../CommentItem'
 import * as Styled from './styled.elements'
 
 export const Comment = ({ disable, postId }) => {
+    const isComment = useSelector((state) => state.explore.isComment)
     const [listComment, setListComment] = useState([])
 
     useEffect(() => {
@@ -18,7 +21,7 @@ export const Comment = ({ disable, postId }) => {
                 }
             })
             .catch((e) => console.log(e))
-    }, [])
+    }, [isComment])
 
     return (
         <Styled.CommentContainer disable={disable}>

@@ -46,10 +46,10 @@ async function put(path = '', data = {}) {
     if (response.ok) return jsonData
     else throw new Error(jsonData)
 }
-async function get(path = '', data = {}) {
+async function get(path = '', param) {
     let token = localStorage.getItem('token')
     let tokenHeader = token ? { Authorization: `Bearer ${token}` } : {}
-    let url = config.backendURL + path + '?' + new URLSearchParams(data)
+    let url = config.backendURL + path
     const response = await fetch(url, {
         method: 'GET',
         mode: 'cors',
@@ -58,6 +58,23 @@ async function get(path = '', data = {}) {
             'Content-Type': 'application/json',
             ...tokenHeader,
         },
+        param,
+    })
+    return response.json()
+}
+async function del(path = '', param) {
+    let token = localStorage.getItem('token')
+    let tokenHeader = token ? { Authorization: `Bearer ${token}` } : {}
+    let url = config.backendURL + path
+    const response = await fetch(url, {
+        method: 'DELETE',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            ...tokenHeader,
+        },
+        param,
     })
     return response.json()
 }
@@ -74,4 +91,4 @@ async function postFormData(path = '', formData = null) {
     })
     return response.json()
 }
-export default { post, get, postFormData, put }
+export default { post, get, postFormData, put, del }

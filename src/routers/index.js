@@ -10,6 +10,7 @@ import { Explore } from '../features/Explore'
 import { Home } from '../features/Home'
 import { Login } from '../features/Login'
 import Callback from '../features/Login/pages/CallBack'
+import { Profile } from '../features/Profile'
 import { PrivateRouters } from './PrivateRouters'
 import { PublicRouters } from './PublicRouters'
 
@@ -36,6 +37,12 @@ export const privateRouters = [
         path: '/demo/player',
         name: 'demo',
         component: Player,
+        restrict: true,
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
         restrict: true,
     },
 ]

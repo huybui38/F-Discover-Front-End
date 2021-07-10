@@ -11,9 +11,9 @@ import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './styled.elements'
 
 const listOption = [
-    { icon: <FaHome />, label: 'For you' },
-    { icon: <FaUserFriends />, label: 'Following' },
-    { icon: <FaCaravan />, label: 'Suggest' },
+    { icon: <FaHome />, label: 'For you', to: '/explore' },
+    { icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
+    { icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest' },
 ]
 
 export const Sidebar = () => {
@@ -45,7 +45,7 @@ export const Sidebar = () => {
         <Styled.Wrapper>
             <Styled.ListOption>
                 {listOption.map((item, index) => (
-                    <Styled.OptionItem key={index}>
+                    <Styled.OptionItem key={index} to={item.to}>
                         {item.icon}
                         <span>{item.label}</span>
                     </Styled.OptionItem>

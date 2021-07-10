@@ -6,6 +6,8 @@ const initialState = {
         posAfter: 1,
         goingUp: false,
     },
+    isComment: false,
+    isFollowUser: false,
     listSuggestPosts: [],
 }
 
@@ -22,6 +24,12 @@ const exploreSlice = createSlice({
         setGoingUp: (state, action) => {
             state.element.goingUp = action.payload
         },
+        setIsComment: (state) => {
+            state.isComment = !state.isComment
+        },
+        setIsFollowUser: (state) => {
+            state.isFollowUser = !state.isFollowUser
+        },
         setListSuggestPosts: (state, action) => {
             state.listSuggestPosts = action.payload
         },
@@ -29,5 +37,12 @@ const exploreSlice = createSlice({
 })
 
 const { reducer, actions } = exploreSlice
-export const { setPosBefore, setPosAfter, setGoingUp, setListSuggestPosts } = actions
+export const {
+    setPosBefore,
+    setPosAfter,
+    setGoingUp,
+    setListSuggestPosts,
+    setIsComment,
+    setIsFollowUser,
+} = actions
 export default reducer

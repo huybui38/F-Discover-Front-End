@@ -2,6 +2,7 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
 import { FaMapMarkerAlt, FaRegSmile, FaCog } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
@@ -24,30 +25,31 @@ import {
     unFollowUserById,
 } from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
+import { setIsFollowUser } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
 export const VideoFeedItem = ({ dataPost, index, hidden }) => {
+    const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const mobile = useBreakpoint(down('lg'))
+    const dispatch = useDispatch()
     const commentRef = useRef(null)
 
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
     useEffect(() => {
-        if (!hidden) {
-            checkFollowUserById(dataPost.author.id)
-                .then((res) => {
-                    if (res.message === 'Success') {
-                        setIsFollowing(res.data.followed)
-                    }
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
-        }
-    }, [])
+        checkFollowUserById(dataPost.author.id)
+            .then((res) => {
+                if (res.message === 'Success') {
+                    setIsFollowing(res.data.followed)
+                }
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [isFollowUser])
     const handleClickComment = () => {
         if (!mobile) {
             commentRef.current.focus()
@@ -68,13 +70,27 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
     }
     const handleFollowUser = () => {
         if (isFollowing) {
-            unFollowUserById(dataPost.author.id).catch((e) => {
-                console.log(e)
-            })
+            unFollowUserById(dataPost.author.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        const action = setIsFollowUser()
+                        dispatch(action)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
         } else {
-            followUserById(dataPost.author.id).catch((e) => {
-                console.log(e)
-            })
+            followUserById(dataPost.author.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        const action = setIsFollowUser()
+                        dispatch(action)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
         }
     }
     return hidden ? (
@@ -119,7 +135,10 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
                     </Styled.AuthorInfo>
                 </Styled.Author>
                 <Styled.ButtonWrapper>
-                    <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
+                    <ButtonFollow
+                        isFollowing={isFollowing}
+                        handleFollow={() => handleFollowUser()}
+                    />
                 </Styled.ButtonWrapper>
             </Styled.Header>
             <Styled.Body>
