@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { MdFileUpload } from 'react-icons/md'
 import styled, { css, keyframes } from 'styled-components'
 
-import { Button } from '../../Button'
+import { Button, PrimaryButton } from '../../Button'
 import { Typography } from '../../Typography'
 
 const rotate = keyframes`
@@ -53,7 +53,7 @@ const ButtonContainer = styled.div`
     display: flex;
     /* flex-direction: row-reverse; */
 `
-const BrowseButton = styled(Button)`
+const BrowseButton = styled(PrimaryButton)`
     background-color: ${(props) => props.theme.color.primary};
     padding: 5px;
 `
@@ -65,18 +65,20 @@ const SecondText = styled(Typography)`
     padding-bottom: 10px;
 `
 export const StepOne = ({ onDrop }) => {
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-    const saveHandler = () => {}
+    const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({ onDrop })
+    const browseHandler = () => {
+        inputRef.current.click()
+    }
     return (
         <>
             <UploadLogo {...getRootProps()} isDragging={isDragActive}>
-                <input {...getInputProps()} />
+                <input {...getInputProps()} style={{ display: 'none' }} />
                 <MdFileUpload color="#626164" size={50} />
             </UploadLogo>
             <MainText>Drag & drop file you want to upload</MainText>
             <SecondText>Maximum 15mb</SecondText>
-            <ButtonContainer onClick={saveHandler}>
-                <BrowseButton center>Browse</BrowseButton>
+            <ButtonContainer onClick={browseHandler}>
+                <PrimaryButton center>Browse</PrimaryButton>
             </ButtonContainer>
         </>
     )

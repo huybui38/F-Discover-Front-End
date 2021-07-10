@@ -9,7 +9,6 @@ const Select = styled.select`
     padding: 7px 40px 7px 12px;
     width: 100%;
     border: 1px solid #e8eaed;
-    border-radius: 5px;
     background: #fff;
     box-shadow: 0 1px 3px -2px #9098a9;
     cursor: pointer;
@@ -28,14 +27,18 @@ const StyledOption = styled.option`
         display: none;
     }
 `
-export const Dropdown = ({ options, handlerChange }) => {
+const StyledLabel = styled.label`
+    font-size: 0.8rem;
+`
+export const Dropdown = ({ options, handlerChange, className, label = 'DEFAULT' }) => {
     const map = options.map((element, index) => (
         <StyledOption key={index} value={element.value}>
             {element.text}
         </StyledOption>
     ))
     return (
-        <DropdownContainer>
+        <DropdownContainer className={className}>
+            <StyledLabel>{label}</StyledLabel>
             <Select onChange={handlerChange} defaultValue={'DEFAULT'}>
                 <StyledOption value="DEFAULT" disabled hidden>
                     Select option
@@ -48,4 +51,6 @@ export const Dropdown = ({ options, handlerChange }) => {
 Dropdown.propTypes = {
     options: propTypes.array,
     handlerChange: propTypes.func,
+    className: propTypes.any,
+    label: propTypes.string,
 }

@@ -32,17 +32,19 @@ const UploadContainer = styled.div`
     height: 300px;
 `
 function UpdateVideoModal(props) {
-    const { toggle, isShowing } = props
-    const dispatch = useDispatch()
+    const { toggle, isShowing, onSuccess } = props
     const [isUploading, setIsUploading] = useState(false)
     const [step, setStep] = useState(1)
     const [videoID, setVideoID] = useState(null)
-    const closeModalHandler = () => {
+    const closeModalHandler = (isSuccess) => {
         toggle()
         setIsUploading(false)
         setStep(1)
         setProgressStatus(5)
         setVideoID(null)
+        if (isSuccess === true) {
+            onSuccess()
+        }
     }
     const [progressStatus, setProgressStatus] = useState(5)
     const onUploadProgress = (progressEvent) => {
@@ -59,6 +61,10 @@ function UpdateVideoModal(props) {
 
         uploadVideo(formData, onUploadProgress)
             .then((result) => {
+                if (!result.data) {
+                    Error(result.message)
+                    return
+                }
                 const { id, videoUrl } = result.data
                 setVideoID(id)
                 setStep(2)

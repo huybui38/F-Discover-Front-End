@@ -37,9 +37,20 @@ async function get(path = '', data = {}) {
 }
 async function postFormData(path = '', formData = null, onUploadProgress) {
     let url = config.backendURL + path
-    const response = await instance.post(url, formData, {
-        onUploadProgress,
-    })
-    return response.data
+    console.log('hello')
+    try {
+        const response = await instance.post(url, formData, {
+            onUploadProgress,
+        })
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
 }
 export default { post, get, postFormData, put }

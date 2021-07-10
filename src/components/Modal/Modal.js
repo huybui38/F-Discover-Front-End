@@ -60,14 +60,10 @@ const Modal = ({ isShowing, hide, children, title = '' }) =>
                       <StyledModal>
                           <ModalHeader>
                               <ModalTitle>{title}</ModalTitle>
-                              {/* <button
-                                  type="button"
-                                  className="modal-close-button"
-                                  data-dismiss="modal"
-                                  aria-label="Close"
-                                  onClick={hide}
-                              ></button> */}
-                              <AiFillCloseCircle onClick={hide} style={{ cursor: 'pointer' }} />
+                              <AiFillCloseCircle
+                                  onClick={() => hide()}
+                                  style={{ cursor: 'pointer' }}
+                              />
                           </ModalHeader>
                           {children}
                       </StyledModal>

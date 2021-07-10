@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import propTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +12,7 @@ import videoDemo2 from '../../../assets/demo_video_2.mp4'
 import videoDemo3 from '../../../assets/demo_video_3.mp4'
 import { Error, Success } from '../../../helpers/notify'
 import { getPostsByID } from '../../../services/user/profile'
-import { setLoading } from '../profileSlice'
+import { fetchPosts, setLoading } from '../profileSlice'
 
 const Card = styled.div`
     width: calc(100% * (1 / 3));
@@ -32,31 +32,17 @@ const OwnPostWrapper = styled.div`
 
 export default function OwnPosts() {
     const userID = useSelector((state) => state.auth.userID)
+    const posts = useSelector((state) => state.profile.posts)
     const dispatch = useDispatch()
     useEffect(() => {
         if (userID !== -1) {
-            dispatch(setLoading(true))
-            getPostsByID(userID, 1, 10).then((result) => {
-                dispatch(setLoading(false))
-                if (!result) return Error('ĐÃ có lỗi xảy ra')
-                // console.log(result)
-            })
+            dispatch(fetchPosts(userID))
         }
     }, [userID, dispatch])
-    return (
-        <OwnPostWrapper>
-            <Card>
-                <VideoPlayer src={videoDemo}></VideoPlayer>
-            </Card>
-            <Card>
-                <VideoPlayer src={videoDemo2}></VideoPlayer>
-            </Card>
-            <Card>
-                <VideoPlayer src={videoDemo3}></VideoPlayer>
-            </Card>
-            {/* <Post src={TestCardImg} /> */}
-            {/* <Post src={TestCardImg} /> */}
-            {/* <Post src={TestCardImg} /> */}
-        </OwnPostWrapper>
-    )
+    const videos = posts.map((element) => (
+        <Card key={element.id}>
+            <VideoPlayer src={element.videoUrl} poster={element.thumbnailUrl}></VideoPlayer>
+        </Card>
+    ))
+    return <OwnPostWrapper>{videos}</OwnPostWrapper>
 }

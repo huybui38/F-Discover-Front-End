@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { down, up } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-import { Button } from '../../../components/Button/'
+import { Button, PrimaryButton } from '../../../components/Button/'
 import { EmptyIconButton } from '../../../components/ButtonWithIcons'
 import { Loading } from '../../../components/Loading'
 import UpdateVideoModal from '../../../components/Modal/UploadVideoModal'
@@ -16,7 +16,7 @@ import DemoAvatarProfile from '../../../assets/demo_avatar_profile.png'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
 import apiCaller from '../../../utils/apiCaller'
-import { fetchUserBio, setAvatar, setLoading } from '../profileSlice'
+import { fetchPosts, fetchUserBio, setAvatar, setLoading } from '../profileSlice'
 import UpdateProfileModal from './UpdateProfileModal'
 
 const Wrapper = styled.div`
@@ -69,12 +69,11 @@ const StatisticalDetailNumber = styled.div`
     font-weight: 700;
     padding-bottom: 3px;
 `
-const FollowButton = styled(Button)`
+const FollowButton = styled(PrimaryButton)`
     border-radius: 25px;
     width: 7rem;
     height: 2.5rem;
     font-size: 1.25rem;
-    background-color: rgba(1, 179, 167, 1);
     margin: 10px;
     color: #ffffff;
 `
@@ -157,6 +156,7 @@ Avatar.propTypes = {
 export default function BioProfile() {
     const dispatch = useDispatch()
     const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
+    const userID = useSelector((state) => state.auth.userID)
     const details = useSelector((state) => state.profile.bioDetail)
     useEffect(() => {
         if (bioFetchStatus === 'idle') {
@@ -172,11 +172,17 @@ export default function BioProfile() {
         console.log(toggle2)
         toggle2()
     }
-
+    const onUploadPostSuccess = () => {
+        dispatch(fetchPosts(userID))
+    }
     return (
         <Wrapper>
             <UpdateProfileModal isShowing={isShowing} toggle={toggle} />
-            <UpdateVideoModal isShowing={isShowing2} toggle={toggle2} />
+            <UpdateVideoModal
+                isShowing={isShowing2}
+                toggle={toggle2}
+                onSuccess={onUploadPostSuccess}
+            />
             <Avatar src={DemoAvatarProfile} />
             <StyledName>{details?.name}</StyledName>
             <StyledJob>{details?.job}</StyledJob>

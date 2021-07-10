@@ -1,3 +1,4 @@
+import { getPostsByID } from '../../services/user/profile'
 import ApiCaller from '../../utils/apiCaller'
 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
@@ -12,7 +13,9 @@ const initialState = {
     status: {
         updatePost: 'idle',
         fetchUserBio: 'idle',
+        fetchPosts: 'idle',
     },
+    posts: [],
     isLoading: false,
 }
 export const fetchUserBio = createAsyncThunk(
@@ -38,6 +41,15 @@ export const updatePost = createAsyncThunk(
             return rejectWithValue(ex)
         }
         return response
+    }
+)
+export const fetchPosts = createAsyncThunk(
+    'profile/fetchPosts',
+    async (userID, { rejectWithValue }) => {
+        let result = await getPostsByID(userID, 1, 10)
+        if (!result) return rejectWithValue('Đã có lỗi xảy ra')
+
+        return result
     }
 )
 const profileSlice = createSlice({
@@ -81,11 +93,24 @@ const profileSlice = createSlice({
         [updatePost.fulfilled]: (state, action) => {
             console.log(state.status.updatePost)
             state.status.updatePost = 'succeeded'
-            // state.bioDetail = action.payload.data
         },
         [updatePost.rejected]: (state, action) => {
             state.status.updatePost = 'failed'
             state.error = action.error.message
+        },
+        [fetchPosts.pending]: (state, action) => {
+            state.status.fetchPosts = 'loading'
+            state.isLoading = true
+        },
+        [fetchPosts.fulfilled]: (state, action) => {
+            state.status.fetchPosts = 'succeeded'
+            state.isLoading = false
+            state.posts = action.payload.posts
+        },
+        [fetchPosts.rejected]: (state, action) => {
+            state.status.fetchPosts = 'failed'
+            state.error = action.error.message
+            state.isLoading = false
         },
     },
 })

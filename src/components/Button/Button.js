@@ -11,7 +11,6 @@ export const StyledButton = styled.button`
     padding: ${(props) => props.padding || '3px 3px'};
     &:hover {
         background-color: rgba(0, 0, 0, 0.03);
-        /* transform: scale(0.9); */
     }
 `
 export const TestButton = styled.button`
@@ -50,4 +49,14 @@ export const StyledCircleButton = styled(StyledButton)`
     background-color: rgba(1, 179, 167, 1);
     margin: 10px;
     color: #ffffff;
+`
+export const StyledPrimaryButton = styled(StyledButton)`
+    background-color: ${(props) => props.theme.color.primary};
+    margin-top: 15px;
+    padding: 10px;
+    color: #fff;
+    &:hover {
+        background-color: ${(props) => props.theme.color.primary};
+        opacity: 0.5;
+    }
 `

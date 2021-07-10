@@ -8,18 +8,25 @@ import { setUpdatePostStatus, updatePost } from '../../../features/Profile/profi
 import { Error, Success } from '../../../helpers/notify'
 import useInput from '../../../hooks/useInput'
 import { fetchLocationAsync } from '../../../services/app/appSlice'
-import { Button } from '../../Button'
+import { Button, PrimaryButton } from '../../Button'
 import { Dropdown } from '../../Input/Dropdown'
 import TextFieldInput from '../../Input/TextField'
 import { SimpleCircleLoader } from '../../Loading/Loader'
 
 const StyledDropdown = styled(Dropdown)`
-    width: 100px;
-    display: none;
+    width: 200px;
+`
+const InputForm = styled.div`
+    padding: 5px;
+    width: 200px;
 `
 const StyledVideoInput = styled(TextFieldInput)`
     font-size: 30px;
+    input {
+        padding: 7px;
+    }
 `
+
 export const StepTwo = ({ videoID, onSuccess }) => {
     const [location, locationHandler, setLocation] = useInput('')
     const [content, contentHandler, setContent] = useInput('')
@@ -43,24 +50,33 @@ export const StepTwo = ({ videoID, onSuccess }) => {
             setContent('')
             setLocation('')
             dispatch(setUpdatePostStatus('idle'))
-            onSuccess()
+            onSuccess(true)
         }
     }, [fetchStatus, setContent, setLocation, dispatch, onSuccess])
     const saveHandler = () => {
-        if (!content) return Error('Chọn địa điểm!')
+        if (!content) return Error('Nhập nội dung!')
+        if (!location) return Error('Chọn địa điểm!')
         const data = { videoID, content, location }
         dispatch(updatePost(data))
     }
     return (
         <>
-            <h1>Step two</h1>
-            <StyledVideoInput
-                label="Tên video"
-                handleChange={contentHandler}
-                value={content}
-            ></StyledVideoInput>
-            <StyledDropdown options={locations} handlerChange={locationHandler} />
-            <Button onClick={saveHandler}>Save</Button>
+            <h3>Chỉ còn 1 bước nữa thôi bạn có thể chia sẻ video của mình</h3>
+            <InputForm>
+                <StyledVideoInput
+                    label="Tên video"
+                    handleChange={contentHandler}
+                    value={content}
+                ></StyledVideoInput>
+            </InputForm>
+            <InputForm>
+                <StyledDropdown
+                    options={locations}
+                    handlerChange={locationHandler}
+                    label="Vị trí"
+                />
+            </InputForm>
+            <PrimaryButton onClick={saveHandler}>Save</PrimaryButton>
             {fetchStatus == 'loading' ? <SimpleCircleLoader /> : null}
         </>
     )
