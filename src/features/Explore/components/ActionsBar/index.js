@@ -38,23 +38,15 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
     const { isShowing, openModal, closeModal } = useModal()
 
     useEffect(() => {
-        let mounted
-
         checkLikePostById(dataPost.id)
             .then((res) => {
                 if (res.message === 'Success') {
-                    if (mounted) {
-                        setIsLikePost(res.data.liked)
-                    }
+                    setIsLikePost(res.data.liked)
                 }
             })
             .catch((e) => {
                 console.log(e)
             })
-
-        return () => {
-            mounted = false
-        }
     }, [isClickLike])
 
     const handleLikePost = () => {

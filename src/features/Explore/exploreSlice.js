@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     element: {
-        posBefore: 0,
         posAfter: 0,
         goingUp: false,
     },
     isComment: false,
     isFollowUser: false,
     listSuggestPosts: [],
+    sumHeightEl: [0],
 }
 
 const exploreSlice = createSlice({
@@ -33,6 +33,12 @@ const exploreSlice = createSlice({
         setListSuggestPosts: (state, action) => {
             state.listSuggestPosts = action.payload
         },
+        setSumHeightEl: (state, action) => {
+            const numbers = state.sumHeightEl.length
+            if (action.payload.pos > numbers) {
+                state.sumHeightEl.push(state.sumHeightEl[numbers - 1] + action.payload.value)
+            }
+        },
     },
 })
 
@@ -44,5 +50,6 @@ export const {
     setListSuggestPosts,
     setIsComment,
     setIsFollowUser,
+    setSumHeightEl,
 } = actions
 export default reducer

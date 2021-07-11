@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { Loading } from '../../../components/Loading'
-import { VideoFeedItem } from '../components/VideoFeedItem'
+import { Loading } from '../../../../components/Loading'
 
-export const ExplorePage = ({ pos, isLoading }) => {
+import { VideoFeedItem } from '../VideoFeedItem'
+
+export const VideoList = ({ posCurrentScroll, isLoading }) => {
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     return (
         <div
@@ -21,11 +22,14 @@ export const ExplorePage = ({ pos, isLoading }) => {
                     key={item.index}
                     index={index + 1}
                     dataPost={item}
-                    hidden={index > pos + 2 || index < pos - 2 ? true : false}
+                    hidden={
+                        index > posCurrentScroll + 2 || index < posCurrentScroll - 2 ? true : false
+                    }
+                    posCurrentScroll={posCurrentScroll}
                 />
             ))}
         </div>
     )
 }
 
-export default ExplorePage
+export default VideoList

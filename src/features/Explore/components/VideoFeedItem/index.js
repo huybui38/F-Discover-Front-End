@@ -25,22 +25,32 @@ import {
     unFollowUserById,
 } from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
-import { setIsFollowUser } from '../../exploreSlice'
+import { setIsFollowUser, setSumHeightEl } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = ({ dataPost, index, hidden }) => {
+export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => {
     const heightEl = localStorage.getItem('heightEl')
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const userID = useSelector((state) => state.auth.userID)
+    const sumHeightEl = useSelector((state) => state.explore.sumHeightEl)
     const mobile = useBreakpoint(down('lg'))
     const dispatch = useDispatch()
     const commentRef = useRef(null)
 
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
+
+    useEffect(() => {
+        if (sumHeightEl.length < index) {
+            const el = document.querySelector(`.video_${index - 1}`)
+            const height = el.offsetHeight
+            dispatch(setSumHeightEl({ pos: index - 1, value: height }))
+        }
+    }, [])
+
     useEffect(() => {
         let mounted = true
 
@@ -104,7 +114,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden }) => {
         }
     }
     return hidden ? (
-        <div style={{ height: `${heightEl}px` }}></div>
+        <div style={{ height: `${sumHeightEl[index] - sumHeightEl[index - 1]}px` }}></div>
     ) : (
         <Styled.Container className={`video_${index}`}>
             <Styled.Header>

@@ -11,7 +11,7 @@ import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './styled.elements'
 
 const listOption = [
-    { icon: <FaHome />, label: 'For you', to: '/explore' },
+    { icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
     { icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
     { icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest' },
 ]

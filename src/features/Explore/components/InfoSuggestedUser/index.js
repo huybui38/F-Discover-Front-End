@@ -51,23 +51,15 @@ export const InfoSuggestedUser = ({ user }) => {
     const [isClickFollow, setIsClickFollow] = useState(false)
 
     useEffect(() => {
-        let mounted
-
         checkFollowUserById(user.id)
             .then((res) => {
                 if (res.message === 'Success') {
-                    if (mounted) {
-                        setIsFollowing(res.data.followed)
-                    }
+                    setIsFollowing(res.data.followed)
                 }
             })
             .catch((e) => {
                 console.log(e)
             })
-
-        return () => {
-            mounted = false
-        }
     }, [isClickFollow, isFollowUser])
 
     const handleFollowUser = () => {
