@@ -49,6 +49,12 @@ export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => 
             const height = el.offsetHeight
             dispatch(setSumHeightEl({ pos: index - 1, value: height }))
         }
+
+        return () => {
+            const el = document.querySelector(`.video_${index}`)
+            const height = el.offsetHeight
+            console.log('test: ', height)
+        }
     }, [])
 
     useEffect(() => {
@@ -113,9 +119,7 @@ export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => 
                 })
         }
     }
-    return hidden ? (
-        <div style={{ height: `${sumHeightEl[index] - sumHeightEl[index - 1]}px` }}></div>
-    ) : (
+    return (
         <Styled.Container className={`video_${index}`}>
             <Styled.Header>
                 <Styled.Author>
