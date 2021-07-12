@@ -34,10 +34,7 @@ const exploreSlice = createSlice({
             state.listSuggestPosts = action.payload
         },
         setSumHeightEl: (state, action) => {
-            const numbers = state.sumHeightEl.length
-            if (action.payload.pos > numbers) {
-                state.sumHeightEl.push(state.sumHeightEl[numbers - 1] + action.payload.value)
-            }
+            state.sumHeightEl = action.payload
         },
     },
 })

@@ -13,6 +13,7 @@ export const FollowingVideoList = () => {
     const dispatch = useDispatch()
     const { posAfter, goingUp } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
+    const [isFetching, setIsFetching] = useState(false)
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -31,39 +32,36 @@ export const FollowingVideoList = () => {
 
         return () => {
             mounted = false
-            const action1 = setPosAfter(0)
-            dispatch(action1)
-            const action2 = setGoingUp(false)
-            dispatch(action2)
         }
     }, [])
 
-    // useEffect(() => {
-    //     console.log(posAfter)
-    //     let temp = [...listSuggestPosts]
-    //     if (goingUp && posAfter >= 4) {
-    //         temp.pop()
-    //         const action = setListSuggestPosts(temp)
-    //         dispatch(action)
-    //     }
-    //     if (!goingUp && posAfter > 2) {
-    //         getSuggestPosts(2, 1, posAfter)
-    //             .then((response) => {
-    //                 if (response.message === 'Success') {
-    //                     if (response.data.posts === null) return null
-    //                     return response.data.posts[0]
-    //                 }
-    //             })
-    //             .then((post) => {
-    //                 if (post) {
-    //                     temp = Object.assign([], temp)
-    //                     temp.push({ ...post })
-    //                     const action = setListSuggestPosts(temp)
-    //                     dispatch(action)
-    //                 }
-    //             })
-    //     }
-    // }, [posAfter])
+    useEffect(() => {
+        if (!isFetching) return
+        fetchMoreListItems()
+    }, [isFetching])
+
+    function fetchMoreListItems() {
+        getSuggestPosts(2, 1, posAfter)
+            .then((response) => {
+                if (response.message === 'Success') {
+                    if (response.data.posts === null) return null
+                    return response.data.posts
+                }
+            })
+            .then((posts) => {
+                if (posts) {
+                    const action = setListSuggestPosts([...listSuggestPosts, ...posts])
+                    dispatch(action)
+                    setIsFetching(false)
+                }
+            })
+    }
+
+    useEffect(() => {
+        if (posAfter && posAfter === listSuggestPosts.length && !isFetching) {
+            setIsFetching(true)
+        }
+    }, [posAfter])
 
     return <VideoList isLoading={isLoading} posCurrentScroll={posAfter} />
 }

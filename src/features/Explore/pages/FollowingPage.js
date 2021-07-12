@@ -6,10 +6,11 @@ import { FollowingVideoList } from '../components/VideoListOption/FollowingVideo
 
 import useScroll from '../../../hooks/useScroll'
 import { getSuggestPosts } from '../../../services/api/postApi'
-import { setGoingUp, setListSuggestPosts, setPosAfter } from '../exploreSlice'
+import { setGoingUp, setListSuggestPosts, setPosAfter, setSumHeightEl } from '../exploreSlice'
 import * as Styled from './styled.elements'
 
 export const FollowingPage = () => {
+    const dispatch = useDispatch()
     useEffect(() => {
         localStorage.setItem('prevAfter', 0)
     }, [])

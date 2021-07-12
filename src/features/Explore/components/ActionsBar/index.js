@@ -26,7 +26,7 @@ import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
 const link = 'www.facebook.com/profile.php?id=100015055038244'
-export const ActionsBar = ({ dataPost, handleClickComment }) => {
+export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
     const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
 
@@ -38,15 +38,18 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
     const { isShowing, openModal, closeModal } = useModal()
 
     useEffect(() => {
-        checkLikePostById(dataPost.id)
-            .then((res) => {
-                if (res.message === 'Success') {
-                    setIsLikePost(res.data.liked)
-                }
-            })
-            .catch((e) => {
-                console.log(e)
-            })
+        if (!lazyLoading) {
+            console.log('check like')
+            checkLikePostById(dataPost.id)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setIsLikePost(res.data.liked)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        }
     }, [isClickLike])
 
     const handleLikePost = () => {
@@ -83,7 +86,7 @@ export const ActionsBar = ({ dataPost, handleClickComment }) => {
             <Styled.Actions>
                 {/* Like */}
                 <Styled.ActionItem>
-                    {isLikePost ? (
+                    {isClickLike ? (
                         <ButtonIcon
                             onClick={() => handleLikePost()}
                             bgrColor="rgba(255,63,52,0.1)"

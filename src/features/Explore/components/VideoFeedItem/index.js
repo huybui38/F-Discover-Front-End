@@ -31,7 +31,7 @@ import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => {
+export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
     const heightEl = localStorage.getItem('heightEl')
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const userID = useSelector((state) => state.auth.userID)
@@ -44,22 +44,19 @@ export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => 
     const [isFollowing, setIsFollowing] = useState(false)
 
     useEffect(() => {
-        if (sumHeightEl.length < index) {
+        const num = sumHeightEl.length
+        let temp = [...sumHeightEl]
+        if (num < index) {
             const el = document.querySelector(`.video_${index - 1}`)
             const height = el.offsetHeight
-            dispatch(setSumHeightEl({ pos: index - 1, value: height }))
+            temp.push(temp[num - 1] + height)
+            dispatch(setSumHeightEl([...temp]))
         }
-
-        return () => {
-            const el = document.querySelector(`.video_${index}`)
-            const height = el.offsetHeight
-            console.log('test: ', height)
-        }
-    }, [])
+    }, [dispatch, index, sumHeightEl])
 
     useEffect(() => {
         let mounted = true
-
+        console.log('check follow')
         checkFollowUserById(dataPost.author.id)
             .then((res) => {
                 if (res.message === 'Success') {
@@ -71,11 +68,11 @@ export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => 
             .catch((e) => {
                 console.log(e)
             })
-
         return () => {
             mounted = false
         }
     }, [isFollowUser])
+
     const handleClickComment = () => {
         if (!mobile) {
             commentRef.current.focus()
@@ -179,10 +176,15 @@ export const VideoFeedItem = ({ dataPost, index, hidden, posCurrentScroll }) => 
                     </Styled.VideoContainer>
                     <Styled.CommentContainer>
                         <ActionsBar
+                            lazyLoading={lazyLoading}
                             dataPost={dataPost}
                             handleClickComment={() => handleClickComment()}
                         />
-                        <Comment postId={dataPost.id} disable={mobile ? true : false} />
+                        <Comment
+                            lazyLoading={lazyLoading}
+                            postId={dataPost.id}
+                            disable={mobile ? true : false}
+                        />
                         <CommentInputField
                             postId={dataPost.id}
                             disable={mobile ? true : false}

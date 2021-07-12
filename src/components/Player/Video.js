@@ -98,6 +98,7 @@ function VideoPlayer(props) {
                 ref={refPlayer}
                 muted={true}
                 onEnded={endedVideoHandler}
+                preload="none"
             ></Player>
             <VolumeButton toggleHandler={muteVideoHandler}></VolumeButton>
             <PlayButton

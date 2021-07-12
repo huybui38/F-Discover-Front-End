@@ -9,18 +9,21 @@ import { getAllComment } from '../../../../services/api/postApi'
 import { CommentItem } from '../CommentItem'
 import * as Styled from './styled.elements'
 
-export const Comment = ({ disable, postId }) => {
+export const Comment = ({ disable, postId, lazyLoading }) => {
     const isComment = useSelector((state) => state.explore.isComment)
     const [listComment, setListComment] = useState([])
 
     useEffect(() => {
-        getAllComment(postId, 1, 20)
-            .then((res) => {
-                if (res.message === 'Success') {
-                    setListComment(res.data)
-                }
-            })
-            .catch((e) => console.log(e))
+        if (!lazyLoading) {
+            console.log('check comment')
+            getAllComment(postId, 1, 20)
+                .then((res) => {
+                    if (res.message === 'Success') {
+                        setListComment(res.data)
+                    }
+                })
+                .catch((e) => console.log(e))
+        }
     }, [isComment])
 
     return (
