@@ -17,7 +17,7 @@ import timeSince from '../../../../utils/timeSince'
 import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
-export const CommentItem = ({ dataComment, postId }) => {
+export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment }) => {
     const dispatch = useDispatch()
     const userID = useSelector((state) => state.auth.userID)
     const { isShowing, openModal, closeModal } = useModal()
@@ -29,6 +29,7 @@ export const CommentItem = ({ dataComment, postId }) => {
                 if (res.message === 'Success') {
                     const action = setIsComment()
                     dispatch(action)
+                    setTotalComment(totalComment - 1)
                     closeModal()
                 }
             })

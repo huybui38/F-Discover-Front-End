@@ -42,6 +42,7 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
 
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
+    const [totalComment, setTotalComment] = useState(dataPost.comments)
 
     useEffect(() => {
         const num = sumHeightEl.length
@@ -176,6 +177,7 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
                     </Styled.VideoContainer>
                     <Styled.CommentContainer>
                         <ActionsBar
+                            totalComment={totalComment}
                             lazyLoading={lazyLoading}
                             dataPost={dataPost}
                             handleClickComment={() => handleClickComment()}
@@ -184,12 +186,16 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
                             lazyLoading={lazyLoading}
                             postId={dataPost.id}
                             disable={mobile ? true : false}
+                            totalComment={totalComment}
+                            setTotalComment={setTotalComment}
                         />
                         <CommentInputField
                             postId={dataPost.id}
                             disable={mobile ? true : false}
                             focus={true}
                             ref={commentRef}
+                            totalComment={totalComment}
+                            setTotalComment={setTotalComment}
                         />
                     </Styled.CommentContainer>
                 </Styled.BodyWrapper>

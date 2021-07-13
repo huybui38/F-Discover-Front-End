@@ -10,7 +10,10 @@ import { createComment } from '../../../../services/api/postApi'
 import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
-export const CommentInputField = ({ disable, postId, focus }, ref) => {
+export const CommentInputField = (
+    { disable, postId, focus, setTotalComment, totalComment },
+    ref
+) => {
     const dispatch = useDispatch()
     const [value, setValue] = useState('')
     const handleChange = (e) => {
@@ -22,6 +25,7 @@ export const CommentInputField = ({ disable, postId, focus }, ref) => {
             createComment(postId, { content: value })
                 .then((res) => {
                     if (res.message === 'Success') {
+                        setTotalComment(totalComment + 1)
                         const action = setIsComment()
                         dispatch(action)
                     }

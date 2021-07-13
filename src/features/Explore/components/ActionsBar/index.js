@@ -26,10 +26,11 @@ import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
 const link = 'www.facebook.com/profile.php?id=100015055038244'
-export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
+export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalComment }) => {
     const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
 
+    const [totalLike, setTotalLike] = useState(dataPost.likes)
     const [isLikePost, setIsLikePost] = useState(false)
     const [isClickLike, setIsClickLike] = useState(false)
     const [isClickShare, setIsClickShare] = useState(false)
@@ -37,20 +38,21 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
 
     const { isShowing, openModal, closeModal } = useModal()
 
-    useEffect(() => {
-        if (!lazyLoading) {
-            console.log('check like')
-            checkLikePostById(dataPost.id)
-                .then((res) => {
-                    if (res.message === 'Success') {
-                        setIsLikePost(res.data.liked)
-                    }
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
-        }
-    }, [isClickLike])
+    // useEffect(() => {
+    //     if (!lazyLoading) {
+    //         console.log('check like')
+    //         checkLikePostById(dataPost.id)
+    //             .then((res) => {
+    //                 if (res.message === 'Success') {
+    //                     setIsLikePost(res.data.liked)
+    //                     console.log(res.data.liked)
+    //                 }
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e)
+    //             })
+    //     }
+    // }, [isClickLike])
 
     const handleLikePost = () => {
         if (isLikePost) {
@@ -58,6 +60,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
                 .then((res) => {
                     if (res.message === 'Success') {
                         setIsClickLike(!isClickLike)
+                        setTotalLike(totalLike - 1)
                     }
                 })
                 .catch((e) => {
@@ -68,6 +71,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
                 .then((res) => {
                     if (res.message === 'Success') {
                         setIsClickLike(!isClickLike)
+                        setTotalLike(totalLike + 1)
                     }
                 })
                 .catch((e) => {
@@ -102,7 +106,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
                             icon={<FaRegHeart style={{ width: '28px', height: '28px' }} />}
                         />
                     )}
-                    <span>{formatNumber(dataPost.likes, 1)}</span>
+                    <span>{formatNumber(totalLike, 1)}</span>
                 </Styled.ActionItem>
 
                 {/* Comment */}
@@ -111,7 +115,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading }) => {
                         onClick={mobile ? () => openModal() : () => handleClickComment()}
                         icon={<FaRegCommentAlt style={{ width: '28px', height: '28px' }} />}
                     />
-                    <span>{formatNumber(dataPost.comments, 1)}</span>
+                    <span>{formatNumber(totalComment, 1)}</span>
                 </Styled.ActionItem>
                 <Dialog title="Comment" isShowing={isShowing} hide={() => closeModal()}>
                     <CommentDialog postId={dataPost.id} />
