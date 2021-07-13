@@ -5,12 +5,13 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getSuggestPosts } from '../../../../services/api/postApi'
+import { getAllPostUserFollowing, getSuggestPosts } from '../../../../services/api/postApi'
 import { setGoingUp, setListSuggestPosts, setPosAfter } from '../../exploreSlice'
 import { VideoList } from '../VideoList'
 
 export const FollowingVideoList = () => {
     const dispatch = useDispatch()
+    const userID = useSelector((state) => state.auth.userID)
     const { posAfter, goingUp } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     const [isFetching, setIsFetching] = useState(false)
@@ -20,11 +21,11 @@ export const FollowingVideoList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(2, 4, 2).then((response) => {
+        getAllPostUserFollowing(1, 4).then((response) => {
             if (response.message === 'Success') {
                 if (mounted) {
                     setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
+                    const action = setListSuggestPosts(response.data)
                     dispatch(action)
                 }
             }
@@ -41,11 +42,11 @@ export const FollowingVideoList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getSuggestPosts(2, 1, posAfter)
+        getAllPostUserFollowing(1, 1)
             .then((response) => {
                 if (response.message === 'Success') {
-                    if (response.data.posts === null) return null
-                    return response.data.posts
+                    if (response.data === null) return null
+                    return response.data
                 }
             })
             .then((posts) => {

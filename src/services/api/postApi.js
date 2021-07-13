@@ -10,6 +10,9 @@ const checkLikePostById = async (id) => {
 const getAllComment = async (postId, page, limit) => {
     return await ApiCaller.get(`/post/${postId}/comment/?page=${page}&limit=${limit}`)
 }
+const getAllPostUserFollowing = async (page, limit) => {
+    return await ApiCaller.get(`/post/following?page=${page}&limit=${limit}`)
+}
 
 //POST
 const createComment = async (postId, content) => {
@@ -38,4 +41,5 @@ export {
     deleteCommentById,
     deletePostById,
     unLikePostById,
+    getAllPostUserFollowing,
 }
