@@ -33,9 +33,9 @@ import PostActionDialog from '../PostActionDialog'
 import * as Styled from './styled.elements'
 
 export const Post = ({ dataPost, index, lazyLoading }) => {
+    const mobile = useBreakpoint(down('lg'))
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const sumHeightEl = useSelector((state) => state.explore.sumHeightEl)
-    const mobile = useBreakpoint(down('lg'))
     const dispatch = useDispatch()
     const commentRef = useRef(null)
 
