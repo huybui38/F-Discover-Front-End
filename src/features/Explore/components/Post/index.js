@@ -7,22 +7,18 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
 import { FaMapMarkerAlt, FaRegSmile, FaCog } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
-import { ButtonIcon } from '../../../../components/ButtonIcon'
 import Dialog from '../../../../components/Dialog'
 import VideoPlayer from '../../../../components/Player/Video'
 
-import DefaultAvatar from '../../../../assets/default_avatar.jpg'
 import videoDemo from '../../../../assets/demo_video.mp4'
 import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
-import { deleteCommentById } from '../../../../services/api/postApi'
 import {
     checkFollowUserById,
     followUserById,
@@ -33,11 +29,11 @@ import { setIsFollowUser, setSumHeightEl } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
+import PostActionDialog from '../PostActionDialog'
 import * as Styled from './styled.elements'
 
-export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
+export const Post = ({ dataPost, index, lazyLoading }) => {
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
-    const userID = useSelector((state) => state.auth.userID)
     const sumHeightEl = useSelector((state) => state.explore.sumHeightEl)
     const mobile = useBreakpoint(down('lg'))
     const dispatch = useDispatch()
@@ -82,19 +78,6 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
             commentRef.current.focus()
         }
     }
-    const handleDeletePost = () => {
-        closeModal()
-        deleteCommentById(dataPost.id)
-            .then((res) => {
-                if (res.comment === 'Success') {
-                    console.log('Delete Success')
-                }
-            })
-            .catch((e) => {
-                console.log(e)
-                Error('Delete post failed.')
-            })
-    }
     const handleFollowUser = () => {
         if (isFollowing) {
             unFollowUserById(dataPost.author.id)
@@ -122,6 +105,7 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
     }
     return (
         <Styled.Container className={`video_${index}`}>
+            {/* Header Post */}
             <Styled.Header>
                 <Styled.Author>
                     <Avatar width="50px" src={dataPost.author.avatarUrl} />
@@ -136,24 +120,10 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
                                 <FaCog style={{ width: '10px', height: '10px' }} />
                             </Styled.Option>
                             <Dialog title="Post" isShowing={isShowing} hide={closeModal}>
-                                <Styled.OptionList>
-                                    <Styled.OptionItem onClick={closeModal}>
-                                        Report
-                                    </Styled.OptionItem>
-                                    {userID === dataPost.author.id ? (
-                                        <Styled.OptionItem onClick={handleDeletePost}>
-                                            Delete
-                                        </Styled.OptionItem>
-                                    ) : null}
-                                    {userID === dataPost.author.id ? (
-                                        <Styled.OptionItem>Update</Styled.OptionItem>
-                                    ) : null}
-                                    <Styled.OptionItem onClick={closeModal}>
-                                        Cancel
-                                    </Styled.OptionItem>
-                                </Styled.OptionList>
+                                <PostActionDialog dataPost={dataPost} onExit={closeModal} />
                             </Dialog>
                         </Styled.FlexWrapper>
+
                         <Styled.FlexWrapper>
                             <p>{timeSince(dataPost.createdAt)}</p>
                             <p>
@@ -163,6 +133,8 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
                         <Styled.Content>{dataPost.content}</Styled.Content>
                     </Styled.AuthorInfo>
                 </Styled.Author>
+
+                {/* Button following user */}
                 <Styled.ButtonWrapper>
                     <ButtonFollow
                         isFollowing={isFollowing}
@@ -170,14 +142,18 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
                     />
                 </Styled.ButtonWrapper>
             </Styled.Header>
+
+            {/* Body Post */}
             <Styled.Body>
                 <Styled.BodyWrapper>
+                    {/* Left side: Video item */}
                     <Styled.VideoContainer>
-                        {/* <img src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.6435-9/196562616_2948275348833011_8044697522132992167_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=DmcwgGfME9MAX-FcfWS&_nc_ht=scontent.fsgn3-1.fna&oh=198599ed65bdc6b3e12ce935bfdad685&oe=60E0EA3D" /> */}
                         <Styled.VideoCard>
                             <VideoPlayer src={dataPost.videoUrl || videoDemo} />
                         </Styled.VideoCard>
                     </Styled.VideoContainer>
+
+                    {/* Right side: Comment and Actions */}
                     <Styled.CommentContainer>
                         <ActionsBar
                             totalComment={totalComment}
@@ -207,4 +183,4 @@ export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
     )
 }
 
-export default VideoFeedItem
+export default Post

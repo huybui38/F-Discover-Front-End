@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
-
-import { ForYouVideoList } from '../components/VideoListOption/ForYouVideoList'
+import { ForYouPostList } from '../components/PostListOption/ForYouPostList'
 
 import useScroll from '../../../hooks/useScroll'
-import { getSuggestPosts } from '../../../services/api/postApi'
-import { setGoingUp, setListSuggestPosts, setPosAfter } from '../exploreSlice'
 import * as Styled from './styled.elements'
 
 export const ForYouPage = () => {
@@ -19,7 +15,7 @@ export const ForYouPage = () => {
     return (
         <Styled.FlexWrapper onScroll={handleScroll}>
             <Styled.MainWrapper>
-                <ForYouVideoList />
+                <ForYouPostList />
             </Styled.MainWrapper>
         </Styled.FlexWrapper>
     )

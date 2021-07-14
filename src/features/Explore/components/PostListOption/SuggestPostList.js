@@ -7,20 +7,20 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { getSuggestPosts } from '../../../../services/api/postApi'
 import { setListSuggestPosts } from '../../exploreSlice'
-import { VideoList } from '../VideoList'
+import { PostList } from '../PostList'
 
-export const ForYouVideoList = () => {
+export const SuggestPostList = () => {
     const dispatch = useDispatch()
     const { posAfter } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
+    const [isFetching, setIsFetching] = useState(false)
 
     const [isLoading, setIsLoading] = useState(true)
-    const [isFetching, setIsFetching] = useState(false)
 
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(1, 4, 1).then((response) => {
+        getSuggestPosts(2, 4, 2).then((response) => {
             if (response.message === 'Success') {
                 if (mounted) {
                     setIsLoading(false)
@@ -63,7 +63,7 @@ export const ForYouVideoList = () => {
         }
     }, [posAfter])
 
-    return <VideoList isLoading={isLoading} posCurrentScroll={posAfter} />
+    return <PostList isLoading={isLoading} posCurrentScroll={posAfter} />
 }
 
-export default ForYouVideoList
+export default SuggestPostList

@@ -5,11 +5,11 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { getSuggestPosts } from '../../../../services/api/postApi'
+import { getAllPostUserFollowing } from '../../../../services/api/postApi'
 import { setListSuggestPosts } from '../../exploreSlice'
-import { VideoList } from '../VideoList'
+import { PostList } from '../PostList'
 
-export const SuggestVideoList = () => {
+export const FollowingPostList = () => {
     const dispatch = useDispatch()
     const { posAfter } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
@@ -20,11 +20,11 @@ export const SuggestVideoList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(2, 4, 2).then((response) => {
+        getAllPostUserFollowing(1, 4).then((response) => {
             if (response.message === 'Success') {
                 if (mounted) {
                     setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
+                    const action = setListSuggestPosts(response.data)
                     dispatch(action)
                 }
             }
@@ -41,11 +41,11 @@ export const SuggestVideoList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getSuggestPosts(2, 1, posAfter)
+        getAllPostUserFollowing(1, 1)
             .then((response) => {
                 if (response.message === 'Success') {
-                    if (response.data.posts === null) return null
-                    return response.data.posts
+                    if (response.data === null) return null
+                    return response.data
                 }
             })
             .then((posts) => {
@@ -63,7 +63,7 @@ export const SuggestVideoList = () => {
         }
     }, [posAfter])
 
-    return <VideoList isLoading={isLoading} posCurrentScroll={posAfter} />
+    return <PostList isLoading={isLoading} posCurrentScroll={posAfter} />
 }
 
-export default SuggestVideoList
+export default FollowingPostList

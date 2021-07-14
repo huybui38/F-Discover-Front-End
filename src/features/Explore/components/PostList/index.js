@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 
 import { Loading } from '../../../../components/Loading'
 
-import { VideoFeedItem } from '../VideoFeedItem'
+import { Post } from '../Post'
 
 const LoadingLazy = () => (
     <div className="post loading">
@@ -14,7 +14,7 @@ const LoadingLazy = () => (
     </div>
 )
 
-export const VideoList = ({ posCurrentScroll, isLoading }) => {
+export const PostList = ({ posCurrentScroll, isLoading }) => {
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     console.log(posCurrentScroll)
     return (
@@ -27,7 +27,7 @@ export const VideoList = ({ posCurrentScroll, isLoading }) => {
             <Loading isLoading={isLoading} />
             {listSuggestPosts.map((item, index) => (
                 // <LazyLoad key={item.index} placeholder={<LoadingLazy />}>
-                <VideoFeedItem
+                <Post
                     key={item.index}
                     index={index + 1}
                     dataPost={item}
@@ -45,4 +45,4 @@ export const VideoList = ({ posCurrentScroll, isLoading }) => {
     )
 }
 
-export default VideoList
+export default PostList

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { useDispatch } from 'react-redux'
-
-import { FollowingVideoList } from '../components/VideoListOption/FollowingVideoList'
+import { FollowingPostList } from '../components/PostListOption/FollowingPostList'
 
 import useScroll from '../../../hooks/useScroll'
 import * as Styled from './styled.elements'
@@ -16,7 +14,7 @@ export const FollowingPage = () => {
     return (
         <Styled.FlexWrapper onScroll={handleScroll}>
             <Styled.MainWrapper>
-                <FollowingVideoList />
+                <FollowingPostList />
             </Styled.MainWrapper>
         </Styled.FlexWrapper>
     )
