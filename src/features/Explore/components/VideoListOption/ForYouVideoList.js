@@ -6,12 +6,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getSuggestPosts } from '../../../../services/api/postApi'
-import { setGoingUp, setListSuggestPosts, setPosAfter } from '../../exploreSlice'
+import { setListSuggestPosts } from '../../exploreSlice'
 import { VideoList } from '../VideoList'
 
 export const ForYouVideoList = () => {
     const dispatch = useDispatch()
-    const { posAfter, goingUp } = useSelector((state) => state.explore.element)
+    const { posAfter } = useSelector((state) => state.explore.element)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
 
     const [isLoading, setIsLoading] = useState(true)

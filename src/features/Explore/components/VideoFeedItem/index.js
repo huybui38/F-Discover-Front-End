@@ -1,3 +1,7 @@
+/* eslint-disable import/no-named-as-default */
+
+/* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable react/prop-types */
 import React, { forwardRef, useEffect, useRef, useState } from 'react'
 
@@ -32,7 +36,6 @@ import CommentInputField from '../CommentInputField'
 import * as Styled from './styled.elements'
 
 export const VideoFeedItem = ({ dataPost, index, lazyLoading }) => {
-    const heightEl = localStorage.getItem('heightEl')
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const userID = useSelector((state) => state.auth.userID)
     const sumHeightEl = useSelector((state) => state.explore.sumHeightEl)

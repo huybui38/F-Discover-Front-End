@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 
 import { FaRegHeart, FaHeart, FaEllipsisH } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,6 +21,7 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
     const dispatch = useDispatch()
     const userID = useSelector((state) => state.auth.userID)
     const { isShowing, openModal, closeModal } = useModal()
+    const [isLikeComment, setIsLikeComment] = useState(false)
 
     const handleDeleteComment = () => {
         closeModal()
@@ -62,11 +63,20 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
                         <Styled.OptionItem onClick={closeModal}>Cancel</Styled.OptionItem>
                     </Styled.OptionList>
                 </Dialog>
-                <ButtonIcon icon={<FaRegHeart style={{ width: '14px', height: '14px' }} />} />
-                {/* <ButtonIcon
-                    bgrColor="rgba(255,63,52,0.1)"
-                    icon={<FaHeart style={{ width: '14px', height: '14px', color: '#ff3f34' }} />}
-                /> */}
+                {isLikeComment ? (
+                    <ButtonIcon
+                        bgrColor="rgba(255,63,52,0.1)"
+                        icon={
+                            <FaHeart style={{ width: '14px', height: '14px', color: '#ff3f34' }} />
+                        }
+                        onClick={() => setIsLikeComment(false)}
+                    />
+                ) : (
+                    <ButtonIcon
+                        icon={<FaRegHeart style={{ width: '14px', height: '14px' }} />}
+                        onClick={() => setIsLikeComment(true)}
+                    />
+                )}
             </Styled.Actions>
         </Styled.CommentItem>
     )

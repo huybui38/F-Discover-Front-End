@@ -29,3 +29,14 @@ export const CommentList = styled.ul`
         background: ${(props) => props.theme.palette.primary.dark};
     }
 `
+export const ViewControl = styled.a`
+    display: block;
+    margin-left: 16px;
+    margin-bottom: 8px;
+
+    &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        color: ${(props) => props.theme.palette.primary.light};
+    }
+`

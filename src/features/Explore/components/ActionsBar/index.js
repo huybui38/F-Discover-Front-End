@@ -31,35 +31,17 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalCom
     const wrapperShareRef = useRef(null)
 
     const [totalLike, setTotalLike] = useState(dataPost.likes)
-    const [isLikePost, setIsLikePost] = useState(false)
-    const [isClickLike, setIsClickLike] = useState(false)
+    const [isLikePost, setIsLikePost] = useState(dataPost.likeStatus)
     const [isClickShare, setIsClickShare] = useState(false)
     const [copied, setCopied] = useState('')
-
     const { isShowing, openModal, closeModal } = useModal()
-
-    // useEffect(() => {
-    //     if (!lazyLoading) {
-    //         console.log('check like')
-    //         checkLikePostById(dataPost.id)
-    //             .then((res) => {
-    //                 if (res.message === 'Success') {
-    //                     setIsLikePost(res.data.liked)
-    //                     console.log(res.data.liked)
-    //                 }
-    //             })
-    //             .catch((e) => {
-    //                 console.log(e)
-    //             })
-    //     }
-    // }, [isClickLike])
 
     const handleLikePost = () => {
         if (isLikePost) {
             unLikePostById(dataPost.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        setIsClickLike(!isClickLike)
+                        setIsLikePost(false)
                         setTotalLike(totalLike - 1)
                     }
                 })
@@ -70,7 +52,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalCom
             likePostById(dataPost.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        setIsClickLike(!isClickLike)
+                        setIsLikePost(true)
                         setTotalLike(totalLike + 1)
                     }
                 })
@@ -90,7 +72,7 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalCom
             <Styled.Actions>
                 {/* Like */}
                 <Styled.ActionItem>
-                    {isClickLike ? (
+                    {isLikePost ? (
                         <ButtonIcon
                             onClick={() => handleLikePost()}
                             bgrColor="rgba(255,63,52,0.1)"
