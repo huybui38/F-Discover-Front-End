@@ -2,27 +2,47 @@
 import React, { useState } from 'react'
 
 import { FaMapMarkedAlt } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
 
 import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
-import ButtonBase from '../../../../components/ButtonBase'
-import ButtonWithIcons from '../../../../components/ButtonWithIcons'
+import { ButtonBase } from '../../../../components/ButtonBase'
 
+import { Error } from '../../../../helpers/notify'
+import { updatePostById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
 import * as Styled from './styled.elements'
 
 export const PostUpdateDialog = ({ dataPost, onExit }) => {
     const mobile = useBreakpoint(down('lg'))
+    const locationList = useSelector((state) => state.explore.locationList)
     const [value, setValue] = useState(dataPost.content)
     const handleChange = (e) => {
         setValue(e.currentTarget.textContent)
     }
     const handleSubmit = (e) => {
         e.preventDefault()
-        alert(value)
+        if (dataPost.content !== value) {
+            const getIdLocation = locationList.find(
+                (location) => location.name === dataPost.location
+            )
+            console.log(getIdLocation)
+            const dataUpdate = {
+                content: value,
+                location: getIdLocation.id,
+            }
+            updatePostById(dataPost.id, dataUpdate)
+                .then((res) => {
+                    onExit()
+                })
+                .catch((e) => {
+                    console.log(e)
+                    Error(e.response.message)
+                })
+        }
     }
     return (
         <Styled.Container>
@@ -63,7 +83,7 @@ export const PostUpdateDialog = ({ dataPost, onExit }) => {
 
                 <Styled.ButtonSave>
                     <ButtonBase
-                        width="350px"
+                        width="80%"
                         padding="8px"
                         background_color="#59ABAE"
                         text_color="white"

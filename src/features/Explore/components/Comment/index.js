@@ -15,16 +15,14 @@ export const Comment = ({ disable, postId, lazyLoading, totalComment, setTotalCo
     const [isClickView, setIsClickView] = useState({ status: false, type: '' })
 
     useEffect(() => {
-        if (!lazyLoading) {
-            console.log('check comment')
-            getAllComment(postId, 1, 5)
-                .then((res) => {
-                    if (res.message === 'Success') {
-                        setListComment(res.data.comments)
-                    }
-                })
-                .catch((e) => console.log(e))
-        }
+        console.log('check comment')
+        getAllComment(postId, 1, 5)
+            .then((res) => {
+                if (res.message === 'Success') {
+                    setListComment(res.data.comments)
+                }
+            })
+            .catch((e) => console.log(e))
     }, [isComment])
 
     useEffect(() => {
@@ -61,19 +59,21 @@ export const Comment = ({ disable, postId, lazyLoading, totalComment, setTotalCo
                           />
                       ))
                     : null}
-                {listComment && listComment.length <= 5 ? (
-                    <Styled.ViewControl
-                        onClick={() => setIsClickView({ status: 'true', type: 'MORE' })}
-                    >
-                        View all comment
-                    </Styled.ViewControl>
-                ) : (
-                    <Styled.ViewControl
-                        onClick={() => setIsClickView({ status: 'true', type: 'LESS' })}
-                    >
-                        Hidden away
-                    </Styled.ViewControl>
-                )}
+                {totalComment > 5 ? (
+                    listComment && listComment.length <= 5 ? (
+                        <Styled.ViewControl
+                            onClick={() => setIsClickView({ status: 'true', type: 'MORE' })}
+                        >
+                            View all comment
+                        </Styled.ViewControl>
+                    ) : (
+                        <Styled.ViewControl
+                            onClick={() => setIsClickView({ status: 'true', type: 'LESS' })}
+                        >
+                            Hidden away
+                        </Styled.ViewControl>
+                    )
+                ) : null}
             </Styled.CommentList>
         </Styled.CommentContainer>
     )

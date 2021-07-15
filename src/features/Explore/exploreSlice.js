@@ -9,6 +9,7 @@ const initialState = {
     isFollowUser: false,
     listSuggestPosts: [],
     sumHeightEl: [0],
+    locationList: [],
 }
 
 const exploreSlice = createSlice({
@@ -36,6 +37,9 @@ const exploreSlice = createSlice({
         setSumHeightEl: (state, action) => {
             state.sumHeightEl = action.payload
         },
+        setLocationList: (state, action) => {
+            state.locationList = action.payload
+        },
     },
 })
 
@@ -48,5 +52,6 @@ export const {
     setIsComment,
     setIsFollowUser,
     setSumHeightEl,
+    setLocationList,
 } = actions
 export default reducer

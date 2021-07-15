@@ -2,6 +2,7 @@ import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 export const Container = styled.div`
+    width: 35vw;
     border: 1px solid ${(props) => props.theme.palette.baseLine.main};
 `
 export const Author = styled.div`
@@ -27,7 +28,7 @@ export const FlexWrapper = styled.div`
     }
 `
 export const Main = styled.div`
-    width: 400px;
+    /* width: 100%; */
     height: 400px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -67,4 +68,5 @@ export const ButtonSave = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 5px;
 `

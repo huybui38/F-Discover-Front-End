@@ -18,8 +18,13 @@ const getAllPostUserFollowing = async (page, limit) => {
 const createComment = async (postId, content) => {
     return await ApiCaller.post(`/post/${postId}/comment`, content)
 }
-const likePostById = async (id) => {
-    return await ApiCaller.post(`/post/${id}/like`)
+const likePostById = async (postId) => {
+    return await ApiCaller.post(`/post/${postId}/like`)
+}
+
+//PUT
+const updatePostById = async (postId, data) => {
+    return await ApiCaller.put(`/post/${postId}`, data)
 }
 
 //DELETE
@@ -32,6 +37,10 @@ const deleteCommentById = async (postId, commentId) => {
 const deletePostById = async (postId) => {
     return await ApiCaller.del(`/post/${postId}`)
 }
+
+const getLocationList = async () => {
+    return await ApiCaller.get(`/location`)
+}
 export {
     getSuggestPosts,
     checkLikePostById,
@@ -42,4 +51,6 @@ export {
     deletePostById,
     unLikePostById,
     getAllPostUserFollowing,
+    updatePostById,
+    getLocationList,
 }
