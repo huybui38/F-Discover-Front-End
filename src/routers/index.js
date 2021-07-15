@@ -25,6 +25,12 @@ export const publicRouters = [
         name: 'loginCallback',
         component: Callback,
     },
+    {
+        path: '/profile/:profileID',
+        name: 'profileUser',
+        component: Profile,
+        restrict: true,
+    },
 ]
 
 export const privateRouters = [

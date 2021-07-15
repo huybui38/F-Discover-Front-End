@@ -111,6 +111,7 @@ function VideoPlayer(props) {
 }
 VideoPlayer.propTypes = {
     src: propTypes.string,
+    poster: propTypes.string,
 }
 
 export default VideoPlayer

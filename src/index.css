@@ -8,3 +8,6 @@ html, body{
     sans-serif;
     font-size: 12px;
 }
+select{
+    font-family: 'Poppins', sans-serif;
+}
