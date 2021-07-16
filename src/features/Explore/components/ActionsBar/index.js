@@ -19,14 +19,14 @@ import { ButtonIcon } from '../../../../components/ButtonIcon'
 import Dialog from '../../../../components/Dialog'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
-import useModal from '../../../../hooks/useModal'
+import { useModal } from '../../../../hooks/useModal'
 import { checkLikePostById, likePostById, unLikePostById } from '../../../../services/api/postApi'
 import formatNumber from '../../../../utils/formatNumber'
 import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
 const link = 'www.facebook.com/profile.php?id=100015055038244'
-export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalComment }) => {
+export const ActionsBar = ({ dataPost, handleClickComment, totalComment, setTotalComment }) => {
     const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
 
@@ -100,7 +100,11 @@ export const ActionsBar = ({ dataPost, handleClickComment, lazyLoading, totalCom
                     <span>{formatNumber(totalComment, 1)}</span>
                 </Styled.ActionItem>
                 <Dialog title="Comment" isShowing={isShowing} hide={() => closeModal()}>
-                    <CommentDialog postId={dataPost.id} />
+                    <CommentDialog
+                        postId={dataPost.id}
+                        totalComment={totalComment}
+                        setTotalComment={setTotalComment}
+                    />
                 </Dialog>
 
                 {/* Share */}

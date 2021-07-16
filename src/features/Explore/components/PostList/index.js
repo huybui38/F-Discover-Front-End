@@ -14,9 +14,8 @@ const LoadingLazy = () => (
     </div>
 )
 
-export const PostList = ({ posCurrentScroll, isLoading }) => {
+export const PostList = ({ isLoading }) => {
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
-    console.log(posCurrentScroll)
     return (
         <div
             className="video__wrapper"
@@ -31,13 +30,13 @@ export const PostList = ({ posCurrentScroll, isLoading }) => {
                     key={item.index}
                     index={index + 1}
                     dataPost={item}
-                    lazyLoading={
-                        index > posCurrentScroll + 1 || index < posCurrentScroll - 1 ? true : false
-                    }
+                    // lazyLoading={
+                    //     index > posCurrentScroll + 1 || index < posCurrentScroll - 1 ? true : false
+                    // }
                     // lazyLoading={
                     //     index > posCurrentScroll + 2 || index < posCurrentScroll - 2 ? true : false
                     // }
-                    posCurrentScroll={posCurrentScroll}
+                    // posCurrentScroll={posCurrentScroll}
                 />
                 // </LazyLoad>
             ))}

@@ -4,6 +4,10 @@ import styled from 'styled-components'
 export const Container = styled.div`
     width: 35vw;
     border: 1px solid ${(props) => props.theme.palette.baseLine.main};
+
+    ${down('lg')} {
+        width: 90vw;
+    }
 `
 export const Author = styled.div`
     flex: 1;

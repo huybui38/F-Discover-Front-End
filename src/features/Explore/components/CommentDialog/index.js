@@ -12,11 +12,16 @@ const Wrapper = styled.div`
     border-top: 1px solid ${(props) => props.theme.palette.baseLine.main};
 `
 
-export const CommentDialog = ({ postId }) => {
+export const CommentDialog = ({ postId, totalComment, setTotalComment }) => {
     return (
         <Wrapper>
             <Comment postId={postId} />
-            <CommentInputField focus={false} postId={postId} />
+            <CommentInputField
+                focus={false}
+                postId={postId}
+                totalComment={totalComment}
+                setTotalComment={setTotalComment}
+            />
         </Wrapper>
     )
 }

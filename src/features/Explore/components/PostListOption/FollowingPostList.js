@@ -6,21 +6,22 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getAllPostUserFollowing } from '../../../../services/api/postApi'
-import { setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottom, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const FollowingPostList = () => {
     const dispatch = useDispatch()
-    const { posAfter } = useSelector((state) => state.explore.element)
+    const isBottom = useSelector((state) => state.explore.isBottom)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     const [isFetching, setIsFetching] = useState(false)
 
     const [isLoading, setIsLoading] = useState(true)
+    const [page, setPage] = useState(2)
 
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getAllPostUserFollowing(1, 4).then((response) => {
+        getAllPostUserFollowing(1, 5).then((response) => {
             if (response.message === 'Success') {
                 if (mounted) {
                     setIsLoading(false)
@@ -41,7 +42,7 @@ export const FollowingPostList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getAllPostUserFollowing(1, 1)
+        getAllPostUserFollowing(page, 5)
             .then((response) => {
                 if (response.message === 'Success') {
                     if (response.data === null) return null
@@ -53,17 +54,21 @@ export const FollowingPostList = () => {
                     const action = setListSuggestPosts([...listSuggestPosts, ...posts])
                     dispatch(action)
                     setIsFetching(false)
+                    dispatch(setIsBottom(false))
+                    setPage(page + 1)
                 }
             })
     }
 
     useEffect(() => {
-        if (posAfter && posAfter === listSuggestPosts.length && !isFetching) {
+        console.log('pos: ', isBottom)
+        if (!isBottom) return
+        if (isBottom && !isFetching) {
             setIsFetching(true)
         }
-    }, [posAfter])
+    }, [isBottom])
 
-    return <PostList isLoading={isLoading} posCurrentScroll={posAfter} />
+    return <PostList isLoading={isLoading} />
 }
 
 export default FollowingPostList

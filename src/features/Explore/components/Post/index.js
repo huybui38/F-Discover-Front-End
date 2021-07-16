@@ -25,34 +25,22 @@ import {
     unFollowUserById,
 } from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
-import { setIsFollowUser, setSumHeightEl } from '../../exploreSlice'
+import { setIsFollowUser } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
 import PostActionDialog from '../PostActionDialog'
 import * as Styled from './styled.elements'
 
-export const Post = ({ dataPost, index, lazyLoading }) => {
+export const Post = ({ dataPost, index }) => {
     const mobile = useBreakpoint(down('lg'))
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
-    const sumHeightEl = useSelector((state) => state.explore.sumHeightEl)
     const dispatch = useDispatch()
     const commentRef = useRef(null)
 
     const { isShowing, openModal, closeModal } = useModal()
     const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
-
-    useEffect(() => {
-        const num = sumHeightEl.length
-        let temp = [...sumHeightEl]
-        if (num < index) {
-            const el = document.querySelector(`.video_${index - 1}`)
-            const height = el.offsetHeight
-            temp.push(temp[num - 1] + height)
-            dispatch(setSumHeightEl([...temp]))
-        }
-    }, [dispatch, index, sumHeightEl])
 
     useEffect(() => {
         let mounted = true
@@ -157,12 +145,11 @@ export const Post = ({ dataPost, index, lazyLoading }) => {
                     <Styled.CommentContainer>
                         <ActionsBar
                             totalComment={totalComment}
-                            lazyLoading={lazyLoading}
+                            setTotalComment={setTotalComment}
                             dataPost={dataPost}
                             handleClickComment={() => handleClickComment()}
                         />
                         <Comment
-                            lazyLoading={lazyLoading}
                             postId={dataPost.id}
                             disable={mobile ? true : false}
                             totalComment={totalComment}

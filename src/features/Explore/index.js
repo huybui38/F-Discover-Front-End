@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
-import { Route, Switch, Redirect } from 'react-router'
+import { Route, Switch } from 'react-router'
 
 import { NotFound } from '../../components/NotFound'
 

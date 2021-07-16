@@ -9,7 +9,7 @@ import { getAllComment } from '../../../../services/api/postApi'
 import { CommentItem } from '../CommentItem'
 import * as Styled from './styled.elements'
 
-export const Comment = ({ disable, postId, lazyLoading, totalComment, setTotalComment }) => {
+export const Comment = ({ disable, postId, totalComment, setTotalComment }) => {
     const isComment = useSelector((state) => state.explore.isComment)
     const [listComment, setListComment] = useState([])
     const [isClickView, setIsClickView] = useState({ status: false, type: '' })
@@ -27,7 +27,7 @@ export const Comment = ({ disable, postId, lazyLoading, totalComment, setTotalCo
 
     useEffect(() => {
         if (!isClickView.status) return
-        if (!lazyLoading && isClickView.status) {
+        if (isClickView.status) {
             if (isClickView.type === 'MORE') {
                 console.log('check comment')
                 getAllComment(postId, 1, totalComment)
