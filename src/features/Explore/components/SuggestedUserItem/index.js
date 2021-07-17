@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
+import { useHistory } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
@@ -67,8 +68,13 @@ const InfoUser = styled.div`
 `
 const SuggestedUserItem = ({ user }) => {
     const mobile = useBreakpoint(down('lg'))
+    const history = useHistory()
+
+    const handleClick = () => {
+        history.push(`/profile/${user.id}`)
+    }
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={handleClick}>
             <Avatar src={user.avatarUrl} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{user.name}</span>

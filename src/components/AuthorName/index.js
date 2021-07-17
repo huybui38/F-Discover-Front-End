@@ -15,10 +15,11 @@ const Name = styled.div`
         }
     }
 `
-export const AuthorName = ({ name, ...others }) => {
+export const AuthorName = ({ name, authorId, ...others }) => {
+    console.log('authorId: ', authorId)
     return (
         <Name {...others}>
-            <Link>
+            <Link to={`/profile/${authorId}`}>
                 <b>{name}</b>
             </Link>
         </Name>

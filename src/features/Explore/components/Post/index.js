@@ -102,6 +102,7 @@ export const Post = ({ dataPost, index }) => {
                             <AuthorName
                                 style={{ marginRight: '8px' }}
                                 name={dataPost.author.name}
+                                authorId={dataPost.author.id}
                             />
                             {mobile ? null : <p>{dataPost.author.job}</p>}
                             <Styled.Option className="post__actions" onClick={openModal}>

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
+import Avatar from '../../../../components/Avatar'
 import { Button } from '../../../../components/Button'
 import { ButtonFollow } from '../../../../components/ButtonFollow'
 
@@ -24,11 +25,6 @@ const Header = styled.div`
     padding: 8px 16px;
     display: flex;
     justify-content: space-between;
-`
-const Avatar = styled.img`
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
 `
 const FollowButton = styled(Button)`
     padding: 0 16px;
@@ -94,7 +90,7 @@ export const InfoSuggestedUser = ({ user }) => {
     return (
         <InfoWrapper>
             <Header>
-                <Avatar src={user.avatarUrl} alt="avatar" />
+                <Avatar src={user.avatarUrl} alt="avatar" width="40px" />
                 <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
             </Header>
             <Name>

@@ -43,7 +43,11 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
         <Styled.CommentItem>
             <Avatar width="32px" src={dataComment.author.avatarUrl} />
             <Styled.Info>
-                <AuthorName name={dataComment.author.name} fontSize="14px" />
+                <AuthorName
+                    name={dataComment.author.name}
+                    authorId={dataComment.author.id}
+                    fontSize="14px"
+                />
                 <Styled.Date>{timeSince(dataComment.createdAt)}</Styled.Date>
                 <Styled.Content>{dataComment.content}</Styled.Content>
             </Styled.Info>
