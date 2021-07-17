@@ -14,7 +14,6 @@ import UpdateVideoModal from '../../../components/Modal/UploadVideoModal'
 import { Typography } from '../../../components/Typography'
 
 import AvatarUploadIcon from '../../../assets/avatar-upload-icon.png'
-import DemoAvatarProfile from '../../../assets/demo_avatar_profile.png'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
 import { followUser } from '../../../services/user/profile'
@@ -166,13 +165,14 @@ export default function BioProfile() {
     const dispatch = useDispatch()
     const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
     const userID = useSelector((state) => state.auth.userID)
+    const isGuestView = useSelector((state) => state.profile.isGuestView)
     let { profileID } = useParams()
-    console.log('id: ', profileID)
     const details = useSelector((state) => state.profile.bioDetail)
     let history = useHistory()
-    if (profileID == userID) history.push('/profile')
+
     useEffect(() => {
         if (bioFetchStatus === 'idle') {
+            console.log(profileID)
             dispatch(fetchUserBio(!profileID ? null : profileID))
                 .unwrap()
                 .catch((rejectedValueOrSerializedError) => {
@@ -228,10 +228,10 @@ export default function BioProfile() {
                 toggle={toggle2}
                 onSuccess={onUploadPostSuccess}
             />
-            <Avatar src={DemoAvatarProfile} isSelf={!profileID} />
+            <Avatar src={details?.avatarUrl} isSelf={!isGuestView} />
             <StyledName>{details?.name}</StyledName>
             <StyledJob>{details?.job}</StyledJob>
-            {!profileID ? (
+            {!isGuestView ? (
                 <>
                     <FollowButton center onClick={handlerUpdate}>
                         Update

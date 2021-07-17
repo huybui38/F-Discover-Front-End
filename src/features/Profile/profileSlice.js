@@ -19,6 +19,7 @@ const initialState = {
     posts: [],
     isLoading: false,
     guestID: '-1',
+    isGuestView: true,
 }
 export const fetchUserBio = createAsyncThunk(
     'profile/fetchUserBio',
@@ -73,6 +74,13 @@ const profileSlice = createSlice({
         },
         setFollowStatus: (state, action) => {
             state.bioDetail.followStatus = action.payload
+        },
+        setIsGuestView: (state, action) => {
+            state.isGuestView = action.payload
+        },
+        resetProfileState: (state) => {
+            state.status = { updatePost: 'idle', fetchUserBio: 'idle', fetchPosts: 'idle' }
+            state.isGuestView = true
         },
         onUpdateProfileSuccess: (state, action) => {
             state.bioDetail = {
@@ -129,7 +137,9 @@ export const {
     setCover,
     onUpdateProfileSuccess,
     setUpdatePostStatus,
+    resetProfileState,
     setGuest,
     setFollowStatus,
+    setIsGuestView,
 } = profileSlice.actions
 export default profileSlice.reducer
