@@ -1,9 +1,11 @@
 import React from 'react'
 
+import NavBarExplore from '../../components/Navbar/NavbarExplore'
+
 export const Explore = () => {
     return (
         <div>
-            <h2>EXPLORE PAGE</h2>
+            <NavBarExplore></NavBarExplore>
         </div>
     )
 }
