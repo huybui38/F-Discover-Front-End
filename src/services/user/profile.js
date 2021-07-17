@@ -22,3 +22,10 @@ export const getPostsByID = async (userID, page, limit) => {
     }
     return null
 }
+export const followUser = async (userID, isFollow) => {
+    let response
+    if (isFollow) response = await apiCaller.post(`/user/${userID}/follow`)
+    else response = await apiCaller.deleteJson(`/user/${userID}/follow`)
+    console.log(response)
+    return response?.data
+}
