@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { RiUploadCloud2Line } from 'react-icons/ri'
 import { useDispatch, useSelector } from 'react-redux'
@@ -47,6 +47,8 @@ export default function Cover() {
         }
     }
     let { profileID } = useParams()
+    const isGuestView = useSelector((state) => state.profile.isGuestView)
+
     const uploadHandler = (e) => {
         if (e.target.files.length === 0) {
             return
@@ -70,7 +72,7 @@ export default function Cover() {
     }
     return (
         <div style={{ position: 'relative', width: '100%' }}>
-            {!profileID ? (
+            {!isGuestView ? (
                 <StyledUpLoadCover onClick={uploadClickHandler}>
                     <img src={CoverUploadIcon} style={{ width: '20px', height: '20px' }}></img>
                     <Typography>Edit your cover</Typography>
