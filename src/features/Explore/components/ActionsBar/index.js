@@ -10,7 +10,9 @@ import {
     FaRegCopy,
     FaRegShareSquare,
     FaCheck,
+    FaPlusCircle,
 } from 'react-icons/fa'
+import { FiPlusCircle } from 'react-icons/fi'
 import { useDispatch } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
@@ -26,7 +28,14 @@ import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
 const link = 'www.facebook.com/profile.php?id=100015055038244'
-export const ActionsBar = ({ dataPost, handleClickComment, totalComment, setTotalComment }) => {
+export const ActionsBar = ({
+    dataPost,
+    handleClickComment,
+    totalComment,
+    setTotalComment,
+    isFollowing,
+    handleFollow,
+}) => {
     const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
 
@@ -70,6 +79,35 @@ export const ActionsBar = ({ dataPost, handleClickComment, totalComment, setTota
     return (
         <Styled.Wrapper>
             <Styled.Actions>
+                {/* Follow */}
+                {mobile ? (
+                    <Styled.ActionItem>
+                        {isFollowing ? (
+                            <ButtonIcon
+                                onClick={() => handleFollow()}
+                                icon={
+                                    <FaPlusCircle
+                                        style={{ width: '28px', height: '28px', color: '#59ABAE' }}
+                                    />
+                                }
+                            />
+                        ) : (
+                            <ButtonIcon
+                                onClick={() => handleFollow()}
+                                icon={
+                                    <FiPlusCircle
+                                        style={{
+                                            width: '28px',
+                                            height: '28px',
+                                        }}
+                                    />
+                                }
+                            />
+                        )}
+                        <span>{isFollowing ? 'Following' : 'Follow'}</span>
+                    </Styled.ActionItem>
+                ) : null}
+
                 {/* Like */}
                 <Styled.ActionItem>
                     {isLikePost ? (

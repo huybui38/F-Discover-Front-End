@@ -148,6 +148,8 @@ export const Post = ({ dataPost, index }) => {
                             setTotalComment={setTotalComment}
                             dataPost={dataPost}
                             handleClickComment={() => handleClickComment()}
+                            isFollowing={isFollowing}
+                            handleFollow={() => handleFollowUser()}
                         />
                         <Comment
                             postId={dataPost.id}

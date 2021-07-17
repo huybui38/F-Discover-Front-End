@@ -29,6 +29,9 @@ export const Author = styled.div`
 `
 export const ButtonWrapper = styled.div`
     align-self: flex-start;
+    ${down('lg')} {
+        display: none;
+    }
 `
 export const AuthorInfo = styled.div`
     padding: 0 8px;
