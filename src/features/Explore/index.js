@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Switch } from 'react-router'
 
+import NavBarExplore from '../../components/Navbar/NavbarExplore'
 import { NotFound } from '../../components/NotFound'
 
 import { getLocationList } from '../../services/api/postApi'
