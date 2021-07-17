@@ -23,7 +23,6 @@ export const Sidebar = () => {
     useEffect(() => {
         getSuggestUser(numberSuggestedUser)
             .then((res) => {
-                console.log(res.status)
                 if (res.message === 'Success') {
                     setListSuggestUser(res.data)
                 }

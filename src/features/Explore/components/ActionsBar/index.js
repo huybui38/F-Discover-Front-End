@@ -43,7 +43,7 @@ export const ActionsBar = ({
     const [isLikePost, setIsLikePost] = useState(dataPost.likeStatus)
     const [isClickShare, setIsClickShare] = useState(false)
     const [copied, setCopied] = useState('')
-    const { isShowing, openModal, closeModal } = useModal()
+    const [isShowing, toggle, openModal, closeModal] = useModal(false)
 
     const handleLikePost = () => {
         if (isLikePost) {

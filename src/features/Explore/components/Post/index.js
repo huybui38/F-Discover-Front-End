@@ -38,13 +38,12 @@ export const Post = ({ dataPost, index }) => {
     const dispatch = useDispatch()
     const commentRef = useRef(null)
 
-    const { isShowing, openModal, closeModal } = useModal()
+    const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
 
     useEffect(() => {
         let mounted = true
-        console.log('check follow')
         checkFollowUserById(dataPost.author.id)
             .then((res) => {
                 if (res.message === 'Success') {
@@ -138,7 +137,10 @@ export const Post = ({ dataPost, index }) => {
                     {/* Left side: Video item */}
                     <Styled.VideoContainer>
                         <Styled.VideoCard>
-                            <VideoPlayer src={dataPost.videoUrl || videoDemo} />
+                            <VideoPlayer
+                                src={dataPost.videoUrl || videoDemo}
+                                poster={dataPost.thumbnailUrl}
+                            />
                         </Styled.VideoCard>
                     </Styled.VideoContainer>
 

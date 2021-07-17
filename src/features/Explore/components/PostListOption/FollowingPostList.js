@@ -61,7 +61,6 @@ export const FollowingPostList = () => {
     }
 
     useEffect(() => {
-        console.log('pos: ', isBottom)
         if (!isBottom) return
         if (isBottom && !isFetching) {
             setIsFetching(true)

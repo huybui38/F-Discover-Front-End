@@ -29,7 +29,6 @@ export const PostUpdateDialog = ({ dataPost, onExit }) => {
             const getIdLocation = locationList.find(
                 (location) => location.name === dataPost.location
             )
-            console.log(getIdLocation)
             const dataUpdate = {
                 content: value,
                 location: getIdLocation.id,

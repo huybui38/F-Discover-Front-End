@@ -4,6 +4,7 @@ export const RightWrapper = styled.div`
     width: 100%;
     height: 100%;
     display: inline-block;
+    position: relative;
 `
 
 export const WholePageContainer = styled.div`

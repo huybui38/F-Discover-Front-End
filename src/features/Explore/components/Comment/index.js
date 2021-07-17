@@ -15,7 +15,6 @@ export const Comment = ({ disable, postId, totalComment, setTotalComment }) => {
     const [isClickView, setIsClickView] = useState({ status: false, type: '' })
 
     useEffect(() => {
-        console.log('check comment')
         getAllComment(postId, 1, 5)
             .then((res) => {
                 if (res.message === 'Success') {
@@ -29,7 +28,6 @@ export const Comment = ({ disable, postId, totalComment, setTotalComment }) => {
         if (!isClickView.status) return
         if (isClickView.status) {
             if (isClickView.type === 'MORE') {
-                console.log('check comment')
                 getAllComment(postId, 1, totalComment)
                     .then((res) => {
                         if (res.message === 'Success') {

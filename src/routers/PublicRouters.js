@@ -6,24 +6,8 @@ import { Route, Redirect } from 'react-router'
 
 import { authSelector } from '../features/Login/loginSlice'
 
-export const PublicRouters = ({ component, ...rest }) => {
-    let isAuthenticated = useSelector(authSelector)
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                isAuthenticated ? (
-                    <Redirect
-                        to={{
-                            pathname: '/explore',
-                        }}
-                    />
-                ) : (
-                    React.createElement(component, props)
-                )
-            }
-        />
-    )
+export const PublicRouters = ({ path, component, restrict, exact }) => {
+    return <Route path={path} component={component} exact={exact} restrict={restrict} />
 }
 
 export default PublicRouters

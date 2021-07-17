@@ -9,6 +9,7 @@ const initialState = {
         job: '',
         quote: '',
         following: 0,
+        followStatus: -1,
     },
     status: {
         updatePost: 'idle',
@@ -25,7 +26,6 @@ export const fetchUserBio = createAsyncThunk(
         let response
         try {
             let params = userData ? '/' + userData : ''
-            console.log(userData)
             response = await ApiCaller.get('/user' + params)
         } catch (ex) {
             return rejectWithValue(ex)
@@ -71,6 +71,9 @@ const profileSlice = createSlice({
         setLoading: (state, action) => {
             state.isLoading = action.payload
         },
+        setFollowStatus: (state, action) => {
+            state.bioDetail.followStatus = action.payload
+        },
         onUpdateProfileSuccess: (state, action) => {
             state.bioDetail = {
                 ...state.bioDetail,
@@ -97,7 +100,6 @@ const profileSlice = createSlice({
             state.status.updatePost = 'loading'
         },
         [updatePost.fulfilled]: (state, action) => {
-            console.log(state.status.updatePost)
             state.status.updatePost = 'succeeded'
         },
         [updatePost.rejected]: (state, action) => {
@@ -111,7 +113,7 @@ const profileSlice = createSlice({
         [fetchPosts.fulfilled]: (state, action) => {
             state.status.fetchPosts = 'succeeded'
             state.isLoading = false
-            state.posts = action.payload.posts
+            state.posts = !action.payload.posts ? [] : action.payload.posts
         },
         [fetchPosts.rejected]: (state, action) => {
             state.status.fetchPosts = 'failed'
@@ -128,5 +130,6 @@ export const {
     onUpdateProfileSuccess,
     setUpdatePostStatus,
     setGuest,
+    setFollowStatus,
 } = profileSlice.actions
 export default profileSlice.reducer

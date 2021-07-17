@@ -47,7 +47,6 @@ export const InfoSuggestedUser = ({ user }) => {
     const [isClickFollow, setIsClickFollow] = useState(false)
 
     useEffect(() => {
-        console.log('check follow')
         checkFollowUserById(user.id)
             .then((res) => {
                 if (res.message === 'Success') {

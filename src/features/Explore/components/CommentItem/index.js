@@ -11,7 +11,7 @@ import { ButtonIcon } from '../../../../components/ButtonIcon'
 import Dialog from '../../../../components/Dialog'
 
 import { Error } from '../../../../helpers/notify'
-import useModal from '../../../../hooks/useModal'
+import { useModal } from '../../../../hooks/useModal'
 import { deleteCommentById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
 import { setIsComment } from '../../exploreSlice'
@@ -20,7 +20,7 @@ import * as Styled from './styled.elements'
 export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment }) => {
     const dispatch = useDispatch()
     const userID = useSelector((state) => state.auth.userID)
-    const { isShowing, openModal, closeModal } = useModal()
+    const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isLikeComment, setIsLikeComment] = useState(false)
 
     const handleDeleteComment = () => {

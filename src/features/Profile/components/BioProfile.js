@@ -13,11 +13,14 @@ import { Loading } from '../../../components/Loading'
 import UpdateVideoModal from '../../../components/Modal/UploadVideoModal'
 import { Typography } from '../../../components/Typography'
 
+import AvatarUploadIcon from '../../../assets/avatar-upload-icon.png'
 import DemoAvatarProfile from '../../../assets/demo_avatar_profile.png'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
+import { followUser } from '../../../services/user/profile'
 import apiCaller from '../../../utils/apiCaller'
-import { fetchPosts, fetchUserBio, setAvatar, setLoading } from '../profileSlice'
+import { signOut } from '../../Login/loginSlice'
+import { fetchPosts, fetchUserBio, setAvatar, setFollowStatus, setLoading } from '../profileSlice'
 import UpdateProfileModal from './UpdateProfileModal'
 
 const Wrapper = styled.div`
@@ -72,8 +75,8 @@ const StatisticalDetailNumber = styled.div`
 `
 const FollowButton = styled(PrimaryButton)`
     border-radius: 25px;
-    width: 7rem;
-    height: 2.5rem;
+    width: 9rem;
+    height: 3rem;
     font-size: 1.25rem;
     margin: 10px;
     color: #ffffff;
@@ -99,7 +102,7 @@ const StyledUpLoadAvatar = styled(EmptyIconButton)`
     position: absolute;
     right: 2rem;
     bottom: -0.3rem;
-    background-color: rgba(1, 179, 167, 0.8);
+    background-color: white;
     border-radius: 50%;
     display: inline-flex;
     padding: 5px;
@@ -140,7 +143,7 @@ function Avatar({ src, isSelf }) {
             <BorderAvatar src={src}></BorderAvatar>
             {isSelf ? (
                 <StyledUpLoadAvatar onClick={uploadClickHandler}>
-                    <RiUploadCloud2Line size={25} color="white" />
+                    <img src={AvatarUploadIcon} size={25} color="white" />
                     <StyledInputFile
                         type="file"
                         style={{ display: 'none' }}
@@ -164,8 +167,10 @@ export default function BioProfile() {
     const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
     const userID = useSelector((state) => state.auth.userID)
     let { profileID } = useParams()
+    console.log('id: ', profileID)
     const details = useSelector((state) => state.profile.bioDetail)
     let history = useHistory()
+    if (profileID == userID) history.push('/profile')
     useEffect(() => {
         if (bioFetchStatus === 'idle') {
             dispatch(fetchUserBio(!profileID ? null : profileID))
@@ -176,18 +181,44 @@ export default function BioProfile() {
                     }
                 })
         }
-    }, [bioFetchStatus, dispatch])
-    const { isShowing, toggle } = useModal(false)
-    const { isShowing2, toggle2 } = useModal(false)
+    }, [bioFetchStatus, dispatch, history, profileID])
+    // useEffect(() => {}, [profileID, userID, history])
+    const [isShowing, toggle] = useModal(false)
+    const [isShowing2, toggle2] = useModal(false)
     const handlerUpdate = () => {
         toggle()
     }
-    const handlerUpdate2 = () => {
-        console.log(toggle2)
+    const handleUploadVideoModal = () => {
         toggle2()
     }
     const onUploadPostSuccess = () => {
         dispatch(fetchPosts(profileID ? profileID : userID))
+    }
+    const handleFollowBtn = () => {
+        if (!profileID || !details) return
+        dispatch(setLoading(true))
+        followUser(profileID, details?.followStatus == 0)
+            .then((response) => {
+                dispatch(setFollowStatus(details?.followStatus == 0 ? 1 : 0))
+            })
+            .catch((ex) => {
+                if (ex.code === 401) {
+                    dispatch(signOut())
+                    history.push('/login')
+                }
+            })
+            .finally(() => dispatch(setLoading(false)))
+    }
+    const FollowButtons = () => {
+        if (details?.followStatus == -1) {
+            return ''
+        } else {
+            return (
+                <FollowButton center onClick={handleFollowBtn}>
+                    {details?.followStatus == 0 ? 'Theo dõi' : 'Huỷ theo dõi'}
+                </FollowButton>
+            )
+        }
     }
     return (
         <Wrapper>
@@ -205,14 +236,12 @@ export default function BioProfile() {
                     <FollowButton center onClick={handlerUpdate}>
                         Update
                     </FollowButton>
-                    <FollowButton center onClick={handlerUpdate2}>
+                    <FollowButton center onClick={handleUploadVideoModal}>
                         Up post
                     </FollowButton>
                 </>
             ) : (
-                <FollowButton center onClick={handlerUpdate2}>
-                    Follow
-                </FollowButton>
+                <FollowButtons />
             )}
 
             <StatisticalBar>

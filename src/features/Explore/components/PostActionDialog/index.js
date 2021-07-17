@@ -11,7 +11,7 @@ import * as Styled from './styled.elements'
 
 export const PostActionDialog = ({ dataPost, onExit }) => {
     const userID = useSelector((state) => state.auth.userID)
-    const { isShowing, openModal, closeModal } = useModal()
+    const [isShowing, toggle, openModal, closeModal] = useModal(false)
 
     const handleDeletePost = () => {
         onExit()

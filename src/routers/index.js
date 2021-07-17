@@ -35,12 +35,7 @@ export const publicRouters = [
 
 export const privateRouters = [
     {
-        path: '/explore',
-        name: 'explore',
-        component: LayoutExplore,
-    },
-    {
-        path: '/demo/player',
+        path: '/demo/player/:params',
         name: 'demo',
         component: Player,
         restrict: true,
@@ -60,11 +55,13 @@ export const RouterComponents = () => {
                 <Route exact path="/home" component={Home} />
                 <Redirect exact from="/" to="/home" />
                 <Route exact path="/explore" render={() => <Redirect to="/explore/for-you" />} />
+                <Route path="/explore" component={LayoutExplore} />
                 {privateRouters.map((route) => (
                     <PrivateRouters
                         key={route.name}
                         path={route.path}
                         component={route.component}
+                        exact
                     />
                 ))}
                 {publicRouters.map((route) => (

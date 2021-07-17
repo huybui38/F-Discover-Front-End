@@ -27,6 +27,20 @@ async function post(path = '', data = {}) {
             })
     }
 }
+async function deleteJson(path = '') {
+    try {
+        const response = await instance.delete(path)
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
 async function put(path = '', data = {}) {
     try {
         const response = await instance.put(path, JSON.stringify(data))
@@ -90,4 +104,4 @@ async function postFormData(path = '', formData = null, onUploadProgress) {
             })
     }
 }
-export default { post, get, postFormData, put, del }
+export default { post, get, postFormData, put, deleteJson, del }
