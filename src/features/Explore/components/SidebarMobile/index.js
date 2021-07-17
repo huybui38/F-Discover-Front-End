@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react'
 
-import { FaHome, FaCaravan, FaUserFriends } from 'react-icons/fa'
-import { ThemeConsumer } from 'styled-components'
+import { FaHome, FaUserFriends, FaCaravan } from 'react-icons/fa'
 
 import { Baseline } from '../../../../components/Baseline'
 
-import { Error } from '../../../../helpers/notify'
 import { getSuggestUser } from '../../../../services/api/userApi'
 import SuggestedUserItem from '../SuggestedUserItem'
-import * as Styled from './styled.elements'
+import * as Styled from './Sidebar.elements'
 
 const listOption = [
-    { icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
-    { icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
-    { icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest' },
+    { id: 0, icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
+    { id: 1, icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
+    { id: 2, icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest' },
 ]
 
-export const Sidebar = () => {
+export const SidebarMobile = (props) => {
     const [listSuggestUser, setListSuggestUser] = useState([])
     const [numberSuggestedUser, setNumberSuggestedUser] = useState(5)
+    const [choice, setChoice] = useState(0)
 
     useEffect(() => {
         getSuggestUser(numberSuggestedUser)
             .then((res) => {
-                console.log(res.status)
                 if (res.message === 'Success') {
                     setListSuggestUser(res.data)
                 }
@@ -42,15 +40,20 @@ export const Sidebar = () => {
     }
 
     return (
-        <Styled.Wrapper>
-            <Styled.ListOption>
+        <Styled.Wrapper {...props}>
+            <Styled.SidebarList {...props}>
                 {listOption.map((item, index) => (
-                    <Styled.OptionItem key={index} to={item.to}>
+                    <Styled.SidebarItem
+                        key={index}
+                        className={item.id == choice ? 'sidebar__item--active' : null}
+                        onClick={() => setChoice(index)}
+                        to={item.to}
+                    >
                         {item.icon}
                         <span>{item.label}</span>
-                    </Styled.OptionItem>
+                    </Styled.SidebarItem>
                 ))}
-            </Styled.ListOption>
+            </Styled.SidebarList>
             <Baseline width="95%" />
             <Styled.SuggestUserWrapper>
                 <Styled.TitleList>Suggest accounts</Styled.TitleList>
@@ -66,5 +69,6 @@ export const Sidebar = () => {
         </Styled.Wrapper>
     )
 }
+SidebarMobile.propTypes = {}
 
-export default Sidebar
+export default SidebarMobile

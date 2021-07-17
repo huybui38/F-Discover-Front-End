@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
+// import { SidebarMobile } from '../../features/Explore/components/SidebarMobile'
 import logo from '../../assets/img/logo.png'
 import { SearchForm } from '../SearchForm'
 import { SidebarMobile } from '../SidebarMobile'
@@ -16,6 +17,7 @@ import {
     SidebarWrapper,
     Overlay,
     IconWrapper,
+    NavbarItem,
 } from './NavbarMobile.elements'
 
 const propType = {
@@ -41,12 +43,12 @@ export const NavbarMobile = (props) => {
                 </IconWrapper>
                 <Logo src={logo} art="Logo"></Logo>
             </div>
-            <div>
+            <NavbarItem>
                 <SearchForm width={mobile ? '100px' : '150px'} />
                 <LoginWrapper {...props}>
                     <Link to="/login">Login</Link>
                 </LoginWrapper>
-            </div>
+            </NavbarItem>
             <SidebarWrapper className={onSidebar ? 'sidebar--on' : 'sidebar--disable'}>
                 <Overlay className="sidebar__overlay" onClick={() => setOnSidebar(!onSidebar)} />
                 <SidebarMobile

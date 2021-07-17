@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
+import { down } from 'styled-breakpoints'
+import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
 
 import { Avatar } from '../../../../components/Avatar'
@@ -64,15 +66,18 @@ const InfoUser = styled.div`
     left: 20px;
 `
 const SuggestedUserItem = ({ user }) => {
+    const mobile = useBreakpoint(down('lg'))
     return (
         <ItemWrapper>
             <Avatar src={user.avatarUrl} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{user.name}</span>
             </InfoWrapper>
-            <InfoUser className="suggest-user__info">
-                <InfoSuggestedUser user={user} />
-            </InfoUser>
+            {!mobile ? (
+                <InfoUser className="suggest-user__info">
+                    <InfoSuggestedUser user={user} />
+                </InfoUser>
+            ) : null}
         </ItemWrapper>
     )
 }
