@@ -28,6 +28,8 @@ export const GroupSocialBtn = styled.div`
 
 export const SidebarList = styled.ul`
     width: 100%;
+    padding: 0;
+    margin: 0;
     list-style: none;
 
     & .sidebar__item--active {
@@ -40,7 +42,6 @@ export const SidebarItem = styled.li`
     display: flex;
     align-items: center;
 
-    width: 100%;
     margin: 8px 0;
     padding: 16px ${(props) => props.padding || '18px'};
 

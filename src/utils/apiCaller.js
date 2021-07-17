@@ -71,6 +71,22 @@ async function get(path = '', data = {}) {
             })
     }
 }
+async function del(path = '', data = {}) {
+    try {
+        const response = await instance.delete(path, {
+            params: data,
+        })
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
 async function postFormData(path = '', formData = null, onUploadProgress) {
     let url = config.backendURL + path
     try {
@@ -88,4 +104,4 @@ async function postFormData(path = '', formData = null, onUploadProgress) {
             })
     }
 }
-export default { post, get, postFormData, put, deleteJson }
+export default { post, get, postFormData, put, deleteJson, del }

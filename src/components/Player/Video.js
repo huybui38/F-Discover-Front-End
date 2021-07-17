@@ -99,6 +99,7 @@ function VideoPlayer(props) {
                 muted={true}
                 onEnded={endedVideoHandler}
                 poster={props.poster}
+                preload="none"
             ></Player>
             <VolumeButton toggleHandler={muteVideoHandler}></VolumeButton>
             <PlayButton
