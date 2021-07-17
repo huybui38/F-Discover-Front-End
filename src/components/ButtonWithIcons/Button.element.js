@@ -11,7 +11,7 @@ export const Wrapper = styled(Link)`
     width: ${(props) => props.width || 'auto'};
     padding: ${(props) => props.padding || '8px'};
     border-radius: 10px;
-    border: none;
+    border: ${(props) => props.border || 'none'};
     outline: none;
 
     font-size: 14px;
@@ -61,4 +61,10 @@ export const StartIcon = styled.div`
 
 export const EndIcon = styled.div`
     cursor: pointer;
+`
+
+export const EmptyButtonWrapper = styled.div`
+    cursor: pointer;
+    background-color: rgb(255 255 255 / 10%);
+    display: inline-block;
 `

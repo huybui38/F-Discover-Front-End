@@ -1,42 +1,107 @@
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+
 import config from '../configurations'
 
+let token = localStorage.getItem('token')
+let tokenHeader = token ? { Authorization: `Bearer ${token}` } : {}
+const instance = axios.create({
+    baseURL: config.backendURL,
+    responseType: 'json',
+    headers: {
+        ...tokenHeader,
+        'Content-Type': 'application/json',
+    },
+})
 async function post(path = '', data = {}) {
-    let url = config.backendURL + path
-    const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'include', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-            'sec-ch-ua-mobile': '?0',
-            'sec-fetch-dest': 'empty',
-            'sec-fetch-mode': 'cors',
-            'sec-fetch-site': 'cross-site',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // redirect: 'follow', // manual, *follow, error
-        referrerPolicy: 'strict-origin-when-cross-origin', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-    })
-    let jsonData = await response.json()
-    if (response.ok) return jsonData
-    else throw new Error(jsonData)
+    try {
+        const response = await instance.post(path, JSON.stringify(data))
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
+async function deleteJson(path = '') {
+    try {
+        const response = await instance.delete(path)
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
+async function put(path = '', data = {}) {
+    try {
+        const response = await instance.put(path, JSON.stringify(data))
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
 }
 async function get(path = '', data = {}) {
-    // Default options are marked with *
-    let url = config.backendURL + path + '?' + new URLSearchParams(data)
-    const response = await fetch(url, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        // redirect: 'follow', // manual, *follow, error
-        // referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    })
-    return response.json() // parses JSON response into native JavaScript objects
+    try {
+        const response = await instance.get(path, {
+            params: data,
+        })
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
 }
-export default { post, get }
+async function del(path = '', data = {}) {
+    try {
+        const response = await instance.delete(path, {
+            params: data,
+        })
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
+async function postFormData(path = '', formData = null, onUploadProgress) {
+    let url = config.backendURL + path
+    try {
+        const response = await instance.post(url, formData, {
+            onUploadProgress,
+        })
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error.response)
+            return Promise.reject({
+                code: error.response.status,
+                response: error.response.data,
+            })
+    }
+}
+export default { post, get, postFormData, put, deleteJson, del }

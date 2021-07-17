@@ -15,8 +15,10 @@ export const Navbar = () => {
                 <NavbarItem to="/">Blogs</NavbarItem>
                 <NavbarItem to="/">Contact</NavbarItem>
                 <NavbarItem to="/">About us</NavbarItem>
-                <SearchForm />
-                <NavbarItem to="/login">Login</NavbarItem>
+                <div style={{ display: 'flex', flex: 1 }}>
+                    <SearchForm />
+                    <NavbarItem to="/login">Login</NavbarItem>
+                </div>
             </NavbarList>
         </NavbarWrapper>
     )

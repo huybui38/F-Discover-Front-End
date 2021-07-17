@@ -3,13 +3,14 @@ import styled from 'styled-components'
 export const Wrapper = styled.div`
     position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    width: 100%;
     height: 50px;
     padding: 0 ${(props) => props.padding || '18px'};
     background-color: ${(props) => props.background_color || '#fff'};
@@ -84,7 +85,11 @@ export const IconWrapper = styled.div`
         z-index: 1;
     }
 `
-
+export const NavbarItem = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+`
 export const Logo = styled.img`
     height: 30px;
     padding: 0 8px;

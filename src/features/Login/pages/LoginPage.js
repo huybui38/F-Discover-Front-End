@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import ReCAPTCHA from 'react-google-recaptcha'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { CenterFlexContainer } from '../../../components/Container/FlexContainer'
 import FacebookIcon from '../../../components/Icons/Facebook'
@@ -34,7 +35,8 @@ import firebase, {
 import { login } from '../loginSlice'
 
 export const LoginPage = () => {
-    const { isShowing, toggle } = useModal()
+    const [isShowing, toggle] = useModal()
+    const history = useHistory()
     const [isLoading, setIsLoading] = useState(false)
     const onZaloLoginSuccess = (result) => {
         onOAuthSuccess(result.code)
@@ -46,13 +48,15 @@ export const LoginPage = () => {
     const onOAuthSuccess = async (OAuthToken) => {
         setIsLoading(true)
         try {
-            let result = await authApi.getToken(OAuthToken)
+            let result = await authApi.getToken(OAuthToken, 'firebase')
             localStorage.setItem('token', result.data.token)
-            dispatch(login())
+            dispatch(login(result.data.token))
+            history.push('/explore')
         } catch (error) {
-            setIsLoading(false)
             console.log(error)
             Error('Something wrongs')
+        } finally {
+            setIsLoading(false)
         }
     }
     const handleBtnLogin = (type) => {

@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { Route, Switch, Redirect } from 'react-router'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 
 import { NotFound } from '../components/NotFound'
+import { LayoutExplore } from '../features/Explore/components/LayoutExplore'
 
+import { Player } from '../features/Demo/Player'
 import { Explore } from '../features/Explore'
 import { Home } from '../features/Home'
 import { Login } from '../features/Login'
@@ -14,32 +16,30 @@ import { PublicRouters } from './PublicRouters'
 
 export const publicRouters = [
     {
-        path: '/home',
-        name: 'home',
-        component: Home,
-        restrict: true,
-    },
-    {
         path: '/login',
         name: 'login',
         component: Login,
-        restrict: true,
     },
     {
         path: '/login/callback',
         name: 'loginCallback',
         component: Callback,
-        restrict: true,
     },
     {
-        path: '/explore',
-        name: 'explore',
-        component: Explore,
+        path: '/profile/:profileID',
+        name: 'profileUser',
+        component: Profile,
         restrict: true,
     },
 ]
 
 export const privateRouters = [
+    {
+        path: '/demo/player/:params',
+        name: 'demo',
+        component: Player,
+        restrict: true,
+    },
     {
         path: '/profile',
         name: 'profile',
@@ -50,28 +50,30 @@ export const privateRouters = [
 
 export const RouterComponents = () => {
     return (
-        <Switch>
-            <Redirect exact from="/" to="/home" />
-            <Route path="/explore" component={Explore} restrict exact />
-            {publicRouters.map((route) => (
-                <PublicRouters
-                    key={route.name}
-                    path={route.path}
-                    component={route.component}
-                    restrict={route.restrict}
-                    exact
-                />
-            ))}
-            {privateRouters.map((route) => (
-                <PrivateRouters
-                    key={route.name}
-                    path={route.path}
-                    component={route.component}
-                    restrict={route.restrict}
-                    exact
-                />
-            ))}
-            <Route component={NotFound} />
-        </Switch>
+        <Router>
+            <Switch>
+                <Route exact path="/home" component={Home} />
+                <Redirect exact from="/" to="/home" />
+                <Route exact path="/explore" render={() => <Redirect to="/explore/for-you" />} />
+                <Route path="/explore" component={LayoutExplore} />
+                {privateRouters.map((route) => (
+                    <PrivateRouters
+                        key={route.name}
+                        path={route.path}
+                        component={route.component}
+                        exact
+                    />
+                ))}
+                {publicRouters.map((route) => (
+                    <PublicRouters
+                        key={route.name}
+                        path={route.path}
+                        component={route.component}
+                        exact
+                    />
+                ))}
+                <Route component={NotFound} />
+            </Switch>
+        </Router>
     )
 }
