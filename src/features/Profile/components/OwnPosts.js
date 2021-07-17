@@ -8,11 +8,11 @@ import styled from 'styled-components'
 
 import VideoPlayer from '../../../components/Player/Video'
 
-import videoDemo from '../../../assets/demo_video.mp4'
-import videoDemo2 from '../../../assets/demo_video_2.mp4'
-import videoDemo3 from '../../../assets/demo_video_3.mp4'
-import { Error, Success } from '../../../helpers/notify'
-import { getPostsByID } from '../../../services/user/profile'
+// import videoDemo from '../../../assets/demo_video.mp4'
+// import videoDemo2 from '../../../assets/demo_video_2.mp4'
+// import videoDemo3 from '../../../assets/demo_video_3.mp4'
+// import { Error, Success } from '../../../helpers/notify'
+// import { getPostsByID } from '../../../services/user/profile'
 import { fetchPosts, setLoading } from '../profileSlice'
 
 const Card = styled.div`
@@ -37,7 +37,7 @@ export default function OwnPosts() {
     const dispatch = useDispatch()
     let { profileID } = useParams()
     useEffect(() => {
-        if (userID !== -1) {
+        if (userID !== -1 || profileID) {
             dispatch(fetchPosts(profileID ? profileID : userID))
         }
     }, [userID, dispatch, profileID])

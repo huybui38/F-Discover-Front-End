@@ -7,7 +7,9 @@ import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 import { EmptyIconButton } from '../../../components/ButtonWithIcons'
+import { Typography } from '../../../components/Typography'
 
+import CoverUploadIcon from '../../../assets/cover-upload-icon.jpg'
 import TestImg from '../../../assets/test-profile-img.png'
 import { Error, Success } from '../../../helpers/notify'
 import apiCaller from '../../../utils/apiCaller'
@@ -24,10 +26,13 @@ const StyledImage = styled.img`
 const StyledUpLoadCover = styled(EmptyIconButton)`
     position: absolute;
     right: 3rem;
-    bottom: 0.5rem;
-    background-color: rgba(1, 179, 167, 0.8);
-    border-radius: 50%;
-    display: inline-flex;
+    bottom: 2rem;
+    background-color: white;
+    width: 130px;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     padding: 5px;
     z-index: 1;
 `
@@ -64,10 +69,11 @@ export default function Cover() {
             })
     }
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', width: '100%' }}>
             {!profileID ? (
                 <StyledUpLoadCover onClick={uploadClickHandler}>
-                    <RiUploadCloud2Line size={30} color="white" />
+                    <img src={CoverUploadIcon} style={{ width: '20px', height: '20px' }}></img>
+                    <Typography>Edit your cover</Typography>
                     <StyledInputFile
                         type="file"
                         style={{ display: 'none' }}
