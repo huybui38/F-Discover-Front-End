@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import VideoPlayer from '../../components/Player/Video'
@@ -20,6 +21,8 @@ const DemoContainer = styled.div`
     width: 720px;
 `
 export const Player = () => {
+    let { params } = useParams()
+    console.log(params)
     return (
         <div>
             <DemoContainer>

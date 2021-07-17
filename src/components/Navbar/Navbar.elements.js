@@ -21,6 +21,8 @@ export const NavbarWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 
+    max-width: 1200px;
+    margin: auto;
     height: 60px;
 `
 
@@ -57,7 +59,7 @@ export const NavbarItem = styled(Link)`
         bottom: 0;
         width: 100%;
 
-        border: 1px solid #01b3a7;
+        border: 1px solid #1dd1a1;
     }
 
     &:hover {

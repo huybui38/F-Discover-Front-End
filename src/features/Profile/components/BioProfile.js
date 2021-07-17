@@ -167,6 +167,7 @@ export default function BioProfile() {
     const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
     const userID = useSelector((state) => state.auth.userID)
     let { profileID } = useParams()
+    console.log('id: ', profileID)
     const details = useSelector((state) => state.profile.bioDetail)
     let history = useHistory()
     if (profileID == userID) history.push('/profile')
