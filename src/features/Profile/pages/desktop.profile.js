@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
@@ -14,6 +16,7 @@ const RightViewContainer = styled.div`
 `
 export default function Desktop() {
     const isLoading = useSelector((state) => state.profile.isLoading)
+
     return (
         <>
             <WholePageContainer>
