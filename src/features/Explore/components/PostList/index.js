@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import LazyLoad from 'react-lazyload'
 import { useSelector } from 'react-redux'
 
 import { Loading } from '../../../../components/Loading'

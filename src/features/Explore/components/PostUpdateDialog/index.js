@@ -5,7 +5,6 @@ import { FaMapMarkedAlt } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
-import styled from 'styled-components'
 
 import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'

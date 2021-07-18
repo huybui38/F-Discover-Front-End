@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaCaravan, FaUserFriends } from 'react-icons/fa'
-import { ThemeConsumer } from 'styled-components'
 
 import { Baseline } from '../../../../components/Baseline'
 

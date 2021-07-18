@@ -1,7 +1,7 @@
-import react, { useCallback, useEffect, useRef, useState } from 'react'
+import react, { useCallback, useRef, useState } from 'react'
 
 import { debounce } from 'lodash'
-import { FaLongArrowAltLeft, FaLongArrowAltRight, FaSearch } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
 
 import { Error } from '../../../../helpers/notify'
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'

@@ -7,8 +7,6 @@ import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import { SidebarMobile } from '../../../features/Explore/components/SidebarMobile'
 
 import Fdiscover from '../../../assets/F-discover.png'
-import CloudIcon from '../../../assets/cloud-computing.svg'
-import { Button } from '../../Button'
 import SearchBar from '../NavbarExplore/SearchBar/SearchBar'
 import TopLeft from '../NavbarExplore/TopLeft/TopLeft'
 import * as Styled from './styled.elements'

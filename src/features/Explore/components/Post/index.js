@@ -3,9 +3,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 /* eslint-disable react/prop-types */
-import React, { forwardRef, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-import { FaMapMarkerAlt, FaRegSmile, FaCog } from 'react-icons/fa'
+import { FaMapMarkerAlt, FaCog } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
@@ -17,7 +17,6 @@ import Dialog from '../../../../components/Dialog'
 import VideoPlayer from '../../../../components/Player/Video'
 
 import videoDemo from '../../../../assets/demo_video.mp4'
-import { Error } from '../../../../helpers/notify'
 import useModal from '../../../../hooks/useModal'
 import {
     checkFollowUserById,
