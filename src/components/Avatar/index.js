@@ -3,8 +3,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import DefaultAvatar from '../../assets/default_avatar.jpg'
-
 const propTypes = {
     src: PropTypes.string,
 }

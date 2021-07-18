@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaCaravan, FaUserFriends } from 'react-icons/fa'
-import { ThemeConsumer } from 'styled-components'
 
 import { Baseline } from '../../../../components/Baseline'
 
@@ -54,9 +53,10 @@ export const Sidebar = () => {
             <Styled.SuggestUserWrapper>
                 <Styled.TitleList>Suggest accounts</Styled.TitleList>
                 <Styled.UserSuggestList>
-                    {listSuggestUser.map((user) => (
-                        <SuggestedUserItem key={user.id} user={user} />
-                    ))}
+                    {listSuggestUser &&
+                        listSuggestUser.map((user) => (
+                            <SuggestedUserItem key={user.id} user={user} />
+                        ))}
                 </Styled.UserSuggestList>
                 <Styled.Action onClick={handleActionShow}>
                     {numberSuggestedUser === 5 ? 'Show more suggest' : 'Hidden away'}

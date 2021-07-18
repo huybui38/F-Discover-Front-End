@@ -3,7 +3,7 @@ import React from 'react'
 import { FaLongArrowAltRight } from 'react-icons/fa'
 
 import { ButtonWithIcons } from '../../../../components/ButtonWithIcons'
-import { Navbar } from '../../../../components/Navbar'
+import { Navbar } from '../../../../components/Navbar/NavbarHome'
 import { BackgroundSlide } from '../../components/BackgroundSlide'
 import { CardSlide } from '../../components/CardSlide'
 import { DescriptionSlide } from '../../components/DescriptionSlide'

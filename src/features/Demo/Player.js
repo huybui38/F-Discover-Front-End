@@ -21,8 +21,6 @@ const DemoContainer = styled.div`
     width: 720px;
 `
 export const Player = () => {
-    let { params } = useParams()
-    console.log(params)
     return (
         <div>
             <DemoContainer>

@@ -16,7 +16,6 @@ const Name = styled.div`
     }
 `
 export const AuthorName = ({ name, authorId, ...others }) => {
-    console.log('authorId: ', authorId)
     return (
         <Name {...others}>
             <Link to={`/profile/${authorId}`}>

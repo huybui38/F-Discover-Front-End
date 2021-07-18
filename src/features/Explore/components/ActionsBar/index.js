@@ -22,7 +22,7 @@ import Dialog from '../../../../components/Dialog'
 
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
 import { useModal } from '../../../../hooks/useModal'
-import { checkLikePostById, likePostById, unLikePostById } from '../../../../services/api/postApi'
+import { likePostById, unLikePostById } from '../../../../services/api/postApi'
 import formatNumber from '../../../../utils/formatNumber'
 import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'

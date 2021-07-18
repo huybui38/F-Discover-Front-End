@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    isBottom: false,
+    isBottomForYou: false,
+    isBottomFollow: false,
+    isBottomSuggest: false,
     isComment: false,
     isFollowUser: false,
     listSuggestPosts: [],
@@ -13,8 +15,14 @@ const exploreSlice = createSlice({
     name: 'explore',
     initialState,
     reducers: {
-        setIsBottom: (state, action) => {
-            state.isBottom = action.payload
+        setIsBottomForYou: (state, action) => {
+            state.isBottomForYou = action.payload
+        },
+        setIsBottomFollow: (state, action) => {
+            state.isBottomFollow = action.payload
+        },
+        setIsBottomSuggest: (state, action) => {
+            state.isBottomSuggest = action.payload
         },
         setIsComment: (state) => {
             state.isComment = !state.isComment
@@ -32,6 +40,13 @@ const exploreSlice = createSlice({
 })
 
 const { reducer, actions } = exploreSlice
-export const { setListSuggestPosts, setIsComment, setIsFollowUser, setLocationList, setIsBottom } =
-    actions
+export const {
+    setListSuggestPosts,
+    setIsComment,
+    setIsFollowUser,
+    setLocationList,
+    setIsBottomFollow,
+    setIsBottomForYou,
+    setIsBottomSuggest,
+} = actions
 export default reducer
