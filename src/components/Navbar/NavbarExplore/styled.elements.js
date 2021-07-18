@@ -1,24 +1,16 @@
+import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const NavBar = styled.div`
+    /* padding: calc(1vw + 1vh); */
+    height: 60px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
-    height: 60px;
-    padding: 0 ${(props) => props.padding || '18px'};
-    background-color: ${(props) => props.background_color || '#fff'};
-
-    font-size: 14px;
-    font-weight: 500;
-    text-shadow: 1px 1px 2px #000;
-
-    color: ${(props) => props.text_color || '#050505'};
-
-    & div {
-        display: flex;
-        align-items: center;
-    }
+    max-width: 1200px;
+    margin: auto;
 
     & .sidebar--disable {
         transform: translateX(-100%);
@@ -27,14 +19,33 @@ export const Wrapper = styled.div`
         display: none;
     }
 `
-
+export const LogoWrapper = styled.div`
+    ${down('sm')} {
+        display: none;
+    }
+`
+export const SearchWrapper = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+export const ActionWrapper = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
+export const Logo = styled.img`
+    margin: auto;
+    width: auto;
+    height: 40px;
+`
 export const IconWrapper = styled.div`
     position: relative;
-
+    margin-left: 8px;
     height: 30px;
     width: 30px;
     font-size: 18px;
-    color: white;
+    color: #000000;
 
     & .sidebar__list--disable {
         position: absolute;
@@ -79,28 +90,9 @@ export const IconWrapper = styled.div`
         z-index: 1;
     }
 `
-export const NavbarItem = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-`
-export const Logo = styled.img`
-    height: 30px;
-    padding: 0 8px;
-`
-
-export const LoginWrapper = styled.div`
-    & a {
-        text-decoration: none;
-        color: ${(props) => props.text_color || '#050505'};
-        font-weight: 500;
-        text-shadow: 1px 1px 2px #000;
-    }
-`
-
 export const SidebarWrapper = styled.div`
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 0;
     z-index: 3;
 

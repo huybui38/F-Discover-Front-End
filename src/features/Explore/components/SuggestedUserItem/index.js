@@ -75,11 +75,11 @@ const SuggestedUserItem = ({ user }) => {
     }
     return (
         <ItemWrapper onClick={handleClick}>
-            <Avatar src={user.avatarUrl} alt="avatar" width="32px" />
+            <Avatar src={user.avatarUrl || '#'} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{user.name}</span>
             </InfoWrapper>
-            {!mobile ? (
+            {mobile ? (
                 <InfoUser className="suggest-user__info">
                     <InfoSuggestedUser user={user} />
                 </InfoUser>

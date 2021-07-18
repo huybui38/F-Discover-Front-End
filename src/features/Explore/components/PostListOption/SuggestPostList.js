@@ -4,8 +4,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { getSuggestPosts } from '../../../../services/api/postApi'
+import { Error } from '../../../../helpers/notify'
+import { getAllPostOfLocation, getSuggestPosts } from '../../../../services/api/postApi'
 import { setIsBottom, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
@@ -18,23 +20,28 @@ export const SuggestPostList = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [page, setPage] = useState(2)
 
+    const { locationId } = useParams()
     useEffect(() => {
+        console.log(locationId)
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(1, 5, 1).then((response) => {
-            if (response.message === 'Success') {
+        getAllPostOfLocation(locationId, 1, 5)
+            .then((res) => {
                 if (mounted) {
                     setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
+                    const action = setListSuggestPosts(res.data)
                     dispatch(action)
                 }
-            }
-        })
+            })
+            .catch((e) => {
+                console.log(e)
+                Error('Server error.')
+            })
 
         return () => {
             mounted = false
         }
-    }, [])
+    }, [locationId])
 
     useEffect(() => {
         if (!isFetching) return
@@ -42,7 +49,7 @@ export const SuggestPostList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getSuggestPosts(page, 5, 1)
+        getAllPostOfLocation(locationId, 1, 5)
             .then((response) => {
                 if (response.message === 'Success') {
                     if (response.data.posts === null) return null
@@ -62,7 +69,6 @@ export const SuggestPostList = () => {
     }
 
     useEffect(() => {
-        console.log('pos: ', isBottom)
         if (!isBottom) return
         if (isBottom && !isFetching) {
             setIsFetching(true)

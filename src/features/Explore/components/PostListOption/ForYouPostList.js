@@ -22,13 +22,13 @@ export const ForYouPostList = () => {
         let mounted = true
         setIsLoading(true)
         getSuggestPosts(1, 5, 1).then((response) => {
-            if (response.message === 'Success') {
-                if (mounted) {
-                    setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
-                    dispatch(action)
-                }
+            //  if (response.message === 'Success') {
+            if (mounted) {
+                setIsLoading(false)
+                const action = setListSuggestPosts(response.data.posts)
+                dispatch(action)
             }
+            //   }
         })
 
         return () => {

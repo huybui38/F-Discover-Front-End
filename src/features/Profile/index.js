@@ -10,8 +10,6 @@ import MobileProfile from './pages/mobile.profile'
 import { setGuest } from './profileSlice'
 
 export const Profile = () => {
-    let { profileID } = useParams()
-    console.log('id: ', profileID)
     const isDesktop = useBreakpoint(up('xl'))
     return isDesktop ? <DesktopProfile /> : <MobileProfile />
 }

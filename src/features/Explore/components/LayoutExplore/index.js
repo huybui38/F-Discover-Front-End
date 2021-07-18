@@ -4,7 +4,8 @@ import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { Baseline } from '../../../../components/Baseline'
-import { Navbar } from '../../../../components/Navbar'
+import NavBarExplore from '../../../../components/Navbar/NavbarExplore/NavbarExplore'
+import { Navbar } from '../../../../components/Navbar/NavbarHome'
 import { NavbarMobile } from '../../../../components/NavbarMobile'
 import { SidebarMobile } from '../../../../components/SidebarMobile'
 
@@ -14,13 +15,11 @@ import * as Styled from './styled.elements'
 
 export const LayoutExplore = () => {
     const mobile = useBreakpoint(down('lg'))
-    useEffect(() => {
-        localStorage.setItem('prevAfter', 0)
-    }, [])
 
     return (
         <Styled.Container>
-            {mobile ? <NavbarMobile background_color="#050505" text_color="#fff" /> : <Navbar />}
+            <NavBarExplore />
+            {/* {mobile ? <NavbarMobile background_color="#ffffff" text_color="#000000" /> : <Navbar />} */}
             <Baseline color="#eee" width="100vw" />
             <Styled.SidebarWrapper>
                 <Sidebar />
