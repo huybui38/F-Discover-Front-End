@@ -64,11 +64,19 @@ function SearchBar() {
                 <Styled.ResultList numberItems={userList.length + locationList.length}>
                     {userList &&
                         userList.map((user) => (
-                            <UserItem key={user.result.id} user={user.result} />
+                            <UserItem
+                                key={user.result.id}
+                                user={user.result}
+                                setIsDisable={setIsDisable}
+                            />
                         ))}
                     {locationList &&
                         locationList.map((location) => (
-                            <LocationItem key={location.result.id} location={location.result} />
+                            <LocationItem
+                                key={location.result.id}
+                                location={location.result}
+                                setIsDisable={setIsDisable}
+                            />
                         ))}
                     {/* <Styled.ViewControl>
                         <ButtonIcon

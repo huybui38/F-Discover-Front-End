@@ -8,9 +8,9 @@ import useScroll from '../../../hooks/useScroll'
 import * as Styled from './styled.elements'
 
 export const SuggestPage = () => {
-    const { handleScroll } = useScroll()
+    const { handleScroll } = useScroll('SUGGEST')
     const { locationId } = useParams()
-    console.log('Tran: ', locationId)
+
     return (
         <Styled.FlexWrapper onScroll={handleScroll} className="page__scroll">
             <Styled.MainWrapper>

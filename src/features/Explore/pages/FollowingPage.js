@@ -6,7 +6,7 @@ import useScroll from '../../../hooks/useScroll'
 import * as Styled from './styled.elements'
 
 export const FollowingPage = () => {
-    const { handleScroll } = useScroll()
+    const { handleScroll } = useScroll('FOLLOW')
     return (
         <Styled.FlexWrapper onScroll={handleScroll} className="page__scroll">
             <Styled.MainWrapper>

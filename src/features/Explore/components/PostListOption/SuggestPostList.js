@@ -8,12 +8,12 @@ import { useParams } from 'react-router-dom'
 
 import { Error } from '../../../../helpers/notify'
 import { getAllPostOfLocation, getSuggestPosts } from '../../../../services/api/postApi'
-import { setIsBottom, setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottomSuggest, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const SuggestPostList = () => {
     const dispatch = useDispatch()
-    const isBottom = useSelector((state) => state.explore.isBottom)
+    const isBottomSuggest = useSelector((state) => state.explore.isBottomSuggest)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     const [isFetching, setIsFetching] = useState(false)
 
@@ -62,18 +62,18 @@ export const SuggestPostList = () => {
                     dispatch(action)
                     setIsFetching(false)
 
-                    dispatch(setIsBottom(false))
+                    dispatch(setIsBottomSuggest(false))
                     setPage(page + 1)
                 }
             })
     }
 
     useEffect(() => {
-        if (!isBottom) return
-        if (isBottom && !isFetching) {
+        if (!isBottomSuggest) return
+        if (isBottomSuggest && !isFetching) {
             setIsFetching(true)
         }
-    }, [isBottom])
+    }, [isBottomSuggest])
 
     return <PostList isLoading={isLoading} />
 }

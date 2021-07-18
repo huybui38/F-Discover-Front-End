@@ -33,6 +33,10 @@ export const Search = styled.input`
     border-radius: 50px;
     border: none;
     outline: none;
+
+    ${down('sm')} {
+        padding: 8px;
+    }
 `
 export const BtnSearch = styled.div`
     width: 15%;
@@ -57,6 +61,7 @@ export const ResultList = styled.ul`
     list-style: none;
     padding: 0;
     height: ${(props) => (props.numberItems > 7 ? '40vh' : 'calc(props.numberItems*40px)')};
+    display: ${(props) => (props.numberItems ? 'block' : 'none')};
     overflow-y: scroll;
 `
 export const ViewControl = styled.div`

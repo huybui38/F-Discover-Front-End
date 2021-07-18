@@ -33,11 +33,12 @@ const InfoWrapper = styled.div`
         word-wrap: break-word;
     }
 `
-const UserItem = ({ user }) => {
+const UserItem = ({ user, setIsDisable }) => {
     const history = useHistory()
 
     const handleClick = () => {
         history.push(`/profile/${user.id}`)
+        setIsDisable(true)
     }
     return (
         <ItemWrapper onClick={handleClick}>

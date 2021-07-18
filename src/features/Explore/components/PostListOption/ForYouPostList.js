@@ -6,12 +6,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getSuggestPosts } from '../../../../services/api/postApi'
-import { setIsBottom, setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottomForYou, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const ForYouPostList = () => {
     const dispatch = useDispatch()
-    const isBottom = useSelector((state) => state.explore.isBottom)
+    const isBottomForYou = useSelector((state) => state.explore.isBottomForYou)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
     const [page, setPage] = useState(2)
 
@@ -53,19 +53,19 @@ export const ForYouPostList = () => {
                 if (posts) {
                     const action = setListSuggestPosts([...listSuggestPosts, ...posts])
                     dispatch(action)
-                    dispatch(setIsBottom(false))
-                    setIsFetching(false)
+                    dispatch(setIsBottomForYou(false))
                     setPage(page + 1)
                 }
             })
+        setIsFetching(false)
     }
 
     useEffect(() => {
-        if (!isBottom) return
-        if (isBottom && !isFetching) {
+        if (!isBottomForYou) return
+        if (isBottomForYou && !isFetching) {
             setIsFetching(true)
         }
-    }, [isBottom])
+    }, [isBottomForYou])
 
     return <PostList isLoading={isLoading} />
 }

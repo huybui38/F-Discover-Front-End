@@ -33,11 +33,12 @@ const InfoWrapper = styled.div`
         word-wrap: break-word;
     }
 `
-const LocationItem = ({ location }) => {
+const LocationItem = ({ location, setIsDisable }) => {
     const history = useHistory()
 
     const handleClick = () => {
         history.push(`/explore/suggest/${location.id}`)
+        setIsDisable(true)
     }
     return (
         <ItemWrapper onClick={handleClick}>
