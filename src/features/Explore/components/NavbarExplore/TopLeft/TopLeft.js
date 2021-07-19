@@ -9,12 +9,14 @@ import styled, { keyframes } from 'styled-components'
 
 import { Avatar } from '../../../../../components/Avatar'
 import UpdateVideoModal from '../../../../../components/Modal/UploadVideoModal'
+import UpdateProfileModal from '../../../../Profile/components/UpdateProfileModal'
 
 import BellIcon from '../../../../../assets/bell.svg'
 import CloudIcon from '../../../../../assets/cloud-computing.svg'
 import useDetectClickOutside from '../../../../../hooks/useDetectionClickOut'
 import { useModal } from '../../../../../hooks/useModal'
 import { authSelector, signOut } from '../../../../Login/loginSlice'
+import { resetProfileState } from '../../../../Profile/profileSlice'
 
 const Box = styled.div`
     display: flex;
@@ -205,10 +207,14 @@ const TopLeft = () => {
     const dropdownRef = useRef(null)
     const [isActive, setIsActive] = useState(false)
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
-
+    const [isShowingUpdateProfile, toggleShowingUpdateProfile] = useModal(false)
     const handleClick = (e) => {
         e.preventDefault()
         setIsActive(true)
+    }
+    const handShowingUpdateProfile = (e) => {
+        e.preventDefault()
+        toggleShowingUpdateProfile()
     }
 
     const onUploadPostSuccess = () => {}
@@ -242,11 +248,19 @@ const TopLeft = () => {
                         </List>
                         <List>
                             <FaWrench />
-                            <LinkItem href="#">Setting</LinkItem>
+                            <LinkItem href="#" onClick={handShowingUpdateProfile}>
+                                Setting
+                            </LinkItem>
                         </List>
                         <List>
                             <FaSignOutAlt />
-                            <LinkItem to="/home" onClick={() => dispatch(signOut())}>
+                            <LinkItem
+                                to="/home"
+                                onClick={() => {
+                                    dispatch(resetProfileState())
+                                    dispatch(signOut())
+                                }}
+                            >
                                 Log out
                             </LinkItem>
                         </List>
@@ -264,6 +278,10 @@ const TopLeft = () => {
                 isShowing={isShowing}
                 toggle={toggle}
                 onSuccess={onUploadPostSuccess}
+            />
+            <UpdateProfileModal
+                isShowing={isShowingUpdateProfile}
+                toggle={toggleShowingUpdateProfile}
             />
         </Box>
     )

@@ -46,7 +46,7 @@ export const StepTwo = ({ videoID, onSuccess }) => {
     })
     useEffect(() => {
         if (fetchStatus == 'succeeded') {
-            Success('Cập nhật thành công')
+            Success('Update successfully')
             setContent('')
             setLocation('')
             dispatch(setUpdatePostStatus('idle'))
@@ -54,17 +54,17 @@ export const StepTwo = ({ videoID, onSuccess }) => {
         }
     }, [fetchStatus, setContent, setLocation, dispatch, onSuccess])
     const saveHandler = () => {
-        if (!content) return Error('Nhập nội dung!')
-        if (!location) return Error('Chọn địa điểm!')
+        if (!content) return Error('Please type your content')
+        if (!location) return Error('Please choose location!')
         const data = { videoID, content, location }
         dispatch(updatePost(data))
     }
     return (
         <>
-            <h3>Chỉ còn 1 bước nữa thôi bạn có thể chia sẻ video của mình</h3>
+            <h3>Only one step left! To share your F-Post to our community!</h3>
             <InputForm>
                 <StyledVideoInput
-                    label="Tên video"
+                    label="Title for your video"
                     handleChange={contentHandler}
                     value={content}
                 ></StyledVideoInput>
@@ -73,10 +73,10 @@ export const StepTwo = ({ videoID, onSuccess }) => {
                 <StyledDropdown
                     options={locations}
                     handlerChange={locationHandler}
-                    label="Vị trí"
+                    label="Where is a place in your video"
                 />
             </InputForm>
-            <PrimaryButton onClick={saveHandler}>Save</PrimaryButton>
+            <PrimaryButton onClick={saveHandler}>Publish</PrimaryButton>
             {fetchStatus == 'loading' ? <SimpleCircleLoader /> : null}
         </>
     )

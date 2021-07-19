@@ -32,6 +32,7 @@ import firebase, {
     PopupGoogleLogin,
     zaloLogin,
 } from '../../../services/authentication/'
+import { updateIns } from '../../../utils/apiCaller'
 import { login } from '../loginSlice'
 
 export const LoginPage = () => {
@@ -50,6 +51,7 @@ export const LoginPage = () => {
         try {
             let result = await authApi.getToken(OAuthToken, 'firebase')
             localStorage.setItem('token', result.data.token)
+            updateIns()
             dispatch(login(result.data.token))
             history.push('/explore')
         } catch (error) {

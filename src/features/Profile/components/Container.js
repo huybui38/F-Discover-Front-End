@@ -13,7 +13,7 @@ export const WholePageContainer = styled.div`
     display: flex;
     justify-content: center;
     /* max-width: 100vw; */
-    height: 100vh;
+    /* height: 100vh; */
     padding: 2rem;
 `
 export const CenteredContainer = styled.div`

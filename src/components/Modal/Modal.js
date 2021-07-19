@@ -1,8 +1,10 @@
 import React from 'react'
 
 import ReactDOM from 'react-dom'
-import { AiFillCloseCircle } from 'react-icons/ai'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 import styled from 'styled-components'
+
+import CloseImg from '../../assets/close-btn.png'
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -60,9 +62,11 @@ const Modal = ({ isShowing, hide, children, title = '' }) =>
                       <StyledModal>
                           <ModalHeader>
                               <ModalTitle>{title}</ModalTitle>
-                              <AiFillCloseCircle
+
+                              <AiOutlineCloseCircle
                                   onClick={() => hide()}
-                                  style={{ cursor: 'pointer' }}
+                                  size="20"
+                                  style={{ cursor: 'pointer', width: '1.2rem' }}
                               />
                           </ModalHeader>
                           {children}

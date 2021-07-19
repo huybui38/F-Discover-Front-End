@@ -11,8 +11,16 @@ const initialState = {
         following: 0,
         followStatus: -1,
     },
+    selfBioDetail: {
+        name: 'NULL',
+        job: '',
+        quote: '',
+        following: 0,
+        followStatus: -1,
+    },
     status: {
         updatePost: 'idle',
+        fetchSelfBio: 'idle',
         fetchUserBio: 'idle',
         fetchPosts: 'idle',
     },
@@ -31,7 +39,7 @@ export const fetchUserBio = createAsyncThunk(
         } catch (ex) {
             return rejectWithValue(ex)
         }
-        return response
+        return { ...response, isSelf: !userData ? true : false }
     }
 )
 export const updatePost = createAsyncThunk(
@@ -52,7 +60,6 @@ export const fetchPosts = createAsyncThunk(
     async (userID, { rejectWithValue }) => {
         let result = await getPostsByID(userID, 1, 10)
         if (!result) return rejectWithValue('Đã có lỗi xảy ra')
-
         return result
     }
 )
@@ -61,10 +68,10 @@ const profileSlice = createSlice({
     initialState,
     reducers: {
         setAvatar: (state, action) => {
-            state.bioDetail.avatarUrl = action.payload
+            state.selfBioDetail.avatarUrl = action.payload
         },
         setCover: (state, action) => {
-            state.bioDetail.coverUrl = action.payload
+            state.selfBioDetail.coverUrl = action.payload
         },
         setGuest: (state, action) => {
             state.guestID = action.payload
@@ -79,12 +86,11 @@ const profileSlice = createSlice({
             state.isGuestView = action.payload
         },
         resetProfileState: (state) => {
-            state.status = { updatePost: 'idle', fetchUserBio: 'idle', fetchPosts: 'idle' }
-            state.isGuestView = true
+            Object.assign(state, initialState)
         },
         onUpdateProfileSuccess: (state, action) => {
-            state.bioDetail = {
-                ...state.bioDetail,
+            state.selfBioDetail = {
+                ...state.selfBioDetail,
                 ...action.payload,
             }
         },
@@ -94,14 +100,19 @@ const profileSlice = createSlice({
     },
     extraReducers: {
         [fetchUserBio.pending]: (state, action) => {
-            state.status.fetchUserBio = 'loading'
+            // state.status.fetchUserBio = 'loading'
         },
         [fetchUserBio.fulfilled]: (state, action) => {
-            state.status.fetchUserBio = 'succeeded'
-            state.bioDetail = action.payload.data
+            if (action.payload.isSelf) {
+                state.status.fetchSelfBio = 'succeeded'
+                state.selfBioDetail = action.payload.data
+            } else {
+                state.status.fetchUserBio = 'succeeded'
+                state.bioDetail = action.payload.data
+            }
         },
         [fetchUserBio.rejected]: (state, action) => {
-            state.status.fetchUserBio = 'failed'
+            // state.status.fetchUserBio = 'failed'
             state.error = action.error.message
         },
         [updatePost.pending]: (state, action) => {
@@ -142,4 +153,12 @@ export const {
     setFollowStatus,
     setIsGuestView,
 } = profileSlice.actions
+export const getBioProfile = (state) => {
+    if (state.profile.isGuestView) return state.profile.bioDetail
+    return state.profile.selfBioDetail
+}
+export const getBioFetchStatus = (state) => {
+    if (state.profile.isGuestView) return state.profile.status.fetchUserBio
+    return state.profile.status.fetchSelfBio
+}
 export default profileSlice.reducer
