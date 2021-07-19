@@ -1,9 +1,26 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
-import { Route } from 'react-router'
+import PropTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { Route, Redirect } from 'react-router'
 
-export const PrivateRouters = (props) => {
-    return <Route {...props} />
+import { authSelector } from '../features/Login/loginSlice'
+
+export const PrivateRouters = ({ path, component, restrict, exact }) => {
+    let isAuthenticated = useSelector(authSelector)
+    return isAuthenticated ? (
+        <Route path={path} component={component} exact={exact} restrict={restrict} />
+    ) : (
+        <Redirect from="*" to="/login" />
+    )
+}
+
+PrivateRouters.propTypes = {
+    path: PropTypes.string,
+    component: PropTypes.elementType,
+    restrict: PropTypes.bool,
+    exact: PropTypes.bool,
 }
 
 export default PrivateRouters

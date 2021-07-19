@@ -22,8 +22,15 @@ module.exports = {
     rules: {
         'prettier/prettier': 'error',
         'no-unused-vars': 'off',
-        'unused-imports/no-unused-imports': 'error',
+        'unused-imports/no-unused-imports': 'off',
         'unused-imports/no-unused-vars': 'warn',
         'react/react-in-jsx-scope': 'off',
+    },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
     },
 }
