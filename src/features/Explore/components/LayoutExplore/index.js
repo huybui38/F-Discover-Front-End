@@ -4,9 +4,9 @@ import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { Baseline } from '../../../../components/Baseline'
-import NavBarExplore from '../../../../components/Navbar/NavbarExplore/NavbarExplore'
 
 import { Explore } from '../../../Explore'
+import NavBarExplore from '../NavbarExplore/NavbarExplore'
 import { Sidebar } from '../Sidebar'
 import * as Styled from './styled.elements'
 

@@ -86,7 +86,6 @@ export const NavbarItem = styled.div`
 `
 export const Logo = styled.img`
     height: 30px;
-    padding: 0 8px;
 `
 
 export const LoginWrapper = styled.div`

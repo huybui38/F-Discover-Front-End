@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 
 import PropTypes from 'prop-types'
 import { FaBars, FaArrowLeft } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 // import { SidebarMobile } from '../../features/Explore/components/SidebarMobile'
-import logo from '../../assets/img/logo.png'
+import logo from '../../assets/img/logoTitle.png'
+import { authSelector } from '../../features/Login/loginSlice'
+import Avatar from '../Avatar'
 import { SearchForm } from '../SearchForm'
 import { SidebarMobile } from '../SidebarMobile'
 import {
@@ -27,6 +30,7 @@ const propType = {
 }
 
 export const NavbarMobile = (props) => {
+    let isAuthenticated = useSelector(authSelector)
     const mobile = useBreakpoint(down('sm'))
     const [onSidebar, setOnSidebar] = useState(false)
 
@@ -46,7 +50,7 @@ export const NavbarMobile = (props) => {
             <NavbarItem>
                 <SearchForm width={mobile ? '100px' : '150px'} />
                 <LoginWrapper {...props}>
-                    <Link to="/login">Login</Link>
+                    {isAuthenticated ? <Avatar src="#" /> : <Link to="/login">Login</Link>}
                 </LoginWrapper>
             </NavbarItem>
             <SidebarWrapper className={onSidebar ? 'sidebar--on' : 'sidebar--disable'}>
