@@ -7,13 +7,14 @@ import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
 
-import BellIcon from '../../../../assets/bell.svg'
-import CloudIcon from '../../../../assets/cloud-computing.svg'
-import { signOut } from '../../../../features/Login/loginSlice'
-import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
-import useModal from '../../../../hooks/useModal'
-import Avatar from '../../../Avatar'
-import UpdateVideoModal from '../../../Modal/UploadVideoModal'
+import { Avatar } from '../../../../../components/Avatar'
+import UpdateVideoModal from '../../../../../components/Modal/UploadVideoModal'
+
+import BellIcon from '../../../../../assets/bell.svg'
+import CloudIcon from '../../../../../assets/cloud-computing.svg'
+import useDetectClickOutside from '../../../../../hooks/useDetectionClickOut'
+import { useModal } from '../../../../../hooks/useModal'
+import { signOut } from '../../../../Login/loginSlice'
 
 const Box = styled.div`
     display: flex;
