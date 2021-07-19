@@ -11,7 +11,7 @@ import { getAllPostOfLocation, getSuggestPosts } from '../../../../services/api/
 import { setIsBottomSuggest, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
-export const SuggestPostList = () => {
+export const SuggestLocationList = () => {
     const dispatch = useDispatch()
     const isBottomSuggest = useSelector((state) => state.explore.isBottomSuggest)
     const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
@@ -78,4 +78,4 @@ export const SuggestPostList = () => {
     return <PostList isLoading={isLoading} />
 }
 
-export default SuggestPostList
+export default SuggestLocationList

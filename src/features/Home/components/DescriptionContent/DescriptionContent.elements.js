@@ -4,7 +4,6 @@ export const Wrapper = styled.div`
     position: relative;
     width: 100%;
     height: 80px;
-    overflow: hidden;
 `
 
 export const Content = styled.p`
