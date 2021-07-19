@@ -61,7 +61,7 @@ const MainText = styled(Typography)`
     padding: 10px;
 `
 const SecondText = styled(Typography)`
-    font-size: 0.7rem;
+    font-size: 1rem;
     padding-bottom: 10px;
 `
 export const StepOne = ({ onDrop }) => {
@@ -76,7 +76,7 @@ export const StepOne = ({ onDrop }) => {
                 <MdFileUpload color="#626164" size={50} />
             </UploadLogo>
             <MainText>Drag & drop file you want to upload</MainText>
-            <SecondText>Maximum 15mb</SecondText>
+            <SecondText>Maximum file size limit: 15mb</SecondText>
             <ButtonContainer onClick={browseHandler}>
                 <PrimaryButton center>Browse</PrimaryButton>
             </ButtonContainer>

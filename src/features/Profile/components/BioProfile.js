@@ -9,17 +9,25 @@ import styled from 'styled-components'
 
 import { Button, PrimaryButton } from '../../../components/Button/'
 import { EmptyIconButton } from '../../../components/ButtonWithIcons'
-import { Loading } from '../../../components/Loading'
 import UpdateVideoModal from '../../../components/Modal/UploadVideoModal'
 import { Typography } from '../../../components/Typography'
 
 import AvatarUploadIcon from '../../../assets/avatar-upload-icon.png'
+import DefaultAvatar from '../../../assets/default_avatar.jpg'
 import { Error, Success } from '../../../helpers/notify'
 import useModal from '../../../hooks/useModal'
 import { followUser } from '../../../services/user/profile'
 import apiCaller from '../../../utils/apiCaller'
 import { signOut } from '../../Login/loginSlice'
-import { fetchPosts, fetchUserBio, setAvatar, setFollowStatus, setLoading } from '../profileSlice'
+import {
+    fetchPosts,
+    fetchUserBio,
+    getBioFetchStatus,
+    getBioProfile,
+    setAvatar,
+    setFollowStatus,
+    setLoading,
+} from '../profileSlice'
 import UpdateProfileModal from './UpdateProfileModal'
 
 const Wrapper = styled.div`
@@ -61,15 +69,16 @@ const StyledJob = styled(Typography)`
 const StatisticalDetail = styled.div`
     padding: 1.2rem;
 `
-const StatisticalDetailLabel = styled.div`
+const StatisticalDetailLabel = styled(Typography)`
+    display: block;
     font-weight: 300;
-
     color: #bfbebe;
 `
-const StatisticalDetailNumber = styled.div`
-    font-size: 14;
+const StatisticalDetailNumber = styled(Typography)`
     color: #000000;
     font-weight: 700;
+    display: block;
+    text-align: center;
     padding-bottom: 3px;
 `
 const FollowButton = styled(PrimaryButton)`
@@ -122,7 +131,6 @@ function Avatar({ src, isSelf }) {
         const targetImg = e.target.files[0]
         const formData = new FormData()
         formData.append('avatar', targetImg)
-        console.log(targetImg)
         dispatch(setLoading(true))
         apiCaller
             .postFormData('/user/upload-avatar', formData)
@@ -163,17 +171,19 @@ Avatar.propTypes = {
 }
 export default function BioProfile() {
     const dispatch = useDispatch()
-    const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
+    const bioFetchStatus = useSelector(getBioFetchStatus)
     const userID = useSelector((state) => state.auth.userID)
     const isGuestView = useSelector((state) => state.profile.isGuestView)
     let { profileID } = useParams()
-    const details = useSelector((state) => state.profile.bioDetail)
+    const details = useSelector(getBioProfile)
+    // const selfDetails = useSelector((state) => state.profile.selfBioDetail)
+    const posts = useSelector((state) => state.profile.posts)
     let history = useHistory()
 
     useEffect(() => {
         if (bioFetchStatus === 'idle') {
-            console.log(profileID)
-            dispatch(fetchUserBio(!profileID ? null : profileID))
+            let target = !profileID ? null : userID == profileID ? null : profileID
+            dispatch(fetchUserBio(target))
                 .unwrap()
                 .catch((rejectedValueOrSerializedError) => {
                     if (rejectedValueOrSerializedError.code === 404) {
@@ -181,7 +191,7 @@ export default function BioProfile() {
                     }
                 })
         }
-    }, [bioFetchStatus, dispatch, history, profileID])
+    }, [bioFetchStatus, dispatch, history, profileID, userID])
     // useEffect(() => {}, [profileID, userID, history])
     const [isShowing, toggle] = useModal(false)
     const [isShowing2, toggle2] = useModal(false)
@@ -215,7 +225,7 @@ export default function BioProfile() {
         } else {
             return (
                 <FollowButton center onClick={handleFollowBtn}>
-                    {details?.followStatus == 0 ? 'Theo dõi' : 'Huỷ theo dõi'}
+                    {details?.followStatus == 0 ? 'Follow' : 'Unfollow'}
                 </FollowButton>
             )
         }
@@ -228,7 +238,10 @@ export default function BioProfile() {
                 toggle={toggle2}
                 onSuccess={onUploadPostSuccess}
             />
-            <Avatar src={details?.avatarUrl} isSelf={!isGuestView} />
+            <Avatar
+                src={details?.avatarUrl ? details?.avatarUrl : DefaultAvatar}
+                isSelf={!isGuestView}
+            />
             <StyledName>{details?.name}</StyledName>
             <StyledJob>{details?.job}</StyledJob>
             {!isGuestView ? (
@@ -245,7 +258,10 @@ export default function BioProfile() {
             )}
 
             <StatisticalBar>
-                <StatisticalSection name="post" value={1}></StatisticalSection>
+                <StatisticalSection
+                    name="post"
+                    value={posts?.length ? posts?.length : 0}
+                ></StatisticalSection>
                 <SeparatedDetailLine />
                 <StatisticalSection
                     name="following"

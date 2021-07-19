@@ -7,9 +7,12 @@ import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
 
+import UpdateProfileModal from '../../../../features/Profile/components/UpdateProfileModal'
+
 import BellIcon from '../../../../assets/bell.svg'
 import CloudIcon from '../../../../assets/cloud-computing.svg'
 import { signOut } from '../../../../features/Login/loginSlice'
+import { resetProfileState } from '../../../../features/Profile/profileSlice'
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
 import useModal from '../../../../hooks/useModal'
 import Avatar from '../../../Avatar'
@@ -158,10 +161,14 @@ const TopLeft = () => {
     const dropdownRef = useRef(null)
     const [isActive, setIsActive] = useState(false)
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
-
+    const [isShowingUpdateProfile, toggleShowingUpdateProfile] = useModal(false)
     const handleClick = (e) => {
         e.preventDefault()
         setIsActive(true)
+    }
+    const handShowingUpdateProfile = (e) => {
+        e.preventDefault()
+        toggleShowingUpdateProfile()
     }
 
     const onUploadPostSuccess = () => {}
@@ -193,11 +200,19 @@ const TopLeft = () => {
                         </List>
                         <List>
                             <FaWrench />
-                            <LinkItem href="#">Setting</LinkItem>
+                            <LinkItem href="#" onClick={handShowingUpdateProfile}>
+                                Setting
+                            </LinkItem>
                         </List>
                         <List>
                             <FaSignOutAlt />
-                            <LinkItem to="/home" onClick={() => dispatch(signOut())}>
+                            <LinkItem
+                                to="/home"
+                                onClick={() => {
+                                    dispatch(resetProfileState())
+                                    dispatch(signOut())
+                                }}
+                            >
                                 Log out
                             </LinkItem>
                         </List>
@@ -215,6 +230,10 @@ const TopLeft = () => {
                 isShowing={isShowing}
                 toggle={toggle}
                 onSuccess={onUploadPostSuccess}
+            />
+            <UpdateProfileModal
+                isShowing={isShowingUpdateProfile}
+                toggle={toggleShowingUpdateProfile}
             />
         </Box>
     )

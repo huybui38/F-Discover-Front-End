@@ -1,25 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import PropTypes from 'prop-types'
-import { useDropzone } from 'react-dropzone'
-import { MdFileUpload } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
-import { useToastContainer } from 'react-toastify'
-import styled, { css, keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 import { Error, Success } from '../../helpers/notify'
-import useInput from '../../hooks/useInput'
-import { updateProfile } from '../../services/user/profile'
 import { uploadVideo } from '../../services/user/upload'
-import apiCaller from '../../utils/apiCaller'
-import { Button, CircleButton } from '..//Button'
-import { TextFieldInput } from '../Input'
-import { Dropdown } from '../Input/Dropdown'
 import { SimpleCircleLoader } from '../Loading/Loader'
 import { ProgressBar } from '../Progress/Progress'
 import { Typography } from '../Typography'
-// import { onUpdateProfileSuccess, setLoading } from '../profileSlice'
 import Modal from './Modal'
 import { StepOne } from './UploadVideoModal/StepOne'
 import { StepTwo } from './UploadVideoModal/StepTwo'
@@ -49,7 +38,6 @@ function UpdateVideoModal(props) {
     const [progressStatus, setProgressStatus] = useState(5)
     const onUploadProgress = (progressEvent) => {
         let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-        console.log(percentCompleted)
         setProgressStatus(percentCompleted)
     }
     const onDrop = (files) => {
@@ -84,10 +72,14 @@ function UpdateVideoModal(props) {
     }
     return (
         <div>
-            <Modal isShowing={isShowing} hide={closeModalHandler} title="Update a video">
+            <Modal isShowing={isShowing} hide={closeModalHandler} title="Choose your video">
                 <UploadContainer>
                     {isUploading ? (
                         <>
+                            <Typography>
+                                Please wait while we are processing your video (Does not close this
+                                site)
+                            </Typography>
                             <SimpleCircleLoader />
                             <ProgressBar number={progressStatus} />
                         </>

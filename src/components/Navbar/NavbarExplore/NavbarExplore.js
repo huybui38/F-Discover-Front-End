@@ -29,7 +29,7 @@ function NavBarExplore() {
             ) : null}
 
             <Styled.LogoWrapper>
-                <a href="#">
+                <a href="/explore">
                     <Styled.Logo src={Fdiscover} />
                 </a>
             </Styled.LogoWrapper>

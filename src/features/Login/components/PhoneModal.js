@@ -2,14 +2,24 @@
 import { useState, useEffect } from 'react'
 
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
+import { Button } from '../../../components/Button'
+import TextFieldInput from '../../../components/Input/TextField'
 import { PuffLoader } from '../../../components/Loading/Loader'
 import Modal from '../../../components/Modal/Modal'
 
+import Phone from '../../../assets/phone.png'
 import { Error, Success } from '../../../helpers/notify'
 import firebase, { FirebaseAuth } from '../../../services/authentication/'
 
 let confirmation
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
 function PhoneModal(props) {
     const { isShowing, toggle, appVerify, onSuccess } = props
     const [isLoading, setIsLoading] = useState(false)
@@ -66,20 +76,29 @@ function PhoneModal(props) {
     return (
         <>
             <Modal isShowing={isShowing} hide={onClose}>
-                {isLoading ? <PuffLoader /> : ''}
-                <div>
-                    <input type="text" value={phoneNumber} onChange={handleChangePhoneNumber} />
-                    <label>PhoneNumber</label>
-                </div>
-                {isShowOTP ? (
-                    <>
-                        <input type="text" value={OTP} onChange={handleChangeOTP} />
-                        <label>OTP Code</label>
-                        <button onClick={handleOTP}>Xác thực</button>
-                    </>
-                ) : (
-                    <button onClick={onSignInSubmit}>Gửi mã xác nhận</button>
-                )}
+                <Container>
+                    <img src={Phone} style={{ width: '50px' }} />
+                    <TextFieldInput
+                        label="PhoneNumber"
+                        value={phoneNumber}
+                        handleChange={handleChangePhoneNumber}
+                    ></TextFieldInput>
+                    {/* <input type="text" onChange={handleChangePhoneNumber} /> */}
+                    {/* <label>PhoneNumber</label> */}
+                    {isShowOTP ? (
+                        <>
+                            <TextFieldInput
+                                label="OTP Code"
+                                value={OTP}
+                                handleChange={handleChangeOTP}
+                            ></TextFieldInput>
+                            <Button onClick={handleOTP}>Xác thực</Button>
+                        </>
+                    ) : (
+                        <Button onClick={onSignInSubmit}>Gửi mã xác nhận</Button>
+                    )}
+                    {isLoading ? <PuffLoader /> : ''}
+                </Container>
             </Modal>
         </>
     )

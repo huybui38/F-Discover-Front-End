@@ -1,18 +1,23 @@
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import config from '../configurations'
 
-let token = localStorage.getItem('token')
-let tokenHeader = token ? { Authorization: `Bearer ${token}` } : {}
-const instance = axios.create({
-    baseURL: config.backendURL,
-    responseType: 'json',
-    headers: {
-        ...tokenHeader,
-        'Content-Type': 'application/json',
-    },
-})
+let instance
+export const updateIns = () => {
+    let token = localStorage.getItem('token')
+    let tokenHeader = token ? { Authorization: `Bearer ${token}` } : {}
+    instance = axios.create({
+        baseURL: config.backendURL,
+        responseType: 'json',
+        headers: {
+            ...tokenHeader,
+            'Content-Type': 'application/json',
+        },
+    })
+}
+updateIns()
+
 async function post(path = '', data = {}) {
     try {
         const response = await instance.post(path, JSON.stringify(data))

@@ -10,10 +10,10 @@ import { EmptyIconButton } from '../../../components/ButtonWithIcons'
 import { Typography } from '../../../components/Typography'
 
 import CoverUploadIcon from '../../../assets/cover-upload-icon.jpg'
-import TestImg from '../../../assets/test-profile-img.png'
+import CoverDefault from '../../../assets/default_cover.jpeg'
 import { Error, Success } from '../../../helpers/notify'
 import apiCaller from '../../../utils/apiCaller'
-import { setCover, setLoading } from '../profileSlice'
+import { getBioProfile, setCover, setLoading } from '../profileSlice'
 
 const StyledImage = styled.img`
     width: 100%;
@@ -39,7 +39,7 @@ const StyledUpLoadCover = styled(EmptyIconButton)`
 const StyledInputFile = styled.input``
 export default function Cover() {
     const dispatch = useDispatch()
-    const details = useSelector((state) => state.profile.bioDetail)
+    const details = useSelector(getBioProfile)
     const uploadCoverRef = useRef(null)
     const uploadClickHandler = () => {
         if (uploadCoverRef.current) {
@@ -87,7 +87,7 @@ export default function Cover() {
             ) : (
                 ''
             )}
-            <StyledImage src={details.coverUrl}></StyledImage>
+            <StyledImage src={details.coverUrl ? details.coverUrl : CoverDefault}></StyledImage>
         </div>
     )
 }
