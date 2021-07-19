@@ -33,9 +33,10 @@ const appear = keyframes`
 
 export const Container = styled.div`
     width: 600px;
+    height: 160px;
 
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: calc(calc(100% - 1200px) / 2);
 
     margin-left: 80px;
