@@ -27,8 +27,15 @@ export const NavbarWrapper = styled.div`
 `
 
 export const LogoWrapper = styled.div`
-    & .logo {
-        height: 38px;
+    display: flex;
+    align-items: center;
+    & > .logo {
+        height: 60px;
+        width: auto;
+        cursor: pointer;
+    }
+    & > .logoTitle {
+        height: 30px;
         width: auto;
 
         cursor: pointer;

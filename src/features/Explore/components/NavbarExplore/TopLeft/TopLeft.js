@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
 
 import { FaSignOutAlt, FaUserAlt, FaWrench } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { Avatar } from '../../../../../components/Avatar'
 import UpdateVideoModal from '../../../../../components/Modal/UploadVideoModal'
@@ -14,7 +14,7 @@ import BellIcon from '../../../../../assets/bell.svg'
 import CloudIcon from '../../../../../assets/cloud-computing.svg'
 import useDetectClickOutside from '../../../../../hooks/useDetectionClickOut'
 import { useModal } from '../../../../../hooks/useModal'
-import { signOut } from '../../../../Login/loginSlice'
+import { authSelector, signOut } from '../../../../Login/loginSlice'
 
 const Box = styled.div`
     display: flex;
@@ -153,8 +153,54 @@ export const BtnUploadMobile = styled.div`
     width: 60px;
     height: 100px;
 `
+const moveLeftToRight = keyframes`
+    0%{
+        transform: translateX(-8px)
+    }
+
+    50%{
+        transform: translateX(8px)
+    }
+
+    100%{
+        transform: translateX(0)
+    }
+`
+export const LinkLogin = styled(Link)`
+    position: relative;
+    text-decoration: none;
+    line-height: 24px;
+    font-size: 15px;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px #050505;
+
+    list-style: none;
+    color: ${(props) => props.color || 'white'};
+
+    &::before {
+        content: '';
+        display: none;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+
+        border: 1px solid #1dd1a1;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-1px);
+        transition: all 0.1s linear;
+
+        &::before {
+            display: block;
+            animation: ${moveLeftToRight} 0.35s linear;
+        }
+    }
+`
 const TopLeft = () => {
     const mobile = useBreakpoint(down('sm'))
+    let isAuthenticated = useSelector(authSelector)
     const dispatch = useDispatch()
     const dropdownRef = useRef(null)
     const [isActive, setIsActive] = useState(false)
@@ -168,7 +214,9 @@ const TopLeft = () => {
     const onUploadPostSuccess = () => {}
 
     useDetectClickOutside(dropdownRef, () => setIsActive(false))
-    return (
+    return !isAuthenticated ? (
+        <LinkLogin to="/login">Login</LinkLogin>
+    ) : (
         <Box>
             {!mobile ? (
                 <div>
@@ -185,7 +233,7 @@ const TopLeft = () => {
                 </div>
             ) : null}
             <MenuTrigger ref={dropdownRef}>
-                <Avatar src="#" onClick={handleClick} />
+                <Avatar src="#" />
                 <Menu isActive={isActive}>
                     <Element>
                         <List>
