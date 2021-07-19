@@ -6,7 +6,7 @@ import { up } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 import styled from 'styled-components'
 
-import NavBarExplore from '../../components/Navbar/NavbarExplore/NavbarExplore'
+import NavBarExplore from '../Explore/components/NavbarExplore/NavbarExplore'
 
 import DesktopProfile from './pages/desktop.profile'
 import MobileProfile from './pages/mobile.profile'
