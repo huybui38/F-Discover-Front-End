@@ -11,7 +11,7 @@ import * as Styled from './Sidebar.elements'
 const listOption = [
     { id: 0, icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
     { id: 1, icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
-    { id: 2, icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest' },
+    { id: 2, icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest/all' },
 ]
 
 export const SidebarMobile = (props) => {

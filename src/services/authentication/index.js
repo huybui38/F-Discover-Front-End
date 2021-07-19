@@ -14,7 +14,6 @@ import { generateZaloURL } from '../../utils/zaloUtils'
 
 // TODO: Replace the following with your app's Firebase project configuration
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
-
 // Initialize Firebase
 firebase.initializeApp(config.firebaseConfig)
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider()

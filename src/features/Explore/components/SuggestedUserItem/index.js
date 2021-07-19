@@ -79,7 +79,7 @@ const SuggestedUserItem = ({ user }) => {
             <InfoWrapper>
                 <span>{user.name}</span>
             </InfoWrapper>
-            {mobile ? (
+            {!mobile ? (
                 <InfoUser className="suggest-user__info">
                     <InfoSuggestedUser user={user} />
                 </InfoUser>

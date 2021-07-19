@@ -4,7 +4,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Avatar } from '../../../../components/Avatar'
+import { Avatar } from '../../../../../components/Avatar'
 
 const ItemWrapper = styled.li`
     position: relative;
