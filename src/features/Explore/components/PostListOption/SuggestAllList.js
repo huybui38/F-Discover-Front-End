@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Error } from '../../../../helpers/notify'
 import { getSuggestPosts } from '../../../../services/api/postApi'
 import { setIsBottomForYou, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
@@ -21,15 +22,20 @@ export const SuggestAllList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(1, 5, 2).then((response) => {
-            if (response.message === 'Success') {
-                if (mounted) {
-                    setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
-                    dispatch(action)
+        getSuggestPosts(1, 5, 2)
+            .then((response) => {
+                if (response.message === 'Success') {
+                    if (mounted) {
+                        setIsLoading(false)
+                        const action = setListSuggestPosts(response.data.posts)
+                        dispatch(action)
+                    }
                 }
-            }
-        })
+            })
+            .catch((e) => {
+                console.log(e)
+                Error('Server error.')
+            })
 
         return () => {
             mounted = false

@@ -11,8 +11,6 @@ import { Sidebar } from '../Sidebar'
 import * as Styled from './styled.elements'
 
 export const LayoutExplore = () => {
-    const mobile = useBreakpoint(down('lg'))
-
     return (
         <Styled.Container>
             <NavBarExplore />

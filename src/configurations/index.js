@@ -1,7 +1,8 @@
 export default {
+    zaloAppID: '4598295338811618991',
     zaloCallBack: '/login/callback',
     baseURL: 'https://f-discover.web.app',
-    backendURL: 'https://ohtgo.me/api',
+    backendURL: 'http://34.96.210.234:5050/api',
     publicUrl: 'https://f-discover.web.app',
     firebaseConfig: {
         apiKey: 'AIzaSyC-r30MPqfhVflL3fVl_0TYrR7GlovAcQg',
