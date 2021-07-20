@@ -12,7 +12,12 @@ import Modal from '../../../components/Modal/Modal'
 import { Error, Success } from '../../../helpers/notify'
 import useInput from '../../../hooks/useInput'
 import { updateProfile } from '../../../services/user/profile'
-import { onUpdateProfileSuccess, setLoading } from '../profileSlice'
+import {
+    fetchUserBio,
+    onUpdateProfileSuccess,
+    resetProfileState,
+    setLoading,
+} from '../profileSlice'
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -20,11 +25,20 @@ const ButtonContainer = styled.div`
 `
 function UpdateProfileModal(props) {
     const { toggle, isShowing } = props
-    const details = useSelector((state) => state.profile.bioDetail)
+    const details = useSelector((state) => state.profile.selfBioDetail)
     const dispatch = useDispatch()
     const [name, nameHandler, setName] = useInput(details.name)
     const [job, jobHandler, setJob] = useInput(details.job)
     const [bio, bioHandler, setBio] = useInput(details.quote)
+    const bioFetchStatus = useSelector((state) => state.profile.status.fetchUserBio)
+    useEffect(() => {
+        dispatch(fetchUserBio())
+    }, [dispatch])
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(resetProfileState())
+    //     }
+    // }, [])
     const closeModalHandler = () => {
         toggle()
     }
@@ -32,9 +46,9 @@ function UpdateProfileModal(props) {
         dispatch(setLoading(true))
         updateProfile(name, job, bio).then((result) => {
             dispatch(setLoading(false))
-            if (result === -1) Error('Cập nhật thất bại!')
+            if (result === -1) Error('Update failed!')
             else {
-                Success('Thành công!')
+                Success('Update successfully')
                 if (result.name) {
                     dispatch(onUpdateProfileSuccess(result))
                 } else console.log('[OnUpdateProfileSuccess] Not found name property', result)

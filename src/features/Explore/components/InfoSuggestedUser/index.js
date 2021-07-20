@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Avatar from '../../../../components/Avatar'
@@ -13,6 +14,7 @@ import {
     followUserById,
     unFollowUserById,
 } from '../../../../services/api/userApi'
+import { authSelector } from '../../../Login/loginSlice'
 import { setIsFollowUser } from '../../exploreSlice'
 
 const InfoWrapper = styled.div`
@@ -34,19 +36,28 @@ const FollowButton = styled(Button)`
 const Name = styled.div`
     padding: 8px 16px;
     font-size: 16px;
+
+    &:hover {
+        text-decoration: underline;
+    }
 `
 const Interactive = styled.div`
     padding: 8px 16px;
     display: flex;
     justify-content: space-between;
 `
-export const InfoSuggestedUser = ({ user }) => {
+export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const [isFollowing, setIsFollowing] = useState(false)
     const [isClickFollow, setIsClickFollow] = useState(false)
+    let isAuthenticated = useSelector(authSelector)
+    const userID = useSelector((state) => state.auth.userID)
+    const isMe = userID === user.id ? true : false
 
     useEffect(() => {
+        if (!isAuthenticated) return
         checkFollowUserById(user.id)
             .then((res) => {
                 if (res.message === 'Success') {
@@ -59,6 +70,10 @@ export const InfoSuggestedUser = ({ user }) => {
     }, [isClickFollow, isFollowUser])
 
     const handleFollowUser = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (isFollowing) {
             unFollowUserById(user.id)
                 .then((res) => {
@@ -90,9 +105,14 @@ export const InfoSuggestedUser = ({ user }) => {
         <InfoWrapper>
             <Header>
                 <Avatar src={user.avatarUrl} alt="avatar" width="40px" />
-                <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
+                {isMe ? null : (
+                    <ButtonFollow
+                        isFollowing={isFollowing}
+                        handleFollow={() => handleFollowUser()}
+                    />
+                )}
             </Header>
-            <Name>
+            <Name onClick={handleClickProfile}>
                 <b>{user.name}</b>
             </Name>
             <Interactive>

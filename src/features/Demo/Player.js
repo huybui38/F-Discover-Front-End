@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import VideoPlayer from '../../components/Player/Video'
 
-import image from '../../assets/demo_player.jpeg'
+// import image from '../../assets/demo_player.jpeg'
 import videoDemo from '../../assets/demo_video.mp4'
 import videoDemo2 from '../../assets/demo_video_2.mp4'
 import videoDemo3 from '../../assets/demo_video_3.mp4'

@@ -20,6 +20,24 @@ export const Wrapper = styled.div`
     text-shadow: none;
     background-color: #fff;
 `
+export const LogoWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > div > .logo {
+        height: 60px;
+        width: auto;
+        cursor: pointer;
+    }
+    & > div > .logoTitle {
+        height: 30px;
+        width: auto;
+
+        cursor: pointer;
+    }
+`
 export const GroupSocialBtn = styled.div`
     justify-content: center;
     width: 100%;

@@ -99,7 +99,7 @@ export const LoginWrapper = styled.div`
 
 export const SidebarWrapper = styled.div`
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 0;
     z-index: 3;
 

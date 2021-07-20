@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
+import Baseline from '../../../components/Baseline'
 import { CenterFlexContainer } from '../../../components/Container/FlexContainer'
 import { Loading } from '../../../components/Loading'
 import BioProfile from '../components/BioProfile'
@@ -10,7 +11,6 @@ import Cover from '../components/Cover'
 import OwnPosts from '../components/OwnPosts'
 import ProfileDescription from '../components/ProfileDescription'
 
-const DescriptionWrapper = styled(ProfileDescription)``
 const MobileContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -28,6 +28,9 @@ const TranslateContainer = styled(CenterFlexContainer)`
         width: calc(100% - 2px);
     }
 `
+const GapWrapper = styled.div`
+    padding: 2rem;
+`
 
 export default function Mobile() {
     const isLoading = useSelector((state) => state.profile.isLoading)
@@ -38,7 +41,9 @@ export default function Mobile() {
                 <Cover />
                 <TranslateContainer>
                     <BioProfile />
-                    <DescriptionWrapper />
+                    <GapWrapper>
+                        <ProfileDescription />
+                    </GapWrapper>
                     <OwnPosts />
                 </TranslateContainer>
             </MobileContainer>
