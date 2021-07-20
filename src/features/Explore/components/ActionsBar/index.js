@@ -13,21 +13,23 @@ import {
     FaPlusCircle,
 } from 'react-icons/fa'
 import { FiPlusCircle } from 'react-icons/fi'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 import Dialog from '../../../../components/Dialog'
 
+import configs from '../../../../configurations/index'
 import useDetectClickOutside from '../../../../hooks/useDetectionClickOut'
 import { useModal } from '../../../../hooks/useModal'
 import { likePostById, unLikePostById } from '../../../../services/api/postApi'
 import formatNumber from '../../../../utils/formatNumber'
+import { authSelector } from '../../../Login/loginSlice'
 import { CommentDialog } from '../CommentDialog'
 import * as Styled from './styled.elements'
 
-const link = 'www.facebook.com/profile.php?id=100015055038244'
 export const ActionsBar = ({
     dataPost,
     handleClickComment,
@@ -38,6 +40,9 @@ export const ActionsBar = ({
 }) => {
     const mobile = useBreakpoint(down('lg'))
     const wrapperShareRef = useRef(null)
+    const history = useHistory()
+    let isAuthenticated = useSelector(authSelector)
+    const link = `${configs.publicUrl}/profile/${dataPost.author.id}`
 
     const [totalLike, setTotalLike] = useState(dataPost.likes)
     const [isLikePost, setIsLikePost] = useState(dataPost.likeStatus)
@@ -46,6 +51,10 @@ export const ActionsBar = ({
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
 
     const handleLikePost = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (isLikePost) {
             unLikePostById(dataPost.id)
                 .then((res) => {
@@ -74,6 +83,13 @@ export const ActionsBar = ({
     const handleShareMethod = () => {
         setIsClickShare(false)
         setCopied(false)
+    }
+    const handleClickCommentMobile = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
+        openModal()
     }
     useDetectClickOutside(wrapperShareRef, () => handleShareMethod())
     return (
@@ -132,7 +148,9 @@ export const ActionsBar = ({
                 {/* Comment */}
                 <Styled.ActionItem>
                     <ButtonIcon
-                        onClick={mobile ? () => openModal() : () => handleClickComment()}
+                        onClick={
+                            mobile ? () => handleClickCommentMobile() : () => handleClickComment()
+                        }
                         icon={<FaRegCommentAlt style={{ width: '28px', height: '28px' }} />}
                     />
                     <span>{formatNumber(totalComment, 1)}</span>

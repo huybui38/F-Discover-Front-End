@@ -22,7 +22,6 @@ export const SuggestLocationList = () => {
 
     const { locationId } = useParams()
     useEffect(() => {
-        console.log(locationId)
         let mounted = true
         setIsLoading(true)
         getAllPostOfLocation(locationId, 1, 5)

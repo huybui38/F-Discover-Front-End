@@ -2,11 +2,13 @@
 import React, { forwardRef, useState } from 'react'
 
 import { FaPaperPlane, FaRegSmile } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 
 import { createComment } from '../../../../services/api/postApi'
+import { authSelector } from '../../../Login/loginSlice'
 import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
@@ -15,12 +17,19 @@ export const CommentInputField = (
     ref
 ) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [value, setValue] = useState('')
+    let isAuthenticated = useSelector(authSelector)
+
     const handleChange = (e) => {
         setValue(e.target.value)
     }
     const handleSubmit = (e) => {
         e.preventDefault()
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (value) {
             createComment(postId, { content: value })
                 .then((res) => {
