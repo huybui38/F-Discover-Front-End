@@ -46,7 +46,6 @@ export const Post = ({ dataPost, index }) => {
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
-    console.log('login: ', isAuthenticated)
     useEffect(() => {
         if (!isAuthenticated) return
         let mounted = true

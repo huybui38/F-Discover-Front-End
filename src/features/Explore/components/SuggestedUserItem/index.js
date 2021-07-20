@@ -17,6 +17,7 @@ const ItemWrapper = styled.li`
     display: flex;
     align-items: center;
 
+    width: 100%;
     padding: 4px;
     border-radius: 2px;
 
@@ -79,9 +80,9 @@ const SuggestedUserItem = ({ user }) => {
         history.push(`/profile/${user.id}`)
     }
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={mobile ? handleClick : null}>
             <Avatar src={user.avatarUrl || '#'} alt="avatar" width="32px" />
-            <InfoWrapper onClick={handleClick}>
+            <InfoWrapper onClick={mobile ? null : handleClick}>
                 <span>{user.name}</span>
             </InfoWrapper>
             {!mobile ? (

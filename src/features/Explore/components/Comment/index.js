@@ -42,7 +42,6 @@ export const Comment = ({ disable, postId, totalComment, setTotalComment }) => {
             setIsClickView({ status: false, type: '' })
         }
     }, [isClickView])
-
     return (
         <Styled.CommentContainer disable={disable}>
             <Styled.CommentList>

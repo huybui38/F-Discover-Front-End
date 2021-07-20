@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
+import { Error } from '../../../../helpers/notify'
 import { getAllPostUserFollowing } from '../../../../services/api/postApi'
 import { setIsBottomFollow, setListSuggestPosts } from '../../exploreSlice'
 import { PostList } from '../PostList'
@@ -21,15 +22,20 @@ export const FollowingPostList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getAllPostUserFollowing(1, 5).then((response) => {
-            if (response.message === 'Success') {
-                if (mounted) {
-                    setIsLoading(false)
-                    const action = setListSuggestPosts(response.data)
-                    dispatch(action)
+        getAllPostUserFollowing(1, 5)
+            .then((response) => {
+                if (response.message === 'Success') {
+                    if (mounted) {
+                        setIsLoading(false)
+                        const action = setListSuggestPosts(response.data)
+                        dispatch(action)
+                    }
                 }
-            }
-        })
+            })
+            .catch((e) => {
+                console.log(e)
+                Error('Server error.')
+            })
 
         return () => {
             mounted = false
