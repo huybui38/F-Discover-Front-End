@@ -117,10 +117,10 @@ export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
             </Name>
             <Interactive>
                 <span>
-                    <b>100</b> Follower
+                    <b>{user.following}</b> Following
                 </span>
                 <span>
-                    <b>200</b> Like
+                    <b>{user.followers}</b> Followers
                 </span>
             </Interactive>
         </InfoWrapper>

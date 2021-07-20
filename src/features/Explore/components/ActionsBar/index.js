@@ -126,7 +126,7 @@ export const ActionsBar = ({
 
                 {/* Like */}
                 <Styled.ActionItem>
-                    {isLikePost && isLikePost !== -1 ? (
+                    {isLikePost && isLikePost != -1 ? (
                         <ButtonIcon
                             onClick={() => handleLikePost()}
                             bgrColor="rgba(255,63,52,0.1)"
