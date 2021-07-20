@@ -37,6 +37,8 @@ export const Post = ({ dataPost, index }) => {
     const mobile = useBreakpoint(down('lg'))
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     let isAuthenticated = useSelector(authSelector)
+    const userID = useSelector((state) => state.auth.userID)
+    const isMe = userID === dataPost.author.id ? true : false
     const dispatch = useDispatch()
     const commentRef = useRef(null)
     const history = useHistory()
@@ -44,7 +46,7 @@ export const Post = ({ dataPost, index }) => {
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
-
+    console.log('login: ', isAuthenticated)
     useEffect(() => {
         if (!isAuthenticated) return
         let mounted = true
@@ -145,12 +147,14 @@ export const Post = ({ dataPost, index }) => {
                 </Styled.Author>
 
                 {/* Button following user */}
-                <Styled.ButtonWrapper>
-                    <ButtonFollow
-                        isFollowing={isFollowing}
-                        handleFollow={() => handleFollowUser()}
-                    />
-                </Styled.ButtonWrapper>
+                {isMe ? null : (
+                    <Styled.ButtonWrapper>
+                        <ButtonFollow
+                            isFollowing={isFollowing}
+                            handleFollow={() => handleFollowUser()}
+                        />
+                    </Styled.ButtonWrapper>
+                )}
             </Styled.Header>
 
             {/* Body Post */}

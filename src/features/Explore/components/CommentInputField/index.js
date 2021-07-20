@@ -3,6 +3,7 @@ import React, { forwardRef, useState } from 'react'
 
 import { FaPaperPlane, FaRegSmile } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { ButtonIcon } from '../../../../components/ButtonIcon'
 
@@ -16,6 +17,7 @@ export const CommentInputField = (
     ref
 ) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const [value, setValue] = useState('')
     let isAuthenticated = useSelector(authSelector)
 
@@ -23,11 +25,11 @@ export const CommentInputField = (
         setValue(e.target.value)
     }
     const handleSubmit = (e) => {
+        e.preventDefault()
         if (!isAuthenticated) {
             history.push('/login')
             return
         }
-        e.preventDefault()
         if (value) {
             createComment(postId, { content: value })
                 .then((res) => {
@@ -44,7 +46,7 @@ export const CommentInputField = (
         setValue('')
     }
     return (
-        <Styled.FieldComment onSubmit={() => handleSubmit()} disable={disable}>
+        <Styled.FieldComment onSubmit={handleSubmit} disable={disable}>
             <ButtonIcon icon={<FaRegSmile style={{ width: '28px', height: '28px' }} />} />
             {focus ? (
                 <input

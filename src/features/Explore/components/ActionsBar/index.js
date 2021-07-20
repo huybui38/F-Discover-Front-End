@@ -81,10 +81,6 @@ export const ActionsBar = ({
     }
 
     const handleShareMethod = () => {
-        if (!isAuthenticated) {
-            history.push('/login')
-            return
-        }
         setIsClickShare(false)
         setCopied(false)
     }

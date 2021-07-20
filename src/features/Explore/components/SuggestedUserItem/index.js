@@ -54,6 +54,10 @@ const InfoWrapper = styled.div`
     margin-left: 8px;
 
     font-size: 12px;
+
+    &:hover {
+        text-decoration: underline;
+    }
     & > span:first-child {
         font-weight: 600;
         word-wrap: break-word;
@@ -70,18 +74,19 @@ const SuggestedUserItem = ({ user }) => {
     const mobile = useBreakpoint(down('lg'))
     const history = useHistory()
 
-    const handleClick = () => {
+    const handleClick = (e) => {
+        e.preventDefault()
         history.push(`/profile/${user.id}`)
     }
     return (
-        <ItemWrapper onClick={handleClick}>
+        <ItemWrapper>
             <Avatar src={user.avatarUrl || '#'} alt="avatar" width="32px" />
-            <InfoWrapper>
+            <InfoWrapper onClick={handleClick}>
                 <span>{user.name}</span>
             </InfoWrapper>
             {!mobile ? (
                 <InfoUser className="suggest-user__info">
-                    <InfoSuggestedUser user={user} />
+                    <InfoSuggestedUser user={user} handleClickProfile={handleClick} />
                 </InfoUser>
             ) : null}
         </ItemWrapper>

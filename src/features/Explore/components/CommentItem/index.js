@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { FaRegHeart, FaHeart, FaEllipsisH } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
@@ -19,6 +20,7 @@ import * as Styled from './styled.elements'
 
 export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const userID = useSelector((state) => state.auth.userID)
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isLikeComment, setIsLikeComment] = useState(false)

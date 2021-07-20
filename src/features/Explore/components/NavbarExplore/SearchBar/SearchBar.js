@@ -37,7 +37,6 @@ function SearchBar() {
     function handleInputOnchange(e) {
         const value = e.target.value
         setKeyword(value)
-        console.log('value: ', value)
         if (value) {
             debounceDropDown(value)
         }
