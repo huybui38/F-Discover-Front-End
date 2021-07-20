@@ -23,14 +23,12 @@ export const BackgroundImage = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
 `
+export const WrapperBrn = styled.div`
+    position: relative;
+`
 export const ButtonExplore = styled.div`
     position: absolute;
-    top: 40%;
-    left: 18px;
-
-    ${up('sm')} {
-        left: 48px;
-    }
+    top: 50px;
 `
 
 export const Slogan = styled.div`

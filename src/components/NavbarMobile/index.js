@@ -48,7 +48,7 @@ export const NavbarMobile = (props) => {
                 <Logo src={logo} art="Logo"></Logo>
             </div>
             <NavbarItem>
-                <SearchForm width={mobile ? '100px' : '150px'} />
+                {mobile ? null : <SearchForm width="150px" />}
                 <LoginWrapper {...props}>
                     {isAuthenticated ? <Avatar src="#" /> : <Link to="/login">Login</Link>}
                 </LoginWrapper>

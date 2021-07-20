@@ -175,6 +175,7 @@ export const LinkLogin = styled(Link)`
     font-size: 15px;
     font-weight: 500;
     text-shadow: 1px 1px 2px #050505;
+    margin: 0 8px;
 
     list-style: none;
     color: ${(props) => props.color || 'white'};
