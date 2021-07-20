@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { up } from 'styled-breakpoints'
+import { down, up } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
 import { HomeDesktop } from './pages/HomeDesktop'
 import { HomeMobile } from './pages/HomeMobile'
 
 export const Home = () => {
-    const isDesktop = useBreakpoint(up('lg'))
-    return isDesktop ? <HomeDesktop /> : <HomeMobile />
+    const isTablet = useBreakpoint(down('lg'))
+    return !isTablet ? <HomeDesktop /> : <HomeMobile />
 }
 
 export default Home

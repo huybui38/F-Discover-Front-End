@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaUserFriends, FaCaravan } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import { Baseline } from '../../../../components/Baseline'
 
+import Logo from '../../../../assets/img/logo.png'
+import LogoTitle from '../../../../assets/img/logoTitle.png'
 import { getSuggestUser } from '../../../../services/api/userApi'
+import { authSelector } from '../../../Login/loginSlice'
 import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './Sidebar.elements'
 
-const listOption = [
-    { id: 0, icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
-    { id: 1, icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
-    { id: 2, icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest/all' },
-]
-
 export const SidebarMobile = (props) => {
+    const history = useHistory()
+    let isAuthenticated = useSelector(authSelector)
+
+    const listOption = [
+        { id: 0, icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
+        {
+            id: 1,
+            icon: <FaUserFriends />,
+            label: 'Following',
+            to: isAuthenticated ? '/explore/following' : '/home',
+        },
+        {
+            id: 2,
+            icon: <FaCaravan />,
+            label: 'Suggest',
+            to: isAuthenticated ? '/explore/suggest/all' : '/home',
+        },
+    ]
+
     const [listSuggestUser, setListSuggestUser] = useState([])
     const [numberSuggestedUser, setNumberSuggestedUser] = useState(5)
     const [choice, setChoice] = useState(0)
@@ -41,6 +59,12 @@ export const SidebarMobile = (props) => {
 
     return (
         <Styled.Wrapper {...props}>
+            <Styled.LogoWrapper onClick={() => history.push('/home')}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <img className="logo" src={Logo} alt="logo" />
+                    <img className="logoTitle" src={LogoTitle} alt="logo title" />
+                </div>
+            </Styled.LogoWrapper>
             <Styled.SidebarList {...props}>
                 {listOption.map((item, index) => (
                     <Styled.SidebarItem
@@ -54,7 +78,7 @@ export const SidebarMobile = (props) => {
                     </Styled.SidebarItem>
                 ))}
             </Styled.SidebarList>
-            <Baseline width="95%" />
+            <Baseline width="100%" />
             <Styled.SuggestUserWrapper>
                 <Styled.TitleList>Suggest accounts</Styled.TitleList>
                 <Styled.UserSuggestList>
