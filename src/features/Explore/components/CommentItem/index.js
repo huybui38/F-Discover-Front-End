@@ -13,6 +13,7 @@ import { Error } from '../../../../helpers/notify'
 import { useModal } from '../../../../hooks/useModal'
 import { deleteCommentById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
+import { authSelector } from '../../../Login/loginSlice'
 import { setIsComment } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
@@ -21,6 +22,7 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
     const userID = useSelector((state) => state.auth.userID)
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isLikeComment, setIsLikeComment] = useState(false)
+    let isAuthenticated = useSelector(authSelector)
 
     const handleDeleteComment = () => {
         closeModal()
@@ -38,6 +40,20 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
                 Error('Delete comment failed.')
             })
     }
+    const handleOpenCommentActions = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
+        openModal()
+    }
+    const handleLikeComment = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
+        setIsLikeComment(true)
+    }
     return (
         <Styled.CommentItem>
             <Avatar width="32px" src={dataComment.author.avatarUrl} />
@@ -51,7 +67,7 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
                 <Styled.Content>{dataComment.content}</Styled.Content>
             </Styled.Info>
             <Styled.Actions className="cmtItem__actions">
-                <Styled.Option onClick={openModal}>
+                <Styled.Option onClick={() => handleOpenCommentActions()}>
                     <FaEllipsisH />
                 </Styled.Option>
                 <Dialog title="Comment" isShowing={isShowing} hide={closeModal}>
@@ -77,7 +93,7 @@ export const CommentItem = ({ dataComment, postId, setTotalComment, totalComment
                 ) : (
                     <ButtonIcon
                         icon={<FaRegHeart style={{ width: '14px', height: '14px' }} />}
-                        onClick={() => setIsLikeComment(true)}
+                        onClick={() => handleLikeComment()}
                     />
                 )}
             </Styled.Actions>

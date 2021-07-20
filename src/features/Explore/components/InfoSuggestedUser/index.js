@@ -13,6 +13,7 @@ import {
     followUserById,
     unFollowUserById,
 } from '../../../../services/api/userApi'
+import { authSelector } from '../../../Login/loginSlice'
 import { setIsFollowUser } from '../../exploreSlice'
 
 const InfoWrapper = styled.div`
@@ -45,8 +46,10 @@ export const InfoSuggestedUser = ({ user }) => {
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
     const [isFollowing, setIsFollowing] = useState(false)
     const [isClickFollow, setIsClickFollow] = useState(false)
+    let isAuthenticated = useSelector(authSelector)
 
     useEffect(() => {
+        if (!isAuthenticated) return
         checkFollowUserById(user.id)
             .then((res) => {
                 if (res.message === 'Success') {
@@ -59,6 +62,10 @@ export const InfoSuggestedUser = ({ user }) => {
     }, [isClickFollow, isFollowUser])
 
     const handleFollowUser = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (isFollowing) {
             unFollowUserById(user.id)
                 .then((res) => {
@@ -90,7 +97,7 @@ export const InfoSuggestedUser = ({ user }) => {
         <InfoWrapper>
             <Header>
                 <Avatar src={user.avatarUrl} alt="avatar" width="40px" />
-                <ButtonFollow isFollowing={isFollowing} handleFollow={handleFollowUser} />
+                <ButtonFollow isFollowing={isFollowing} handleFollow={() => handleFollowUser()} />
             </Header>
             <Name>
                 <b>{user.name}</b>

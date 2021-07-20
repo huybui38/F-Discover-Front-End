@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import react, { useCallback, useRef, useState } from 'react'
 
 import { debounce } from 'lodash'
@@ -33,7 +34,6 @@ function SearchBar() {
         debounce((nextValue) => fetchResultDropdown(nextValue), 1000),
         []
     )
-    console.log(userList, locationList)
     function handleInputOnchange(e) {
         const value = e.target.value
         setKeyword(value)

@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { FaMapMarkerAlt, FaCog } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
@@ -24,6 +25,7 @@ import {
     unFollowUserById,
 } from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
+import { authSelector } from '../../../Login/loginSlice'
 import { setIsFollowUser } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
@@ -34,14 +36,17 @@ import * as Styled from './styled.elements'
 export const Post = ({ dataPost, index }) => {
     const mobile = useBreakpoint(down('lg'))
     const isFollowUser = useSelector((state) => state.explore.isFollowUser)
+    let isAuthenticated = useSelector(authSelector)
     const dispatch = useDispatch()
     const commentRef = useRef(null)
+    const history = useHistory()
 
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
 
     useEffect(() => {
+        if (!isAuthenticated) return
         let mounted = true
         checkFollowUserById(dataPost.author.id)
             .then((res) => {
@@ -60,11 +65,19 @@ export const Post = ({ dataPost, index }) => {
     }, [isFollowUser])
 
     const handleClickComment = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (!mobile) {
             commentRef.current.focus()
         }
     }
     const handleFollowUser = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
         if (isFollowing) {
             unFollowUserById(dataPost.author.id)
                 .then((res) => {
@@ -89,6 +102,13 @@ export const Post = ({ dataPost, index }) => {
                 })
         }
     }
+    const handleOpenPostActions = () => {
+        if (!isAuthenticated) {
+            history.push('/login')
+            return
+        }
+        openModal()
+    }
     return (
         <Styled.Container className={`video_${index}`}>
             {/* Header Post */}
@@ -103,7 +123,10 @@ export const Post = ({ dataPost, index }) => {
                                 authorId={dataPost.author.id}
                             />
                             {mobile ? null : <p>{dataPost.author.job}</p>}
-                            <Styled.Option className="post__actions" onClick={openModal}>
+                            <Styled.Option
+                                className="post__actions"
+                                onClick={() => handleOpenPostActions()}
+                            >
                                 <FaCog style={{ width: '10px', height: '10px' }} />
                             </Styled.Option>
                             <Dialog title="Post" isShowing={isShowing} hide={closeModal}>

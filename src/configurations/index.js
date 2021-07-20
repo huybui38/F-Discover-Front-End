@@ -3,6 +3,7 @@ export default {
     zaloCallBack: '/login/callback',
     baseURL: 'https://d702bbe55b28.ngrok.io',
     backendURL: 'http://localhost:5050/api',
+    publicUrl: 'http://localhost:3000',
     firebaseConfig: {
         apiKey: 'AIzaSyA43j3wbJTyAHL-SAFzs8bvXI9aMBM7e_0',
         authDomain: 'database-fcode-3fef9.firebaseapp.com',
