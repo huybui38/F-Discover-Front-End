@@ -1,23 +1,36 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaCaravan, FaUserFriends } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 import { Baseline } from '../../../../components/Baseline'
 
 import { Error } from '../../../../helpers/notify'
 import { getSuggestUser } from '../../../../services/api/userApi'
+import { authSelector } from '../../../Login/loginSlice'
 import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './styled.elements'
 
-const listOption = [
-    { icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
-    { icon: <FaUserFriends />, label: 'Following', to: '/explore/following' },
-    { icon: <FaCaravan />, label: 'Suggest', to: '/explore/suggest/all' },
-]
-
 export const Sidebar = () => {
+    let isAuthenticated = useSelector(authSelector)
     const [listSuggestUser, setListSuggestUser] = useState([])
     const [numberSuggestedUser, setNumberSuggestedUser] = useState(5)
+
+    const listOption = [
+        { id: 0, icon: <FaHome />, label: 'For you', to: '/explore/for-you' },
+        {
+            id: 1,
+            icon: <FaUserFriends />,
+            label: 'Following',
+            to: isAuthenticated ? '/explore/following' : '/home',
+        },
+        {
+            id: 2,
+            icon: <FaCaravan />,
+            label: 'Suggest',
+            to: isAuthenticated ? '/explore/suggest/all' : '/home',
+        },
+    ]
 
     useEffect(() => {
         getSuggestUser(numberSuggestedUser)

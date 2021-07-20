@@ -1,5 +1,4 @@
 export default {
-    zaloAppID: '4598295338811618991',
     zaloCallBack: '/login/callback',
     baseURL: 'https://f-discover.web.app',
     backendURL: 'https://ohtgo.me/api',
