@@ -9,6 +9,7 @@ const initialState = {
     listSuggestPosts: [],
     sumHeightEl: [0],
     locationList: [],
+    mapFollow: [],
 }
 
 const exploreSlice = createSlice({
@@ -36,6 +37,16 @@ const exploreSlice = createSlice({
         setLocationList: (state, action) => {
             state.locationList = action.payload
         },
+        setMapFollow: (state, action) => {
+            const hashList = state.mapFollow
+            const data = action.payload
+            const find = hashList.findIndex((user) => user.id === data.id)
+            if (find === -1) {
+                hashList.push(data)
+            } else {
+                hashList[find] = data
+            }
+        },
     },
 })
 
@@ -48,5 +59,6 @@ export const {
     setIsBottomFollow,
     setIsBottomForYou,
     setIsBottomSuggest,
+    setMapFollow,
 } = actions
 export default reducer

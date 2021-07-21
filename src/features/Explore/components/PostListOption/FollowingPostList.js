@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Error } from '../../../../helpers/notify'
 import { getAllPostUserFollowing } from '../../../../services/api/postApi'
-import { setIsBottomFollow, setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottomFollow, setListSuggestPosts, setMapFollow } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const FollowingPostList = () => {
@@ -23,12 +23,19 @@ export const FollowingPostList = () => {
         let mounted = true
         setIsLoading(true)
         getAllPostUserFollowing(1, 5)
-            .then((response) => {
-                if (response.message === 'Success') {
-                    if (mounted) {
-                        setIsLoading(false)
-                        const action = setListSuggestPosts(response.data)
-                        dispatch(action)
+            .then((res) => {
+                if (mounted) {
+                    setIsLoading(false)
+                    if (res.data) {
+                        dispatch(setListSuggestPosts(res.data))
+                        res.data.forEach((user) =>
+                            dispatch(
+                                setMapFollow({
+                                    id: user.author.id,
+                                    status: user.author.followStatus,
+                                })
+                            )
+                        )
                     }
                 }
             })
@@ -57,9 +64,16 @@ export const FollowingPostList = () => {
             })
             .then((posts) => {
                 if (posts) {
-                    const action = setListSuggestPosts([...listSuggestPosts, ...posts])
-                    dispatch(action)
+                    dispatch(setListSuggestPosts([...listSuggestPosts, ...posts]))
                     dispatch(setIsBottomFollow(false))
+                    posts.forEach((user) =>
+                        dispatch(
+                            setMapFollow({
+                                id: user.author.id,
+                                status: user.author.followStatus,
+                            })
+                        )
+                    )
                     setPage(page + 1)
                 }
             })

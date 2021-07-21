@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaCaravan, FaUserFriends } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Baseline } from '../../../../components/Baseline'
 
 import { Error } from '../../../../helpers/notify'
 import { getSuggestUser } from '../../../../services/api/userApi'
 import { authSelector } from '../../../Login/loginSlice'
+import { setMapFollow } from '../../exploreSlice'
 import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './styled.elements'
 
 export const Sidebar = () => {
+    const dispatch = useDispatch()
     let isAuthenticated = useSelector(authSelector)
     const [listSuggestUser, setListSuggestUser] = useState([])
     const [numberSuggestedUser, setNumberSuggestedUser] = useState(5)
@@ -37,6 +39,11 @@ export const Sidebar = () => {
             .then((res) => {
                 if (res.message === 'Success') {
                     setListSuggestUser(res.data)
+                    if (res.data) {
+                        res.data.forEach((user) =>
+                            dispatch(setMapFollow({ id: user.id, status: user.followStatus }))
+                        )
+                    }
                 }
             })
             .catch((e) => {
