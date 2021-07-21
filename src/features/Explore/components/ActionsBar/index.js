@@ -44,11 +44,16 @@ export const ActionsBar = ({
     let isAuthenticated = useSelector(authSelector)
     const link = `${configs.publicUrl}/profile/${dataPost.author.id}`
 
-    const [totalLike, setTotalLike] = useState(dataPost.likes)
-    const [isLikePost, setIsLikePost] = useState(dataPost.likeStatus)
+    const [totalLike, setTotalLike] = useState()
+    const [isLikePost, setIsLikePost] = useState(0)
     const [isClickShare, setIsClickShare] = useState(false)
     const [copied, setCopied] = useState('')
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
+
+    useEffect(() => {
+        setTotalLike(dataPost.likes)
+        setIsLikePost(dataPost.likeStatus)
+    }, [])
 
     const handleLikePost = () => {
         if (!isAuthenticated) {

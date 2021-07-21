@@ -10,10 +10,9 @@ import { getSuggestPosts } from '../../../../services/api/postApi'
 import { setIsBottomForYou, setListSuggestPosts, setMapFollow } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
-export const ForYouPostList = () => {
+export const ForYouPostList = ({ timeStamp }) => {
     const dispatch = useDispatch()
-    const isBottomForYou = useSelector((state) => state.explore.isBottomForYou)
-    const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
+    const { isBottomForYou, listSuggestPosts } = useSelector((state) => state.explore)
     const [page, setPage] = useState(2)
 
     const [isLoading, setIsLoading] = useState(true)
@@ -22,7 +21,7 @@ export const ForYouPostList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(1, 5, Date.now())
+        getSuggestPosts(1, 5, timeStamp)
             .then((res) => {
                 if (mounted) {
                     setIsLoading(false)
@@ -55,7 +54,7 @@ export const ForYouPostList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getSuggestPosts(page, 5, Date.now())
+        getSuggestPosts(page, 5, timeStamp)
             .then((response) => {
                 if (response.message === 'Success') {
                     if (response.data.posts === null) return null

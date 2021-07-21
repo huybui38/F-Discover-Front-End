@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 
 import { useSelector } from 'react-redux'
@@ -10,7 +11,7 @@ import { SuggestLocationList } from '../components/PostListOption/SuggestLocatio
 import useScroll from '../../../hooks/useScroll'
 import * as Styled from './styled.elements'
 
-export const SuggestPage = () => {
+export const SuggestPage = ({ timeStamp }) => {
     const locationList = useSelector((state) => state.explore.locationList)
     const { handleScroll } = useScroll('SUGGEST')
     const { locationId } = useParams()
@@ -22,7 +23,7 @@ export const SuggestPage = () => {
         <Styled.FlexWrapper onScroll={handleScroll} className="page__scroll">
             <Styled.MainWrapper>
                 {locationId.toLowerCase() === 'all' ? (
-                    <SuggestAllList />
+                    <SuggestAllList timeStamp={timeStamp} />
                 ) : (
                     <SuggestLocationList locationId={locationId} />
                 )}
