@@ -15,7 +15,11 @@ const Wrapper = styled.div`
 export const CommentDialog = ({ postId, totalComment, setTotalComment }) => {
     return (
         <Wrapper>
-            <Comment postId={postId} />
+            <Comment
+                postId={postId}
+                totalComment={totalComment}
+                setTotalComment={setTotalComment}
+            />
             <CommentInputField
                 focus={false}
                 postId={postId}

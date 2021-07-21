@@ -19,7 +19,7 @@ const useScroll = (option) => {
     }, [])
 
     const handleScroll = () => {
-        if (el && el.scrollHeight - el.offsetHeight == el.scrollTop) {
+        if (el && el.scrollHeight - 2 * el.offsetHeight <= el.scrollTop) {
             if (option === 'FORYOU') {
                 dispatch(setIsBottomForYou(true))
             } else if (option === 'FOLLOW') {

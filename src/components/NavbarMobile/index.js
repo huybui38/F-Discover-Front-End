@@ -10,7 +10,7 @@ import { useBreakpoint } from 'styled-breakpoints/react-styled'
 // import { SidebarMobile } from '../../features/Explore/components/SidebarMobile'
 import logo from '../../assets/img/logoTitle.png'
 import { authSelector } from '../../features/Login/loginSlice'
-import Avatar from '../Avatar'
+import { Avatar } from '../Avatar'
 import { SearchForm } from '../SearchForm'
 import { SidebarMobile } from '../SidebarMobile'
 import {

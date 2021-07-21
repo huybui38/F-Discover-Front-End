@@ -26,7 +26,7 @@ import {
 } from '../../../../services/api/userApi'
 import timeSince from '../../../../utils/timeSince'
 import { authSelector } from '../../../Login/loginSlice'
-import { setIsFollowUser } from '../../exploreSlice'
+import { setIsFollowUser, setMapFollow } from '../../exploreSlice'
 import { ActionsBar } from '../ActionsBar'
 import { Comment } from '../Comment'
 import CommentInputField from '../CommentInputField'
@@ -35,7 +35,9 @@ import * as Styled from './styled.elements'
 
 export const Post = ({ dataPost, index }) => {
     const mobile = useBreakpoint(down('lg'))
-    const isFollowUser = useSelector((state) => state.explore.isFollowUser)
+    const { mapFollow } = useSelector((state) => state.explore)
+    const infoUserFollow = mapFollow.find((info) => info.id === dataPost.author.id)
+
     let isAuthenticated = useSelector(authSelector)
     const userID = useSelector((state) => state.auth.userID)
     const isMe = userID === dataPost.author.id ? true : false
@@ -44,27 +46,7 @@ export const Post = ({ dataPost, index }) => {
     const history = useHistory()
 
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
-    const [isFollowing, setIsFollowing] = useState(false)
     const [totalComment, setTotalComment] = useState(dataPost.comments)
-    console.log('login: ', isAuthenticated)
-    useEffect(() => {
-        if (!isAuthenticated) return
-        let mounted = true
-        checkFollowUserById(dataPost.author.id)
-            .then((res) => {
-                if (res.message === 'Success') {
-                    if (mounted) {
-                        setIsFollowing(res.data.followed)
-                    }
-                }
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-        return () => {
-            mounted = false
-        }
-    }, [isFollowUser])
 
     const handleClickComment = () => {
         if (!isAuthenticated) {
@@ -80,12 +62,11 @@ export const Post = ({ dataPost, index }) => {
             history.push('/login')
             return
         }
-        if (isFollowing) {
+        if (infoUserFollow.status) {
             unFollowUserById(dataPost.author.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        const action = setIsFollowUser()
-                        dispatch(action)
+                        dispatch(setMapFollow({ id: dataPost.author.id, status: 0 }))
                     }
                 })
                 .catch((e) => {
@@ -95,8 +76,7 @@ export const Post = ({ dataPost, index }) => {
             followUserById(dataPost.author.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        const action = setIsFollowUser()
-                        dispatch(action)
+                        dispatch(setMapFollow({ id: dataPost.author.id, status: 1 }))
                     }
                 })
                 .catch((e) => {
@@ -116,7 +96,11 @@ export const Post = ({ dataPost, index }) => {
             {/* Header Post */}
             <Styled.Header>
                 <Styled.Author>
-                    <Avatar width="50px" src={dataPost.author.avatarUrl} />
+                    <Avatar
+                        width="50px"
+                        src={dataPost.author.avatarUrl}
+                        href={dataPost.author.avatarUrl}
+                    />
                     <Styled.AuthorInfo>
                         <Styled.FlexWrapper style={{ paddingTop: '0' }}>
                             <AuthorName
@@ -150,7 +134,7 @@ export const Post = ({ dataPost, index }) => {
                 {isMe ? null : (
                     <Styled.ButtonWrapper>
                         <ButtonFollow
-                            isFollowing={isFollowing}
+                            isFollowing={infoUserFollow ? infoUserFollow.status : false}
                             handleFollow={() => handleFollowUser()}
                         />
                     </Styled.ButtonWrapper>
@@ -177,7 +161,7 @@ export const Post = ({ dataPost, index }) => {
                             setTotalComment={setTotalComment}
                             dataPost={dataPost}
                             handleClickComment={() => handleClickComment()}
-                            isFollowing={isFollowing}
+                            isFollowing={infoUserFollow ? infoUserFollow.status : false}
                             handleFollow={() => handleFollowUser()}
                         />
                         <Comment

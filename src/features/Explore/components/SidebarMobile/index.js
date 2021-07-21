@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { FaHome, FaUserFriends, FaCaravan } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { Baseline } from '../../../../components/Baseline'
@@ -10,10 +10,12 @@ import Logo from '../../../../assets/img/logo.png'
 import LogoTitle from '../../../../assets/img/logoTitle.png'
 import { getSuggestUser } from '../../../../services/api/userApi'
 import { authSelector } from '../../../Login/loginSlice'
+import { setMapFollow } from '../../exploreSlice'
 import SuggestedUserItem from '../SuggestedUserItem'
 import * as Styled from './Sidebar.elements'
 
 export const SidebarMobile = (props) => {
+    const dispatch = useDispatch()
     const history = useHistory()
     let isAuthenticated = useSelector(authSelector)
 
@@ -42,6 +44,11 @@ export const SidebarMobile = (props) => {
             .then((res) => {
                 if (res.message === 'Success') {
                     setListSuggestUser(res.data)
+                    if (res.data) {
+                        res.data.forEach((user) =>
+                            dispatch(setMapFollow({ id: user.id, status: user.followStatus }))
+                        )
+                    }
                 }
             })
             .catch((e) => {

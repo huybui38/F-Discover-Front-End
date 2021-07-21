@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { down } from 'styled-breakpoints'
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
@@ -88,9 +89,13 @@ export const SuggestUserWrapper = styled.div`
     padding-top: 16px;
     padding-left: 18px;
 
+    ${down('lg')} {
+        padding-left: 0;
+    }
     overflow-y: scroll;
 `
 export const UserSuggestList = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start !important;
@@ -99,13 +104,14 @@ export const UserSuggestList = styled.div`
 export const TitleList = styled.span`
     display: block;
     padding-bottom: 8px;
+    padding-left: 16px;
     font-size: 16px;
     font-weight: 600;
 `
 
 export const Action = styled.div`
     display: block;
-
+    padding-left: 16px;
     font-size: 14px;
     font-weight: 500;
 
