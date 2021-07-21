@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 import { FaMapMarkedAlt } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { down } from 'styled-breakpoints'
 import { useBreakpoint } from 'styled-breakpoints/react-styled'
 
@@ -10,14 +10,16 @@ import { AuthorName } from '../../../../components/AuthorName'
 import { Avatar } from '../../../../components/Avatar'
 import { ButtonBase } from '../../../../components/ButtonBase'
 
-import { Error } from '../../../../helpers/notify'
+import { Error, Success } from '../../../../helpers/notify'
 import { updatePostById } from '../../../../services/api/postApi'
 import timeSince from '../../../../utils/timeSince'
+import { setListSuggestPosts } from '../../exploreSlice'
 import * as Styled from './styled.elements'
 
 export const PostUpdateDialog = ({ dataPost, onExit }) => {
     const mobile = useBreakpoint(down('lg'))
-    const locationList = useSelector((state) => state.explore.locationList)
+    const dispatch = useDispatch()
+    const { locationList, listSuggestPosts } = useSelector((state) => state.explore)
     const [value, setValue] = useState(dataPost.content)
     const handleChange = (e) => {
         setValue(e.currentTarget.textContent)
@@ -33,12 +35,18 @@ export const PostUpdateDialog = ({ dataPost, onExit }) => {
                 location: getIdLocation.id,
             }
             updatePostById(dataPost.id, dataUpdate)
-                .then((res) => {
+                .then(() => {
+                    Success('Update post successful.')
+                    const post = listSuggestPosts.find((post) => post.id === dataPost.id)
+                    const pos = listSuggestPosts.findIndex((post) => post.id === dataPost.id)
+                    let temp = [...listSuggestPosts]
+                    temp[pos] = { ...post, content: value }
+                    dispatch(setListSuggestPosts(temp))
                     onExit()
                 })
                 .catch((e) => {
                     console.log(e)
-                    Error(e.response.message)
+                    Error('Update post failed.')
                 })
         }
     }
@@ -74,7 +82,7 @@ export const PostUpdateDialog = ({ dataPost, onExit }) => {
                     </Styled.Content>
                     <Styled.VideoContainer>
                         <Styled.VideoCard>
-                            <img src="https://scontent-xsp1-3.xx.fbcdn.net/v/t1.6435-9/139649842_1689564847913470_8498253979555734359_n.jpg?_nc_cat=107&ccb=1-3&_nc_sid=174925&_nc_ohc=nS9BkLPE2ZAAX9HJNGh&_nc_ht=scontent-xsp1-3.xx&oh=8aecc154f06345c3c834ca7137115873&oe=60F440F4" />
+                            <img src={dataPost.thumbnailUrl} />
                         </Styled.VideoCard>
                     </Styled.VideoContainer>
                 </Styled.Main>

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Error } from '../../../../helpers/notify'
 import { getSuggestPosts } from '../../../../services/api/postApi'
-import { setIsBottomForYou, setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottomForYou, setListSuggestPosts, setMapFollow } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const ForYouPostList = () => {
@@ -22,15 +22,22 @@ export const ForYouPostList = () => {
     useEffect(() => {
         let mounted = true
         setIsLoading(true)
-        getSuggestPosts(1, 5, 1)
-            .then((response) => {
-                //  if (response.message === 'Success') {
+        getSuggestPosts(1, 5, Date.now())
+            .then((res) => {
                 if (mounted) {
                     setIsLoading(false)
-                    const action = setListSuggestPosts(response.data.posts)
-                    dispatch(action)
+                    if (res.data) {
+                        dispatch(setListSuggestPosts(res.data.posts))
+                        res.data.posts.forEach((user) =>
+                            dispatch(
+                                setMapFollow({
+                                    id: user.author.id,
+                                    status: user.author.followStatus,
+                                })
+                            )
+                        )
+                    }
                 }
-                //   }
             })
             .catch((e) => {
                 console.log(e)
@@ -48,7 +55,7 @@ export const ForYouPostList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getSuggestPosts(page, 5, 1)
+        getSuggestPosts(page, 5, Date.now())
             .then((response) => {
                 if (response.message === 'Success') {
                     if (response.data.posts === null) return null
@@ -57,9 +64,16 @@ export const ForYouPostList = () => {
             })
             .then((posts) => {
                 if (posts) {
-                    const action = setListSuggestPosts([...listSuggestPosts, ...posts])
-                    dispatch(action)
+                    dispatch(setListSuggestPosts([...listSuggestPosts, ...posts]))
                     dispatch(setIsBottomForYou(false))
+                    posts.forEach((user) =>
+                        dispatch(
+                            setMapFollow({
+                                id: user.author.id,
+                                status: user.author.followStatus,
+                            })
+                        )
+                    )
                     setPage(page + 1)
                 }
             })

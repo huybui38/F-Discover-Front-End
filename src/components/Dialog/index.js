@@ -52,6 +52,7 @@ const ModalMain = styled.div`
     background: white;
     border-radius: 3px;
     min-width: 350px;
+    max-width: 90vw;
 `
 const Title = styled.p``
 const Dialog = ({ isShowing, hide, children, title, ...others }) =>

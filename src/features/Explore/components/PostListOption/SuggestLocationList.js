@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom'
 
 import { Error } from '../../../../helpers/notify'
 import { getAllPostOfLocation, getSuggestPosts } from '../../../../services/api/postApi'
-import { setIsBottomSuggest, setListSuggestPosts } from '../../exploreSlice'
+import { setIsBottomSuggest, setListSuggestPosts, setMapFollow } from '../../exploreSlice'
 import { PostList } from '../PostList'
 
 export const SuggestLocationList = () => {
@@ -28,8 +28,17 @@ export const SuggestLocationList = () => {
             .then((res) => {
                 if (mounted) {
                     setIsLoading(false)
-                    const action = setListSuggestPosts(res.data)
-                    dispatch(action)
+                    if (res.data) {
+                        dispatch(setListSuggestPosts(res.data))
+                        res.data.forEach((user) =>
+                            dispatch(
+                                setMapFollow({
+                                    id: user.author.id,
+                                    status: user.author.followStatus,
+                                })
+                            )
+                        )
+                    }
                 }
             })
             .catch((e) => {
@@ -57,11 +66,18 @@ export const SuggestLocationList = () => {
             })
             .then((posts) => {
                 if (posts) {
-                    const action = setListSuggestPosts([...listSuggestPosts, ...posts])
-                    dispatch(action)
+                    dispatch(setListSuggestPosts([...listSuggestPosts, ...posts]))
                     setIsFetching(false)
 
                     dispatch(setIsBottomSuggest(false))
+                    posts.forEach((user) =>
+                        dispatch(
+                            setMapFollow({
+                                id: user.author.id,
+                                status: user.author.followStatus,
+                            })
+                        )
+                    )
                     setPage(page + 1)
                 }
             })

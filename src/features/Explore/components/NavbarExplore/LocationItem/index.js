@@ -6,6 +6,8 @@ import styled from 'styled-components'
 
 import { Avatar } from '../../../../../components/Avatar'
 
+import locationDefault from '../../../../../assets/location_default.png'
+
 const ItemWrapper = styled.li`
     position: relative;
     z-index: 1;
@@ -42,14 +44,7 @@ const LocationItem = ({ location, setIsDisable }) => {
     }
     return (
         <ItemWrapper onClick={handleClick}>
-            <Avatar
-                src={
-                    location.image ||
-                    'https://e7.pngegg.com/pngimages/433/330/png-clipart-computer-icons-location-icon-miscellaneous-location.png'
-                }
-                alt="avatar"
-                width="32px"
-            />
+            <Avatar src={location.image || locationDefault} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{location.name}</span>
             </InfoWrapper>

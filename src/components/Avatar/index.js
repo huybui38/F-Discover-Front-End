@@ -7,6 +7,7 @@ import defaultAvt from '../../assets/default_avatar.png'
 
 const propTypes = {
     src: PropTypes.string,
+    href: PropTypes.string,
 }
 
 const AvatarWrapper = styled.a`
@@ -16,9 +17,9 @@ const AvatarWrapper = styled.a`
         border-radius: 50%;
     }
 `
-export const Avatar = ({ src, ...others }) => {
+export const Avatar = ({ src, href, ...others }) => {
     return (
-        <AvatarWrapper href={src} {...others}>
+        <AvatarWrapper href={href ? href : null} {...others}>
             <img
                 loading="lazy"
                 src={src}

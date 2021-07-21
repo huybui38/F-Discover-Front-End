@@ -42,7 +42,7 @@ const UserItem = ({ user, setIsDisable }) => {
     }
     return (
         <ItemWrapper onClick={handleClick}>
-            <Avatar src={user.image || '#'} alt="avatar" width="32px" />
+            <Avatar src={user.image || ''} alt="avatar" width="32px" />
             <InfoWrapper>
                 <span>{user.name}</span>
             </InfoWrapper>

@@ -15,7 +15,7 @@ import {
     unFollowUserById,
 } from '../../../../services/api/userApi'
 import { authSelector } from '../../../Login/loginSlice'
-import { setIsFollowUser } from '../../exploreSlice'
+import { setIsFollowUser, setMapFollow } from '../../exploreSlice'
 
 const InfoWrapper = styled.div`
     width: 90%;
@@ -49,38 +49,23 @@ const Interactive = styled.div`
 export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const isFollowUser = useSelector((state) => state.explore.isFollowUser)
-    const [isFollowing, setIsFollowing] = useState(false)
-    const [isClickFollow, setIsClickFollow] = useState(false)
+    const { mapFollow } = useSelector((state) => state.explore)
+    const infoUserFollow = mapFollow.find((info) => info.id === user.id)
+
     let isAuthenticated = useSelector(authSelector)
     const userID = useSelector((state) => state.auth.userID)
     const isMe = userID === user.id ? true : false
-
-    useEffect(() => {
-        if (!isAuthenticated) return
-        checkFollowUserById(user.id)
-            .then((res) => {
-                if (res.message === 'Success') {
-                    setIsFollowing(res.data.followed)
-                }
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    }, [isClickFollow, isFollowUser])
 
     const handleFollowUser = () => {
         if (!isAuthenticated) {
             history.push('/login')
             return
         }
-        if (isFollowing) {
+        if (infoUserFollow.status) {
             unFollowUserById(user.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        setIsClickFollow(!isClickFollow)
-                        const action = setIsFollowUser()
-                        dispatch(action)
+                        dispatch(setMapFollow({ id: user.id, status: 0 }))
                     }
                 })
                 .catch((e) => {
@@ -90,9 +75,7 @@ export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
             followUserById(user.id)
                 .then((res) => {
                     if (res.message === 'Success') {
-                        setIsClickFollow(!isClickFollow)
-                        const action = setIsFollowUser()
-                        dispatch(action)
+                        dispatch(setMapFollow({ id: user.id, status: 1 }))
                     }
                 })
                 .catch((e) => {
@@ -104,10 +87,10 @@ export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
     return (
         <InfoWrapper>
             <Header>
-                <Avatar src={user.avatarUrl} alt="avatar" width="40px" />
+                <Avatar src={user.avatarUrl} href={user.avatarUrl} alt="avatar" width="40px" />
                 {isMe ? null : (
                     <ButtonFollow
-                        isFollowing={isFollowing}
+                        isFollowing={infoUserFollow ? infoUserFollow.status : false}
                         handleFollow={() => handleFollowUser()}
                     />
                 )}
