@@ -87,7 +87,7 @@ export const InfoSuggestedUser = ({ user, handleClickProfile }) => {
     return (
         <InfoWrapper>
             <Header>
-                <Avatar src={user.avatarUrl} alt="avatar" width="40px" />
+                <Avatar src={user.avatarUrl} href={user.avatarUrl} alt="avatar" width="40px" />
                 {isMe ? null : (
                     <ButtonFollow
                         isFollowing={infoUserFollow ? infoUserFollow.status : false}

@@ -18,7 +18,7 @@ const ItemWrapper = styled.li`
     align-items: center;
 
     width: 100%;
-    padding: 4px;
+    padding: 4px 8px;
     border-radius: 2px;
 
     &::before {
@@ -81,7 +81,12 @@ const SuggestedUserItem = ({ user }) => {
     }
     return (
         <ItemWrapper onClick={mobile ? handleClick : null}>
-            <Avatar src={user.avatarUrl || '#'} alt="avatar" width="32px" />
+            <Avatar
+                src={user.avatarUrl || ''}
+                href={mobile ? '' : user.avatarUrl}
+                alt="avatar"
+                width="32px"
+            />
             <InfoWrapper onClick={mobile ? null : handleClick}>
                 <span>{user.name}</span>
             </InfoWrapper>

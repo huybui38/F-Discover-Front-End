@@ -104,13 +104,14 @@ export const UserSuggestList = styled.div`
 export const TitleList = styled.span`
     display: block;
     padding-bottom: 8px;
+    padding-left: 16px;
     font-size: 16px;
     font-weight: 600;
 `
 
 export const Action = styled.div`
     display: block;
-
+    padding-left: 16px;
     font-size: 14px;
     font-weight: 500;
 

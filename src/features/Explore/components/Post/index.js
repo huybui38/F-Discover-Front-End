@@ -96,7 +96,11 @@ export const Post = ({ dataPost, index }) => {
             {/* Header Post */}
             <Styled.Header>
                 <Styled.Author>
-                    <Avatar width="50px" src={dataPost.author.avatarUrl} />
+                    <Avatar
+                        width="50px"
+                        src={dataPost.author.avatarUrl}
+                        href={dataPost.author.avatarUrl}
+                    />
                     <Styled.AuthorInfo>
                         <Styled.FlexWrapper style={{ paddingTop: '0' }}>
                             <AuthorName

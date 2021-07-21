@@ -203,9 +203,11 @@ export const LinkLogin = styled(Link)`
 `
 const TopLeft = () => {
     const mobile = useBreakpoint(down('sm'))
+    const avatarUrl = useSelector((state) => state.profile.selfBioDetail.avatarUrl)
     let isAuthenticated = useSelector(authSelector)
     const dispatch = useDispatch()
     const dropdownRef = useRef(null)
+
     const [isActive, setIsActive] = useState(false)
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
     const [isShowingUpdateProfile, toggleShowingUpdateProfile] = useModal(false)
@@ -240,7 +242,7 @@ const TopLeft = () => {
                 </div>
             ) : null}
             <MenuTrigger ref={dropdownRef}>
-                <Avatar src="#" />
+                <Avatar src={avatarUrl} alt="Avatar profile" />
                 <Menu isActive={isActive}>
                     <Element>
                         <List>
