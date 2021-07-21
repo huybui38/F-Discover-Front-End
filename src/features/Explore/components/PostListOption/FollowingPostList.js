@@ -12,8 +12,7 @@ import { PostList } from '../PostList'
 
 export const FollowingPostList = () => {
     const dispatch = useDispatch()
-    const isBottomFollow = useSelector((state) => state.explore.isBottomFollow)
-    const listSuggestPosts = useSelector((state) => state.explore.listSuggestPosts)
+    const { isBottomFollow, listSuggestPosts } = useSelector((state) => state.explore)
     const [isFetching, setIsFetching] = useState(false)
 
     const [isLoading, setIsLoading] = useState(true)

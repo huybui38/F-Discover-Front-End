@@ -46,7 +46,11 @@ export const Post = ({ dataPost, index }) => {
     const history = useHistory()
 
     const [isShowing, toggle, openModal, closeModal] = useModal(false)
-    const [totalComment, setTotalComment] = useState(dataPost.comments)
+    const [totalComment, setTotalComment] = useState()
+
+    useEffect(() => {
+        setTotalComment(dataPost.comments)
+    }, [])
 
     const handleClickComment = () => {
         if (!isAuthenticated) {
