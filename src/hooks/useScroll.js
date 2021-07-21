@@ -6,6 +6,7 @@ import {
     setIsBottomFollow,
     setIsBottomForYou,
     setIsBottomSuggest,
+    setListSuggestPosts,
 } from '../features/Explore/exploreSlice'
 
 const useScroll = (option) => {
@@ -16,6 +17,7 @@ const useScroll = (option) => {
         dispatch(setIsBottomForYou(false))
         dispatch(setIsBottomFollow(false))
         dispatch(setIsBottomSuggest(false))
+        dispatch(setListSuggestPosts([]))
     }, [])
 
     const handleScroll = () => {

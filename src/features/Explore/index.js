@@ -26,13 +26,18 @@ export const Explore = () => {
     return (
         <div>
             <Switch>
-                <Route exact strict path="/explore/for-you" render={() => <ForYouPage />} />
+                <Route
+                    exact
+                    strict
+                    path="/explore/for-you"
+                    render={() => <ForYouPage timeStamp={Date.now()} />}
+                />
                 <Route exact strict path="/explore/following" render={() => <FollowingPage />} />
                 <Route
                     exact
                     strict
                     path="/explore/suggest/:locationId"
-                    render={() => <SuggestPage />}
+                    render={() => <SuggestPage timeStamp={Date.now()} />}
                 />
                 <Route component={NotFound} />
             </Switch>
