@@ -56,7 +56,7 @@ export const SuggestLocationList = () => {
     }, [isFetching])
 
     function fetchMoreListItems() {
-        getAllPostOfLocation(locationId, 1, 5)
+        getAllPostOfLocation(locationId, page, 5)
             .then((response) => {
                 if (response.message === 'Success') {
                     if (response.data.posts === null) return null
