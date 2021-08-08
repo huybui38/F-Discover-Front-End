@@ -59,8 +59,8 @@ export const SuggestLocationList = () => {
         getAllPostOfLocation(locationId, page, 5)
             .then((response) => {
                 if (response.message === 'Success') {
-                    if (response.data.posts === null) return null
-                    return response.data.posts
+                    if (response.data === null) return null
+                    return response.data
                 }
             })
             .then((posts) => {
